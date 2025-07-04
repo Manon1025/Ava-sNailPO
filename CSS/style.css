@@ -1,0 +1,20 @@
+.navbar {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 70px;
+  padding-right: 100px;
+  background: linear-gradient(45deg, #8F95D3, #D3C4E3, #DBB1BC);
+}
+.navbar div {
+  color: #FFF;
+}
+.navbar div ul {
+  list-style-type: none;
+}
+.navbar div ul a {
+  text-decoration: none;
+  color: #FFF;
+}
+.navbar #logo {
+  width: 50px;
+}/*# sourceMappingURL=style.css.map */

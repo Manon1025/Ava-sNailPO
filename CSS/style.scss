@@ -1,0 +1,31 @@
+$primary-color: #8F95D3;
+$secondary-color: #89DAFF;
+$tertiaire-color: #D3C4E3;
+$quatuor-color: #DBB1BC;
+$valid-color: #64C36B;
+$white: #FFF;
+
+.navbar {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 70px;
+    padding-right: 100px;
+    background: linear-gradient(45deg, $primary-color, $tertiaire-color, $quatuor-color);
+
+    div {
+        color: $white ;
+        
+        ul {
+            list-style-type: none;
+
+            a {
+                text-decoration: none;
+                color: $white;
+            }
+        }   
+    }
+
+    #logo{
+        width: 50px;
+    }
+}
