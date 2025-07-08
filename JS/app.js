@@ -2,52 +2,35 @@
     // * MODULE
 const express =  require('express')
 const app = express()
+const expressLayouts = require('express-ejs-layouts')
 
     // * FICHIER
-const Employee = require('./model/Employee')
+const router = require('./route')
 const connexionDB = require('./database')
+
+
+
+// ! Configuration EJS
+// app.set('view engine', 'ejs')
+// app.set('views', __dirname + '/../views')
+// app.use(expressLayouts)
+// app.set('layout', 'layout')
 
 
 // ! Appel de la connexion database MongoDB
 connexionDB()
 
+
+// ! Middleware pour parser le corps des requêtes
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
 // ! lancement serv
-    // * Visu sur toute la liste des employées
-app.get('/employee', async(req, res) => {
-    try {
-        const employees = await Employee.find()
-        res.status(200).json({employees})
-    } catch (err) {
-        throw err 
-    }
-})
+app.use('/', router)
 
-    // * Visu sur un des employées
-app.get('/employee/:id', async(req,res) => {
-    try {
-        const id = req.params['id']
-        const oneEmployee = await Employee.findById(id)
-        res.status(200).send(`
-            <h1> ${oneEmployee.fname} ${oneEmployee.lname} </h1>
-            `)
-    } catch (err) {
-        throw err
-    }
-})
-
-    // * Pouvoir supprimer un employee
-app.delete('/delete/:id', async (req, res) => {
-    try {
-        const id = req.params['id']
-        let result = await Employee.findByIdAndDelete(id)
-        // if (!result) {
-        //     return res.status(404).send('Employé non trouvé')
-        // }
-        res.status(200).json({ message: `employé ${result.fname} ${result.lname} supprimé` })
-    } catch (err) {
-        res.status(500).json({ error: err.message })
-    }
-})
+// app.get('/', (req, res) => {
+//     res.render('pages/homePage.ejs', {title: 'homePage'})
+// })
 
 app.listen(1024, () => {
     console.log('Bienvenue sur le serveur 1024')
