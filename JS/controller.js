@@ -33,13 +33,44 @@ exports.destroy = async(req, res) => {
 
 // ! Pour ajouter un employé
 exports.create = async (req, res) => {
-    try {
-        const {fname} = req.body
-        const employee = new Employee({fname})
-        await employee.save()
-        res.status(200).json({message: 'l\'employé(e) a été ajouté avec succès'})
-    } catch (err) {
-        console.error('Error: ', err)
-        throw('Error: ', err)
-    }
-}
+    console.log('req.body:', req.body); // Ajouté ici pour debug
+  try {
+    const {
+      fname,
+      lname,
+      avatar = '',
+      birth_date,
+      email,
+      password,
+      role = 'user',
+    } = req.body;
+
+
+    const adresse = {
+      adress: req.body['adresse.adress'],
+      cp: parseInt(req.body['adresse.cp']),
+      city: req.body['adresse.city'],
+    };
+
+    const employee = new Employee({
+      fname,
+      lname,
+      avatar: avatar.trim() || '',
+      birth_date,
+      email,
+      password,
+      role,
+      adresse,
+      created_at: new Date(),
+      isActive: true,
+    });
+
+    await employee.save();
+
+    res.status(200).json({ message: "L'employé(e) a été ajouté(e) avec succès" });
+  } catch (err) {
+    throw err  
+  }
+};
+
+

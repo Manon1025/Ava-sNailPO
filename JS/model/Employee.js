@@ -4,7 +4,10 @@ const EmployeeSchema = new mongoose.Schema ({
     _id: {type : mongoose.Schema.ObjectId, auto: true}, //est généré par mongoDB
     fname: String,
     lname: String,
-    avatar: String,
+    avatar: {
+        type: String,
+        default: ''
+    },
     birth_date: Date,
     email: String,
     password: String,
