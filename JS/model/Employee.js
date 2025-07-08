@@ -8,13 +8,17 @@ const EmployeeSchema = new mongoose.Schema ({
         type: String,
         default: ''
     },
-    birth_date: Date,
-    email: String,
-    password: String,
     adresse: {
         adress: String,
         cp: Number,
         city: String,
+    },
+    birth_date: Date,
+    email: String,
+    password: String,
+    observation: {
+        type: String,
+        default: ''
     },
     documents: {
         url: String,
