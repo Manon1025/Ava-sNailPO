@@ -78,4 +78,3 @@ exports.create = async (req, res) => {
     throw err;
   }
 };
-d
