@@ -13,9 +13,18 @@ const EmployeeSchema = new mongoose.Schema ({
         cp: Number,
         city: String,
     },
-    birth_date: Date,
+    birth_date: {
+    validate: {
+            validator: function(value){ // ça doit renvoyer un true ou un false
+                return value < new Date()
+            },
+            message: 'l\'anniversaire doit être une date passé'
+        },
+        type: Date,
+    },
     email: String,
     password: String,
+    poste: String,
     observation: {
         type: String,
         default: ''

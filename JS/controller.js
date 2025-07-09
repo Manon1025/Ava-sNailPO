@@ -35,6 +35,7 @@ exports.destroy = async (req, res) => {
 
 // ! Pour ajouter un employé
 exports.create = async (req, res) => {
+  console.log(req.body)
   try {
     const {
         avatar,
@@ -45,6 +46,7 @@ exports.create = async (req, res) => {
         password,
         observation,
         documents,
+        poste,
         role = "user",
     } = req.body;
 
@@ -64,6 +66,7 @@ exports.create = async (req, res) => {
         password,
         observation,
         documents,
+        poste,
         role,
         created_at: new Date(),
         isActive: true,
