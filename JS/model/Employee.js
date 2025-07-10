@@ -26,7 +26,8 @@ const EmployeeSchema = new mongoose.Schema ({
     password: String,
     poste: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Poste'
+        ref: 'Poste',
+        default: 'salarie'
     },
     observation: {
         type: String,
@@ -34,7 +35,8 @@ const EmployeeSchema = new mongoose.Schema ({
     },
     documents: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Documents'
+        ref: 'Documents',
+        default: ''
     },
     role: {
         type: String,
