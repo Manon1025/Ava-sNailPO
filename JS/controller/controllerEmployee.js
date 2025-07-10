@@ -5,7 +5,7 @@ const Employee = require("../model/Employee");
 exports.index = async (req, res) => {
   try {
     const employees = await Employee.find();
-    res.status(200).render('pages/listingEmployee.ejs', {title: 'Liste des employés',employees});
+    res.status(200).render('pages/admin/listingEmployee.ejs', {title: 'Liste des employés',employees});
   } catch (err) {
     throw err;
   }

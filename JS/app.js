@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, '../public'))); // ? cette ligne per
 connexionDB()
 
 // ! lancement serv
-app.use('/', routerPages.homePage)
+app.use('/', routerPages)
 app.use('/', routerEmployee)
 
 
