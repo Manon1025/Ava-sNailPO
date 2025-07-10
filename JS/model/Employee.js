@@ -24,13 +24,17 @@ const EmployeeSchema = new mongoose.Schema ({
     },
     email: String,
     password: String,
-    poste: String,
+    poste: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Poste'
+    },
     observation: {
         type: String,
         default: ''
     },
     documents: {
-        url: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Documents'
     },
     role: {
         type: String,
