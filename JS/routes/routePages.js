@@ -2,30 +2,28 @@ const express = require('express')
 const router = express.Router()
 
 // ! Pages principales
-router.get('/', (req, res) => {
+exports.homePage = router.get('/', (req, res) => {
     res.render('pages/homePage.ejs', {title: 'Accueil'})
 })
 
-router.get('/planning', (req, res) => {
+exports.planning = router.get('/planning', (req, res) => {
     res.render('pages/planning.ejs', {title: 'Planning'})
 })
 
-router.get('/documents', (req, res) => {
+exports.doc = router.get('/documents', (req, res) => {
     res.render('pages/doc.ejs', {title: 'Documents'})
 })
 
-router.get('/messagerie', (req, res) => {
+exports.tchat = router.get('/messagerie', (req, res) => {
     res.render('pages/tchat.ejs', {title: 'Messagerie'})
 })
 
-router.get('/ajout-salarie', (req, res) => {
+exports.addSalarie = router.get('/ajout-salarie', (req, res) => {
     res.render('pages/addSalarie.ejs', {title: 'Ajouter un Salarié'})
 })
 
-router.get('/profil', (req, res) => {
+exports.profil = router.get('/profil', (req, res) => {
     res.render('pages/profil.ejs', {title: 'Profil'})
 })
 
-router.get('/listeEmployer', (req, res) =>{
-    res.render('pages/listingEmployee.ejs', {title: 'Liste des employés'})
-})
+// module.exports = router

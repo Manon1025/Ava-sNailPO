@@ -6,7 +6,8 @@ const expressLayouts = require('express-ejs-layouts')
 const path = require('path');
 
     // * FICHIER
-const router = require('./routes/routeEmployee')
+const routerEmployee = require('./routes/routeEmployee')
+const routerPages = require('./routes/routePages')
 const connexionDB = require('./data/database')
 
 // ! Configuration EJS
@@ -24,7 +25,8 @@ app.use(express.static(path.join(__dirname, '../public'))); // ? cette ligne per
 connexionDB()
 
 // ! lancement serv
-app.use('/', router)
+app.use('/', routerPages.homePage)
+app.use('/', routerEmployee)
 
 
 app.listen(1024, () => {

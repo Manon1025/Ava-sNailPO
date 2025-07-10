@@ -1,10 +1,11 @@
 const Employee = require("../model/Employee");
+// const routePages = require('../routes/routePages')
 
 // ! Liste de tous les employés
 exports.index = async (req, res) => {
   try {
     const employees = await Employee.find();
-    res.status(200).json(employees);
+    res.status(200).render('pages/listingEmployee.ejs', {title: 'Liste des employés',employees});
   } catch (err) {
     throw err;
   }

@@ -5,7 +5,7 @@ const controllerEmployee = require('../controller/controllerEmployee')
 
 
 // ! Liste des employée JSON
-router.get('/baseDonnee', controllerEmployee.index)
+router.get('/listeEmployer', controllerEmployee.index)
 
 router.get('/baseDonnee/:id', controllerEmployee.show)
 
