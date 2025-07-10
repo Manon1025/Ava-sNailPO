@@ -3,6 +3,7 @@
 const express =  require('express')
 const app = express()
 const expressLayouts = require('express-ejs-layouts')
+const path = require('path');
 
     // * FICHIER
 const router = require('./route')
@@ -13,7 +14,7 @@ app.set('view engine', 'ejs')
 app.set('views', __dirname + '/../views')
 app.use(expressLayouts)
 app.set('layout', 'layout')
-
+app.use(express.static(path.join(__dirname, '../public'))); // ? cette ligne permet de chercher le fichier public en dehors du fichier JS
 
 // ! Appel de la connexion database MongoDB
 connexionDB()

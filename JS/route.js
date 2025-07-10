@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const controller = require('./controller')
+const controllerEmployee = require('./controller/controllerEmployee')
 
 // ! Pages principales
 router.get('/', (req, res) => {
@@ -27,13 +27,17 @@ router.get('/profil', (req, res) => {
     res.render('pages/profil.ejs', {title: 'Profil'})
 })
 
+router.get('/listeEmployer', (req, res) =>{
+    res.render('pages/listingEmployee.ejs', {title: 'Liste des employés'})
+})
+
 // ! Liste des employée JSON
-router.get('/baseDonnee', controller.index)
+router.get('/baseDonnee', controllerEmployee.index)
 
-router.get('/baseDonnee/:id', controller.show)
+router.get('/baseDonnee/:id', controllerEmployee.show)
 
-router.delete('/delete/:id', controller.destroy)
+router.delete('/delete/:id', controllerEmployee.destroy)
 
-router.post('/add', controller.create)
+router.post('/add', controllerEmployee.create)
 
 module.exports = router

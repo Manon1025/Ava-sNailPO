@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "bootstrap": "^5.3.7",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-ejs-layouts": "^2.5.1",
@@ -7,6 +8,7 @@
     "sass": "^1.89.2"
   },
   "devDependencies": {
+    "@types/bootstrap": "^5.2.10",
     "@types/ejs": "^3.1.5",
     "@types/express": "^5.0.3",
     "@types/express-ejs-layouts": "^2.5.4"

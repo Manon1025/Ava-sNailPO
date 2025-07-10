@@ -1,4 +1,4 @@
-const Employee = require("./model/Employee");
+const Employee = require("../model/Employee");
 
 // ! Liste de tous les employés
 exports.index = async (req, res) => {
