@@ -1,35 +1,64 @@
-.navbar {
+header {
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-left: 70px;
-  padding-right: 70px;
+  padding-left: 50px;
+  padding-right: 50px;
   background: linear-gradient(45deg, #8F95D3, #D3C4E3, #DBB1BC);
   font-size: large;
   border-bottom: 1px solid black;
 }
-.navbar div {
+header div {
   color: #FFF;
 }
-.navbar div ul {
+header div ul {
   list-style-type: none;
 }
-.navbar div ul a {
+header div ul a {
   text-decoration: none;
   color: #FFF;
 }
-.navbar div ul a:hover {
+header div ul a:hover {
   text-decoration: underline;
   color: #89DAFF;
 }
-.navbar #logo {
+header #logo {
   width: 50px;
   transition: all 0.3s ease;
 }
-.navbar #logo:hover {
+header #logo:hover {
   content: url("/ASSET/img/Logo_Noir.svg");
 }
-.navbar #avatar {
+header #avatar {
   width: 50px;
+}
+
+.gradient-navbar {
+  background: linear-gradient(45deg, #8F95D3, #D3C4E3, #DBB1BC);
+  padding: 0 15px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid black;
+}
+.gradient-navbar .container-fluid {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.gradient-navbar #logo {
+  width: 40px;
+}
+.gradient-navbar #avatar {
+  width: 35px;
+  border-radius: 50%;
+}
+.gradient-navbar .navbar-toggler {
+  margin: 0 auto;
+}
+.gradient-navbar .navbar-toggler-icon {
+  filter: brightness(0) invert(1);
 }
 
 footer {
@@ -45,5 +74,6 @@ footer #logo {
 
 main {
   background-color: rgba(238, 238, 238, 0.9333333333);
+  padding-top: 20px;
   height: 2000px;
 }/*# sourceMappingURL=style.css.map */
