@@ -26,6 +26,11 @@ $white: #FFF;
     }
 
     #logo{
-        width: 50px;
+        width: 50px;  
+        transition: all 0.3s ease;
+        
+    }
+    #logo:hover {
+        content: url('/ASSET/img/Logo_Noir.svg');
     }
 }

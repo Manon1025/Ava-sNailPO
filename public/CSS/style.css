@@ -17,4 +17,8 @@
 }
 .navbar #logo {
   width: 50px;
+  transition: all 0.3s ease;
+}
+.navbar #logo:hover {
+  content: url("/ASSET/img/Logo_Noir.svg");
 }/*# sourceMappingURL=style.css.map */
