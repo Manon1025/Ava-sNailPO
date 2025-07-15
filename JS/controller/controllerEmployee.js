@@ -1,4 +1,6 @@
 const Employee = require("../model/Employee");
+const Poste = require("../model/Poste")
+const Document = require("../model/Document")
 // const routePages = require('../routes/routePages')
 
 // ! Liste de tous les employés
@@ -38,24 +40,34 @@ exports.destroy = async (req, res) => {
 exports.create = async (req, res) => {
   console.log(req.body)
   try {
-    const {
-        avatar,
-        fname,
-        lname,
-        birth_date,
-        email,
-        password,
-        observation,
-        documents,
-        poste,
-        role = "user",
-    } = req.body;
-
     const adresse = {
         adress: req.body["adresse.adress"],
         cp: parseInt(req.body["adresse.cp"]),
         city: req.body["adresse.city"],
     };
+    
+    const {
+        fname,
+        lname,
+        avatar,
+        birth_date,
+        email,
+        password,
+        poste,
+        observation,
+        documents,
+        role = "user",
+    } = req.body;
+
+        const existancePoste = await Poste.findOne({name: poste})
+    if(!existancePoste) {
+      return res.status(404).json({message: 'le poste est inconnue'})
+    }
+
+    const documentExistant = await Document.findOne({name: documents})
+    if(!documentExistant) {
+      console.log("Aucun document trouvé, mais on continue...")
+    }
 
     const employee = new Employee({
         avatar,

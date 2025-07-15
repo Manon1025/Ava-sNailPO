@@ -24,20 +24,12 @@ const EmployeeSchema = new mongoose.Schema ({
     },
     email: String,
     password: String,
-    poste: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Poste',
-        default: 'salarie'
-    },
+    poste: String,
     observation: {
         type: String,
         default: ''
     },
-    documents: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Documents',
-        default: ''
-    },
+    documents: String,
     role: {
         type: String,
         enum: ["user", "admin"],

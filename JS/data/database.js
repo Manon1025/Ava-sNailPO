@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const Poste = require('../model/Poste')
+const Employee = require('../model/Employee')
 const data = require('./dataPoste')
 
 module.exports = async () => {
