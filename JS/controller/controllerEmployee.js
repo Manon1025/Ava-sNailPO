@@ -70,7 +70,7 @@ exports.create = async (req, res) => {
     }
 
     const employee = new Employee({
-        avatar,
+        avatar: avatar || 'ASSET/img/avatar-vide.png',
         fname,
         lname,
         adresse,
@@ -86,7 +86,7 @@ exports.create = async (req, res) => {
     });
 
     await employee.save();
-    res.status(200).json({ message: "L'employé(e) a été ajouté(e) avec succès" });
+    res.redirect('/listeEmployer');
   } catch (err) {
     throw err;
   }
