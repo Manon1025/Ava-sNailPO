@@ -3,7 +3,8 @@ const router = express.Router()
 
 // ! Pages principales
 router.get('/', (req, res) => {
-    res.render('pages/homePage.ejs', {title: 'Accueil'})
+    const fname = req.session.user ? req.session.user.fname : 'Visiteur';
+    res.render('pages/homePage.ejs', {title: 'Accueil', fname})
 })
 
 router.get('/planning', (req, res) => {
