@@ -38,7 +38,7 @@ router.get('/profil', (req, res) => {
 
 // ! Pages vu que par l'admin
 router.get('/ajout-salarie', (req, res) => {
-    res.render('pages/admin/addSalarie.ejs', {title: 'Ajouter un Salarié'})
+    res.render('pages/admin/addSalarie.ejs', {title: 'Ajouter un Salarié', user: req.session.user})
 })
 
 module.exports = router
