@@ -7,7 +7,7 @@ const Document = require("../model/Document")
 exports.index = async (req, res) => {
   try {
     const employees = await Employee.find();
-    res.status(200).render('pages/admin/listingEmployee.ejs', {title: 'Liste des employés',employees});
+    res.status(200).render('pages/admin/listingEmployee.ejs', {title: 'Liste des employés',employees, user: req.session.user});
   } catch (err) {
     throw err;
   }

@@ -1,118 +1,125 @@
 const listeEmployee = [
   {
-    fname: "Alice",
-    lname: "Martin",
-    avatar: "https://randomuser.me/api/portraits/women/10.jpg",
-    birth_date: "1990-03-12",
-    email: "alice.martin@example.com",
-    password: "hashedpassword123",
-    adresse: {
-      adress: "12 rue de Paris",
-      cp: 75001,
-      city: "Paris"
+    "fname": "Lucas",
+    "lname": "Martin",
+    "avatar": "",
+    "adresse": {
+      "adress": "12 rue des Lilas",
+      "cp": 75015,
+      "city": "Paris"
     },
-    documents: {
-      url: "https://example.com/docs/alice-martin.pdf"
-    },
-    role: "user",
-    isActive: true,
-    created_at: "2023-11-15"
+    "birth_date": "1990-04-23T00:00:00.000Z",
+    "email": "lucas.martin@example.com",
+    "telephone": '0612345678',
+    "password": "Lucas2024!",
+    "poste": "Développeur Web",
+    "observation": "",
+    "documents": "contract_lucas.pdf",
+    "admin": false,
+    "isActive": true,
+    "created_at": "2023-11-01T10:32:00.000Z"
   },
   {
-    fname: "Julien",
-    lname: "Dubois",
-    avatar: "https://randomuser.me/api/portraits/men/22.jpg",
-    birth_date: "1985-07-22",
-    email: "julien.dubois@example.com",
-    password: "hashedpassword456",
-    adresse: {
-      adress: "8 avenue des Champs",
-      cp: 69001,
-      city: "Lyon"
+    "fname": "Sophie",
+    "lname": "Durand",
+    "avatar": "",
+    "adresse": {
+      "adress": "8 avenue Victor Hugo",
+      "cp": 69003,
+      "city": "Lyon"
     },
-    documents: {
-      url: "https://example.com/docs/julien-dubois.pdf"
-    },
-    role: "admin",
-    isActive: true,
-    created_at: "2022-06-30"
+    "birth_date": "1985-09-14T00:00:00.000Z",
+    "email": "sophie.durand@example.com",
+    "phone": '0698456723',
+    "password": "Sophie@85",
+    "poste": "Responsable RH",
+    "observation": "",
+    "documents": "rh_sophie_dossier.pdf",
+    "admin": true,
+    "isActive": true,
+    "created_at": "2022-06-20T09:15:00.000Z"
   },
   {
-    fname: "Sophie",
-    lname: "Leclerc",
-    avatar: "https://randomuser.me/api/portraits/women/45.jpg",
-    birth_date: "1992-11-03",
-    email: "sophie.leclerc@example.com",
-    password: "hashedpassword789",
-    adresse: {
-      adress: "3 rue Lafayette",
-      cp: 31000,
-      city: "Toulouse"
+    "fname": "Karim",
+    "lname": "Bensalem",
+    "avatar": "",
+    "adresse": {
+      "adress": "34 boulevard Gambetta",
+      "cp": 34000,
+      "city": "Montpellier"
     },
-    documents: {
-      url: "https://example.com/docs/sophie-leclerc.pdf"
-    },
-    role: "user",
-    isActive: false,
-    created_at: "2024-01-10"
+    "birth_date": "1992-01-10T00:00:00.000Z",
+    "email": "karim.bensalem@example.com",
+    "phone": '0789123456',
+    "password": "Karim!Dev92",
+    "poste": "Technicien Support",
+    "observation": "Toujours ponctuel.",
+    "documents": "support_karim.pdf",
+    "admin": false,
+    "isActive": true,
+    "created_at": "2024-03-05T13:45:00.000Z"
   },
   {
-    fname: "Marc",
-    lname: "Renard",
-    avatar: "https://randomuser.me/api/portraits/men/30.jpg",
-    birth_date: "1988-05-10",
-    email: "marc.renard@example.com",
-    password: "hashedpassword321",
-    adresse: {
-      adress: "20 boulevard Haussmann",
-      cp: 75009,
-      city: "Paris"
+    "fname": "Julie",
+    "lname": "Bernard",
+    "avatar": "",
+    "adresse": {
+      "adress": "56 rue Lafayette",
+      "cp": 31000,
+      "city": "Toulouse"
     },
-    documents: {
-      url: "https://example.com/docs/marc-renard.pdf"
-    },
-    role: "user",
-    isActive: true,
-    created_at: "2023-03-21"
+    "birth_date": "1996-07-02T00:00:00.000Z",
+    "email": "julie.bernard@example.com",
+    "phone": '0645789123',
+    "password": "JulieB_1996",
+    "poste": "Chargée de Communication",
+    "observation": "",
+    "documents": "comm_julie_bernard.pdf",
+    "admin": false,
+    "isActive": true,
+    "created_at": "2023-08-18T14:00:00.000Z"
   },
   {
-    fname: "Laura",
-    lname: "Bernard",
-    avatar: "https://randomuser.me/api/portraits/women/60.jpg",
-    birth_date: "1995-09-18",
-    email: "laura.bernard@example.com",
-    password: "hashedpassword654",
-    adresse: {
-      adress: "15 place Bellecour",
-      cp: 69002,
-      city: "Lyon"
+    "fname": "Antoine",
+    "lname": "Lemoine",
+    "avatar": "",
+    "adresse": {
+      "adress": "19 rue des Écoles",
+      "cp": 59800,
+      "city": "Lille"
     },
-    documents: {
-      url: "https://example.com/docs/laura-bernard.pdf"
-    },
-    role: "admin",
-    isActive: true,
-    created_at: "2024-07-01"
+    "birth_date": "1988-11-20T00:00:00.000Z",
+    "email": "antoine.lemoine@example.com",
+    "phone": '0623456789',
+    "password": "AntLemoine88!",
+    "poste": "Chef de Projet",
+    "observation": "Gère plusieurs équipes.",
+    "documents": "projet_antoine.pdf",
+    "admin": true,
+    "isActive": false,
+    "created_at": "2021-12-01T11:00:00.000Z"
   },
   {
-    fname: "Nicolas",
-    lname: "Petit",
-    avatar: "https://randomuser.me/api/portraits/men/55.jpg",
-    birth_date: "1982-02-27",
-    email: "nicolas.petit@example.com",
-    password: "hashedpassword987",
-    adresse: {
-      adress: "42 rue Nationale",
-      cp: 59800,
-      city: "Lille"
+    "fname": "Nina",
+    "lname": "Moreau",
+    "avatar": "",
+    "adresse": {
+      "adress": "23 impasse des Primevères",
+      "cp": 44100,
+      "city": "Nantes"
     },
-    documents: {
-      url: "https://example.com/docs/nicolas-petit.pdf"
-    },
-    role: "user",
-    isActive: false,
-    created_at: "2021-09-12"
+    "birth_date": "1994-03-18T00:00:00.000Z",
+    "email": "nina.moreau@example.com",
+    "phone": '0678123490',
+    "password": "NinaM@94",
+    "poste": "Designer UX/UI",
+    "observation": "",
+    "documents": "ux_nina_portfolio.pdf",
+    "admin": false,
+    "isActive": true,
+    "created_at": "2024-07-01T16:30:00.000Z"
   }
-];
+]
+;
 
 module.exports = listeEmployee;

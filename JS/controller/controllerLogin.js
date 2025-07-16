@@ -11,7 +11,6 @@ exports.create = async (req, res) => {
   try {
     const {email, password} = req.body
     const user = await Employee.findOne({ email: email })
-    console.log(user)
     if(!user) return res.redirect('/login')
       if(user.password == password){
         req.session.user = {
@@ -20,9 +19,10 @@ exports.create = async (req, res) => {
           poste: user.poste,
           adresse: user.adresse.adress,
           city: user.adresse.city,
-          complement: user.adresse.complement,
-          phone: user.telephone,
+          cp: user.adresse.cp,
+          phone: user.phone,
           email: user.email,
+          admin: user.admin,
         }
         res.redirect('/')
       } else {

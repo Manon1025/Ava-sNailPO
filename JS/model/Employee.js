@@ -23,7 +23,7 @@ const EmployeeSchema = new mongoose.Schema ({
         type: Date,
     },
     email: String,
-    phone: Number,
+    phone: String,
     password: String,
     poste: String,
     observation: {
@@ -31,10 +31,9 @@ const EmployeeSchema = new mongoose.Schema ({
         default: ''
     },
     documents: String,
-    role: {
-        type: String,
-        enum: ["user", "admin"],
-        default: 'user'
+    admin: {
+        type: Boolean,
+        default: false
     },
     isActive: Boolean,
     created_at: Date,
