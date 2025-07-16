@@ -36,9 +36,16 @@ app.use(session({
     cookie: { secure: false } // à mettre à true si tu utilises HTTPS
 }))
 
-app.use('/', routerPages)
-app.use('/', routerEmployee)
+function isAuth(req, res, next){
+    if(!req.session.user) { 
+        return res.redirect("/login");
+    }
+    next();
+}
+
 app.use('/', routerLogin)
+app.use('/', isAuth ,routerPages)
+app.use('/', isAuth ,routerEmployee)
 
 app.listen(1024, () => {
     console.log('Bienvenue sur le serveur 1024')

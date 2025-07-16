@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 // ! Pages principales
-router.get('/', (req, res) => {
+router.get('/',(req, res) => {
     const fname = req.session.user ? req.session.user.fname : 'Visiteur';
     res.render('pages/homePage.ejs', {title: 'Accueil', fname})
 })
