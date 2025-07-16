@@ -22,9 +22,6 @@ router.get('/profil', (req, res) => {
     res.render('pages/profil.ejs', {title: 'Profil'})
 })
 
-router.get('/login', (req, res) => {
-    res.render('login.ejs', {title: 'Se_Connecter'})
-})
 
 // ! Pages vu que par l'admin
 router.get('/ajout-salarie', (req, res) => {
