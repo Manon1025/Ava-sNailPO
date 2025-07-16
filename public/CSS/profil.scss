@@ -1,0 +1,13 @@
+$primary-color: #8F95D3;
+$secondary-color: #89DAFF;
+$tertiaire-color: #D3C4E3;
+$quatuor-color: #DBB1BC;
+$valid-color: #64C36B;
+$white: #FFF;
+
+.bg-profil {
+    margin: 50px;
+    background: linear-gradient(45deg, $primary-color, $tertiaire-color, $quatuor-color);
+    padding: 20px;
+    border-radius: 10px;
+}

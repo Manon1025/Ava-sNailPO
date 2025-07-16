@@ -23,6 +23,7 @@ const EmployeeSchema = new mongoose.Schema ({
         type: Date,
     },
     email: String,
+    phone: Number,
     password: String,
     poste: String,
     observation: {

@@ -17,6 +17,12 @@ exports.create = async (req, res) => {
         req.session.user = {
           fname: user.fname,
           lname: user.lname,
+          poste: user.poste,
+          adresse: user.adresse.adress,
+          city: user.adresse.city,
+          complement: user.adresse.complement,
+          phone: user.telephone,
+          email: user.email,
         }
         res.redirect('/')
       } else {

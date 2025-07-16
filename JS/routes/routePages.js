@@ -20,7 +20,15 @@ router.get('/messagerie', (req, res) => {
 })
 
 router.get('/profil', (req, res) => {
-    res.render('pages/profil.ejs', {title: 'Profil'})
+    const fname = req.session.user ? req.session.user.fname : 'Visiteur'
+    const lname = req.session.user ? req.session.user.lname : 'Visiteur'
+    const poste = req.session.user ? req.session.user.poste : 'Visiteur'
+    const email = req.session.user ? req.session.user.email : 'Visiteur'
+    const phone = req.session.user ? req.session.user.phone : 'Visiteur'
+    const adresse = req.session.user ? req.session.user.adresse : 'Visiteur'
+    const city = req.session.user ? req.session.user.city : 'Visiteur'
+    const complement = req.session.user ? req.session.user.complement : 'Visiteur'
+    res.render('pages/profil.ejs', {title: 'Profil', fname, lname, poste, email, phone, adresse, city, complement})
 })
 
 
