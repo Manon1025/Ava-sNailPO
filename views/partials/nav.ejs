@@ -10,7 +10,7 @@
 				<li><a href="/planning">Planning</a></li>
 				<li><a href="/messagerie">Messagerie</a></li>
 				<li><a href="/documents">Documents</a></li>
-				<% if (user && user.admin===true) { %>
+				<% if (user.admin===true) { %>
 					<li><a href="/listeEmployer">Salariés</a></li>
 					<% } %>
 			</ul>
@@ -64,7 +64,7 @@
 						<li class="nav-item"><a class="nav-link" href="/planning">Planning</a></li>
 						<li class="nav-item"><a class="nav-link" href="/messagerie">Messagerie</a></li>
 						<li class="nav-item"><a class="nav-link" href="/documents">Documents</a></li>
-						<% if (user && user.admin===true) { %>
+						<% if (user.admin===true) { %>
 							<li class="nav-item"><a class="nav-link" href="/listeEmployer">Salariés</a></li>
 							<% } %>
 					</ul>
