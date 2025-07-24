@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Poste = require('./Poste') // Importing the Poste model
 
 const EmployeeSchema = new mongoose.Schema ({
     _id: {type : mongoose.Schema.ObjectId, auto: true}, //est généré par mongoDB

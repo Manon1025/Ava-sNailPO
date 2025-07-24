@@ -1,6 +1,6 @@
 const Employee = require("../model/Employee");
 const Poste = require("../model/Poste")
-const Document = require("../model/Document")
+// const Document = require("../model/Document")
 // const routePages = require('../routes/routePages')
 
 // ! Liste de tous les employés
@@ -55,7 +55,6 @@ exports.create = async (req, res) => {
         password,
         postes,
         observation,
-        documents,
         role = "user",
     } = req.body;
 
@@ -63,11 +62,6 @@ exports.create = async (req, res) => {
         console.log("poste:" + existancePoste)
     if(!existancePoste) {
       return res.status(404).json({message: 'le poste est inconnue'})
-    }
-
-    const documentExistant = await Document.findOne({name: documents})
-    if(!documentExistant) {
-      console.log("Aucun document trouvé, mais on continue...")
     }
 
     const employee = new Employee({
@@ -79,7 +73,6 @@ exports.create = async (req, res) => {
         email,
         password,
         observation,
-        documents,
         postes: existancePoste._id,
         role,
         created_at: new Date(),
