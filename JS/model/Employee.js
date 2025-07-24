@@ -25,7 +25,10 @@ const EmployeeSchema = new mongoose.Schema ({
     email: String,
     phone: String,
     password: String,
-    poste: String,
+    postes: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Poste'
+    },
     observation: {
         type: String,
         default: ''

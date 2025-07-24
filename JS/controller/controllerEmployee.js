@@ -53,13 +53,14 @@ exports.create = async (req, res) => {
         birth_date,
         email,
         password,
-        poste,
+        postes,
         observation,
         documents,
         role = "user",
     } = req.body;
 
-        const existancePoste = await Poste.findOne({name: poste})
+        const existancePoste = await Poste.findOne({name: postes})
+        console.log("poste:" + existancePoste)
     if(!existancePoste) {
       return res.status(404).json({message: 'le poste est inconnue'})
     }
@@ -79,7 +80,7 @@ exports.create = async (req, res) => {
         password,
         observation,
         documents,
-        poste,
+        postes: existancePoste._id,
         role,
         created_at: new Date(),
         isActive: true,
