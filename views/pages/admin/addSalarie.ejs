@@ -5,7 +5,9 @@
         <h1 class="m-5 d-flex justify-content-center"> Ajouter un salarié</h1>
 
         <div class="card-body p-5">
-          <form method="post" action="/add">
+          <form method="post" action="/add" enctype="multipart/form-data">
+
+            <!-- *Partie Principale  -->
             <div class="row mb-3">
               <div class="col-md-6">
                 <label for="fname" class="form-label">Prénom</label>
@@ -35,6 +37,7 @@
               <input type="date" class="form-control" id="birth_date" name="birth_date">
             </div>
 
+            <!-- * Partie Identification -->
             <div class="mb-3">
               <label for="email" class="form-label">Adresse email</label>
               <input type="email" class="form-control" id="email" name="email">
@@ -45,6 +48,7 @@
               <input type="password" class="form-control" id="password" name="password">
             </div>
 
+            <!--* Partie GPS  -->
             <div class="mb-3">
               <label for="adress" class="form-label">Adresse</label>
               <input type="text" class="form-control" id="adress" name="adresse.adress">
@@ -61,6 +65,7 @@
               </div>
             </div>
 
+            <!-- *Partie Supplémentaire -->
             <div>
               <div class="col-md-6">
                 <label for="observation" class="form-label">Observation</label>
@@ -68,7 +73,7 @@
               </div>
               <div class="col-md-6">
                 <label for="documents">Documents</label>
-                <input type="file" name="documents" id="documents" class="form-control" multiple>
+                <input type="file" name="documents" id="documents" class="form-control" accept=".pdf" multiple>
 
               </div>
             </div>

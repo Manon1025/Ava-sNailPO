@@ -1,9 +1,8 @@
 const Employee = require("../model/Employee");
 const Poste = require("../model/Poste")
-// const Document = require("../model/Document")
-// const routePages = require('../routes/routePages')
 
-// ! Liste de tous les employés
+
+// * Liste de tous les employés
 exports.index = async (req, res) => {
   try {
     const employees = await Employee.find(). populate('postes', {name: 1, _id: 0});
@@ -12,7 +11,8 @@ exports.index = async (req, res) => {
     throw err;
   }
 };
-// ! Visu que sur un seul employé par l'id
+
+// * Visu que sur un seul employé par l'id
 exports.show = async (req, res) => {
   try {
     const employeeId = req.params.id;
@@ -23,7 +23,7 @@ exports.show = async (req, res) => {
   }
 };
 
-// ! Pour supprimer un employee par son id
+// * Pour supprimer un employee par son id
 exports.destroy = async (req, res) => {
   try {
     const id = req.params.id;
@@ -36,20 +36,19 @@ exports.destroy = async (req, res) => {
   }
 };
 
-// ! Pour ajouter un employé
+// * Pour ajouter un employé
 exports.create = async (req, res) => {
-  console.log(req.body)
   try {
     const adresse = {
         adress: req.body["adresse.adress"],
         cp: parseInt(req.body["adresse.cp"]),
         city: req.body["adresse.city"],
     };
-    
+
     const {
         fname,
         lname,
-        avatar,
+        avatar = req.file?.filename || '',
         birth_date,
         email,
         password,
@@ -58,8 +57,8 @@ exports.create = async (req, res) => {
         role = "user",
     } = req.body;
 
-        const existancePoste = await Poste.findOne({name: postes})
-        console.log("poste:" + existancePoste)
+    // TODO : Vérfication si le poste existe
+    const existancePoste = await Poste.findOne({name: postes})
     if(!existancePoste) {
       return res.status(404).json({message: 'le poste est inconnue'})
     }
