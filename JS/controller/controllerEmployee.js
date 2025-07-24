@@ -6,8 +6,8 @@ const Poste = require("../model/Poste")
 // ! Liste de tous les employés
 exports.index = async (req, res) => {
   try {
-    const employees = await Employee.find();
-    res.status(200).render('pages/admin/listingEmployee.ejs', {title: 'Liste des employés',employees, user: req.session.user});
+    const employees = await Employee.find(). populate('postes', {name: 1, _id: 0});
+    res.status(200).render('pages/admin/listingEmployee.ejs', {title: 'Liste des employés', employees , user: req.session.user});
   } catch (err) {
     throw err;
   }
