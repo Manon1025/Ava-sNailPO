@@ -76,4 +76,43 @@ main {
   background-color: rgba(238, 238, 238, 0.9333333333);
   padding-top: 20px;
   height: 2000px;
+}
+
+.employee-card {
+  background-color: #f2f2f2;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.employee-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  background-color: #ddd;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+.btn-voir-plus {
+  background-color: #66ccff;
+  border: none;
+  border-radius: 12px;
+  padding: 5px 15px;
+  color: white;
+  font-weight: 500;
+}
+
+.employee-name {
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.employee-poste {
+  color: #777;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
 }/*# sourceMappingURL=style.css.map */

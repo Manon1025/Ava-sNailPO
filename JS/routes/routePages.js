@@ -20,19 +20,24 @@ router.get('/messagerie', (req, res) => {
 })
 
 router.get('/profil', (req, res) => {
+const user = req.session.user;
 
-    //*Toute les informations que je dois récupérer (nom, prénom, poste...)
-    const fname = req.session.user ? req.session.user.fname : 'Visiteur'
-    const lname = req.session.user ? req.session.user.lname : 'Visiteur'
-    const poste = req.session.user ? req.session.user.poste : 'Visiteur'
-    const email = req.session.user ? req.session.user.email : 'Visiteur'
-    const phone = req.session.user ? req.session.user.phone : 'Visiteur'
-    const adresse = req.session.user ? req.session.user.adresse : 'Visiteur'
-    const city = req.session.user ? req.session.user.city : 'Visiteur'
-    const cp = req.session.user ? req.session.user.cp : 'Visiteur'
+    const fname   = user ? user.fname   : 'Visiteur';
+    const lname   = user ? user.lname   : 'Visiteur';
+    const poste   = user ? user.poste   : 'Visiteur';
+    const email   = user ? user.email   : 'Visiteur';
+    const phone   = user ? user.phone   : 'Visiteur';
+    const adresse = user ? user.adresse : 'Visiteur';
+    const city    = user ? user.city    : 'Visiteur';
+    const cp      = user ? user.cp      : 'Visiteur';
+    const avatar  = user && user.avatar ? user.avatar : 'avatar-vide.png';
 
     // *user: req.session.user me permet de bloqué le lien salarié si la personne n'est pas admin
-    res.render('pages/profil.ejs', {title: 'Profil', fname, lname, poste, email, phone, adresse, city, cp, user: req.session.user})
+    res.render('pages/profil.ejs', {
+        title: 'Profil',
+        fname, lname, poste, email, avatar, phone, adresse, city, cp,
+        user
+    });
 })
 
 
