@@ -1,42 +1,42 @@
 const express = require('express')
 const router = express.Router()
 
+const upload = require('../middleware/multer')
+
 // ! Pages principales
-router.get('/',(req, res) => {
+router.get('/',(req, res) => {                                                                      // ? Chemin pour aller sur la page d'accueil                        
     const fname = req.session.user ? req.session.user.fname : 'Visiteur';
     res.render('pages/homePage.ejs', {title: 'Accueil', fname,  user: req.session.user})
 })
 
-router.get('/planning', (req, res) => {
+router.get('/planning', (req, res) => {                                                             // ? Chemin pour aller sur la page planning                                       
     res.render('pages/planning.ejs', {title: 'Planning', user: req.session.user})
 })
 
-router.get('/documents', (req, res) => {
+router.get('/documents', (req, res) => {                                                            // ? Chemin pour aller sur la page documents
     res.render('pages/doc.ejs', {title: 'Documents', user: req.session.user})
 })
 
-router.get('/messagerie', (req, res) => {
-    res.render('pages/tchat.ejs', {title: 'Messagerie', user: req.session.user})
+router.get('/messagerie', (req, res) => {                                                           //? Chemin pour aller sur la page messagerie
+    res.render('pages/tchat.ejs', {title: 'Messagerie', user: req.session.user})                    
 })
 
-router.get('/profil', (req, res) => {
-const user = req.session.user;
-
-    const fname   = user ? user.fname   : 'Visiteur';
-    const lname   = user ? user.lname   : 'Visiteur';
-    const poste   = user ? user.poste   : 'Visiteur';
-    const email   = user ? user.email   : 'Visiteur';
-    const phone   = user ? user.phone   : 'Visiteur';
-    const adresse = user ? user.adresse : 'Visiteur';
-    const city    = user ? user.city    : 'Visiteur';
-    const cp      = user ? user.cp      : 'Visiteur';
-    const avatar  = user && user.avatar ? user.avatar : 'avatar-vide.png';
+router.get('/profil',(req, res) => {                                   // ? Chemin pour aller sur la page profil
+    const fname   = res.locals.user.fname
+    const lname   = res.locals.user.lname
+    const poste   = res.locals.user.poste
+    const email   = res.locals.user.email
+    const phone   = res.locals.user.phone
+    const adresse = res.locals.user.adresse
+    const city   = res.locals.user.city
+    const cp      = res.locals.user.cp
+    const avatar  = res.locals.user.avatar || 'ASSET/img/avatar-vide.png' ;
+    console.log(res.locals.user);
 
     // *user: req.session.user me permet de bloqué le lien salarié si la personne n'est pas admin
     res.render('pages/profil.ejs', {
         title: 'Profil',
         fname, lname, poste, email, avatar, phone, adresse, city, cp,
-        user
     });
 })
 

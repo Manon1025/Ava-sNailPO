@@ -10,13 +10,13 @@ exports.destroy = async(req, res) => {
 exports.create = async (req, res) => {
   try {
     const {email, password} = req.body
-    const user = await Employee.findOne({ email: email })
+    const user = await Employee.findOne({ email: email }).populate('postes', {name: 1, _id: 0}) 
     if(!user) return res.redirect('/login')
       if(user.password == password){
         req.session.user = {
           fname: user.fname,
           lname: user.lname,
-          poste: user.poste,
+          poste: user.postes,
           adresse: user.adresse.adress,
           city: user.adresse.city,
           cp: user.adresse.cp,
