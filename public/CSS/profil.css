@@ -1,5 +1,6 @@
 .bg-profil {
-  margin: 50px;
+  margin: auto;
+  margin-top: 50px;
   background: linear-gradient(45deg, #8F95D3, #D3C4E3, #DBB1BC);
   padding: 20px;
   border-radius: 10px;

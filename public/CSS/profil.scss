@@ -6,7 +6,8 @@ $valid-color: #64C36B;
 $white: #FFF;
 
 .bg-profil {
-    margin: 50px;
+    margin: auto;
+    margin-top: 50px;
     background: linear-gradient(45deg, $primary-color, $tertiaire-color, $quatuor-color);
     padding: 20px;
     border-radius: 10px;
