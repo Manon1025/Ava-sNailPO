@@ -143,3 +143,13 @@ main {
       font-size: 0.95rem;
       margin-bottom: 10px;
     }
+
+.employee-avatar-profil{
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      object-fit: cover;
+      background-color: #ddd;
+      display: inline-block;
+      margin-bottom: 15px;
+}

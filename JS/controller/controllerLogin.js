@@ -16,6 +16,7 @@ exports.create = async (req, res) => {
         req.session.user = {
           fname: user.fname,
           lname: user.lname,
+          avatar: user.avatar || 'ASSET/img/avatar-vide.png',
           poste: user.postes,
           adresse: user.adresse.adress,
           city: user.adresse.city,

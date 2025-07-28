@@ -31,7 +31,6 @@ router.get('/profil',(req, res) => {                                   // ? Chem
     const city   = res.locals.user.city
     const cp      = res.locals.user.cp
     const avatar  = res.locals.user.avatar || 'ASSET/img/avatar-vide.png' ;
-    console.log(res.locals.user);
 
     // *user: req.session.user me permet de bloqué le lien salarié si la personne n'est pas admin
     res.render('pages/profil.ejs', {
