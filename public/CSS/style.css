@@ -28,8 +28,15 @@ header #logo {
 header #logo:hover {
   content: url("/ASSET/img/Logo_Noir.svg");
 }
-header #avatar {
+header .avatar-nav {
   width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+header .avatar-nav:hover {
+  transform: scale(1.1);
 }
 
 .gradient-navbar {
@@ -49,10 +56,6 @@ header #avatar {
 }
 .gradient-navbar #logo {
   width: 40px;
-}
-.gradient-navbar #avatar {
-  width: 35px;
-  border-radius: 50%;
 }
 .gradient-navbar .navbar-toggler {
   margin: 0 auto;
