@@ -1,3 +1,4 @@
+const { render } = require("ejs");
 const Employee = require("../model/Employee");
 const Poste = require("../model/Poste")
 
@@ -17,7 +18,7 @@ exports.show = async (req, res) => {
   try {
     const employeeId = req.params.id;
     const employee = await Employee.findById(employeeId);
-    res.status(200).json(employee);
+    res.status(200).render('pages/admin/voir-plus.ejs', {title: 'Voir plus', employee, user: req.session.user});
   } catch (err) {
     throw err;
   }

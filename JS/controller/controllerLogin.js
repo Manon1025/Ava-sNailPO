@@ -16,6 +16,7 @@ exports.create = async (req, res) => {
         req.session.user = {
           fname: user.fname,
           lname: user.lname,
+          birth: user.birth_date,
           avatar: user.avatar || 'ASSET/img/avatar-vide.png',
           poste: user.postes,
           adresse: user.adresse.adress,
@@ -24,6 +25,7 @@ exports.create = async (req, res) => {
           phone: user.phone,
           email: user.email,
           admin: user.admin,
+          observation: user.observation,
         }
         res.redirect('/')
       } else {

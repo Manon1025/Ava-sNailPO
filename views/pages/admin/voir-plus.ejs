@@ -1,0 +1,40 @@
+<div class="container bg-profil d-flex ">
+    <div class="container card d-lg-flex flex-lg-row justify-content-lg-center align-items-lg-center p-5
+        d-sm-flex flex-sm-column justify-content-sm-center align-items-sm-center gap-5">
+        <div class="col-lg-4">
+            <img src="/uploads/<%= user.avatar %>" alt="avatar" class="employee-avatar-profil">
+        </div>
+        <div class="card-body col-8 d-flex flex-column justify-content-between gap-5">
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <h1>
+                    <strong> <%= user.lname%> </strong> 
+                    <strong> <%= user.fname%> </strong>
+                </h1>
+                <p> ( <%= user.poste.name %> ) </p>
+            </div>
+            <div class="d-lg-flex flex-lg-row justify-content-lg-around
+            d-sm-flex flex-sm-column gap-5">
+                <div class="d-sm-flex flex-sm-column gap-2">
+                    <p><strong>EMAIL -</strong> <%= user.email %></p>
+                    <p><strong>TELEPHONE -</strong> <%= user.phone %></p>
+                    <p><strong> ANNIVERSAIRE - </strong> <%= user.birth %> </p>
+                </div>
+                <div class="d-sm-flex flex-sm-column gap-2">
+                    <p><strong>ADRESSE -</strong> <%= user.adresse %></p>
+                    <p><strong>VILLE -</strong> <%= user.city %></p>
+                    <p><strong>CODE POSTALE -</strong> <%= user.cp %></p>
+                </div>
+            </div>
+            <div class="card-body col-lg-8">
+            <div class="d-lg-flex flex-lg-column justify-content-lg-around
+            d-sm-flex flex-sm-column">
+                <p><strong>OBSERVATION :</strong> </p>
+                <p><%= user.observation %></p>
+            </div>
+        </div>
+
+
+    </div>
+    </div>
+
+</div>

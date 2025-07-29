@@ -7,7 +7,7 @@ const upload = require('../middleware/multer')
 // ! Liste des employée JSON
 router.get('/listeEmployer', controllerEmployee.index)
 
-router.get('/baseDonnee/:id', controllerEmployee.show)
+router.get('/voir-plus/:id', controllerEmployee.show)
 
 router.delete('/delete/:id', controllerEmployee.destroy)
 

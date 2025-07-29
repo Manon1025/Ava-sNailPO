@@ -11,7 +11,7 @@
           <img src="/uploads/<%= emp.avatar %>" alt="avatar" class="employee-avatar">
           <div class="employee-name"><%= emp.lname %> <%= emp.fname %></div>
           <div class="employee-poste"><%= emp.postes.name %></div>
-          <button class="btn btn-voir-plus">Voir plus</button>
+          <a href="/voir-plus/<%= emp._id%>"><button class="btn btn-voir-plus">Voir plus</button></a>
         </div>
       </div>
       <% }) %>

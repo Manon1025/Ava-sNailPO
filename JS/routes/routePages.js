@@ -21,7 +21,7 @@ router.get('/messagerie', (req, res) => {                                       
     res.render('pages/tchat.ejs', {title: 'Messagerie', user: req.session.user})                    
 })
 
-router.get('/profil',(req, res) => {                                   // ? Chemin pour aller sur la page profil
+router.get('/profil',(req, res) => {                                                                // ? Chemin pour aller sur la page profil
     const fname   = res.locals.user.fname
     const lname   = res.locals.user.lname
     const poste   = res.locals.user.poste
@@ -38,7 +38,6 @@ router.get('/profil',(req, res) => {                                   // ? Chem
         fname, lname, poste, email, avatar, phone, adresse, city, cp,
     });
 })
-
 
 // ! Pages vu que par l'admin
 router.get('/ajout-salarie', (req, res) => {
