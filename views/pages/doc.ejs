@@ -18,7 +18,37 @@
           <% documents.forEach(doc => { %>
             <tr>
               <td><%= doc.name %></td>
-              <td><%= doc.category.name %></td>
+
+              <!-- Catégorie avec badge de couleur -->
+              <td>
+                <% 
+                  let catColor = "secondary"; // couleur par défaut
+                  switch (doc.category.name) {
+                    case "Techniques de pose":
+                      catColor = "primary"; // bleu
+                      break;
+                    case "Hygiène et sécurité":
+                      catColor = "danger"; // rouge
+                      break;
+                    case "Produits et matériaux":
+                      catColor = "success"; // vert
+                      break;
+                    case "Design et nail art":
+                      catColor = "info"; // turquoise
+                      break;
+                    case "Gestion de salon":
+                      catColor = "warning"; // jaune
+                      break;
+                    case "Règlementation et normes":
+                      catColor = "dark"; // noir/gris foncé
+                      break;
+                    default:
+                      catColor = "secondary"; // gris si non listée
+                                }
+                %>
+                <span class="badge bg-<%= catColor %>"><%= doc.category.name %></span>
+              </td>
+
               <td class="d-none d-md-table-cell"><%= doc.description %></td>
               <td><%= new Date(doc.created_at).toLocaleDateString("fr-FR") %></td>
 
@@ -31,12 +61,12 @@
                   %>
 
                   <% if (['pdf','jpg','jpeg','png','gif'].includes(ext)) { %>
-                    <a href="/uploads/<%= doc.fileName %>" target="_blank" class="btn btn-sm btn-info">Ouvrir</a>
+                    <a href="/uploads/<%= doc.fileName %>" target="_blank" class="btn btn-sm btn-warning">Ouvrir</a>
                   <% } else if (wordFormats.includes(ext)) { %>
-                    <% const fileUrl = encodeURIComponent('http://localhost:3000/uploads/' + doc.fileName); %>
-                    <a href="https://docs.google.com/gview?url=<%= fileUrl %>&embedded=true" target="_blank" class="btn btn-sm btn-info">Ouvrir</a>
+                    <% const fileUrl = encodeURIComponent('https://ava-snailpo-1.onrender.com/uploads/' + doc.fileName); %>
+                    <a href="https://docs.google.com/gview?url=<%= fileUrl %>&embedded=true" target="_blank" class="btn btn-sm btn-warning">Ouvrir</a>
                   <% } else { %>
-                    <a href="/uploads/<%= doc.fileName %>" target="_blank" class="btn btn-sm btn-info">Ouvrir</a>
+                    <a href="/uploads/<%= doc.fileName %>" target="_blank" class="btn btn-sm btn-warning">Ouvrir</a>
                   <% } %>
 
                 <% } else { %>
@@ -52,7 +82,6 @@
                   N/A
                 <% } %>
               </td>
-
             </tr>
           <% }) %>
         </tbody>
