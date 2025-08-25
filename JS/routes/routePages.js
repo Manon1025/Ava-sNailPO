@@ -13,10 +13,6 @@ router.get('/planning', (req, res) => {                                         
     res.render('pages/planning.ejs', {title: 'Planning', user: req.session.user})
 })
 
-router.get('/documents', (req, res) => {                                                            // ? Chemin pour aller sur la page documents
-    res.render('pages/doc.ejs', {title: 'Documents', user: req.session.user})
-})
-
 router.get('/messagerie', (req, res) => {                                                           //? Chemin pour aller sur la page messagerie
     res.render('pages/tchat.ejs', {title: 'Messagerie', user: req.session.user})                    
 })
@@ -42,6 +38,10 @@ router.get('/profil',(req, res) => {                                            
 // ! Pages vu que par l'admin
 router.get('/ajout-salarie', (req, res) => {
     res.render('pages/admin/addSalarie.ejs', {title: 'Ajouter un Salarié', user: req.session.user})
+})
+
+router.get('/ajout-document', (req, res) => {
+    res.render('pages/addDocument.ejs', {title: 'Ajouter Document', user: req.session.user})
 })
 
 module.exports = router

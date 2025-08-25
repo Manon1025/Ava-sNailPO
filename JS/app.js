@@ -10,6 +10,7 @@ const session = require('express-session')                                  // ?
     // * FICHIER
 const routerEmployee = require('./routes/routeEmployee')
 const routerPages = require('./routes/routePages')
+const routerDocument = require('./routes/routerDocument')
 const routerLogin = require('./routes/routeLogin')
 const connexionDB = require('./data/database')
 const isAuth = require('./middleware/isAuth')
@@ -45,6 +46,7 @@ connexionDB()
 // ! lancement serveur
 app.use('/', routerLogin)
 app.use('/', isAuth ,routerPages)
+app.use('/', isAuth ,routerDocument)
 app.use('/', isAuth ,routerEmployee)
 
 app.listen(1024, () => {

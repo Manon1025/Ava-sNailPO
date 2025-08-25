@@ -1,3 +1,36 @@
-<h1>Bonjour Vous êtes dans la liste des documents</h1>
+<div class="container mt-5">
+  <div class="card shadow">
+    <div class="card-body">
+      <h3 class="mb-4 text-center">📂 Liste des documents</h3>
 
-<a href="/"><button>ajouter</button></a>
+      <table class="table table-bordered table-hover align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Nom document</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Télécharger</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% documents.forEach(doc => { %>
+            <tr>
+              <td><%= doc.name %></td>
+              <td><%= doc.description %></td>
+              <td><%= new Date(doc.created_at).toLocaleDateString("fr-FR") %></td>
+              <td>
+                <a href="/uploads/<%= doc.fileName %>" class="btn btn-sm btn-primary">
+                  Télécharger
+                </a>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="text-center mt-3">
+  <a href="/ajout-document" class="btn btn-success">Ajouter un document</a>
+</div>

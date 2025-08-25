@@ -1,0 +1,42 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <h1 class="m-5 d-flex justify-content-center"> Ajouter un document</h1>
+
+        <div class="card-body p-5">
+          <form method="post" action="/add-document" enctype="multipart/form-data">
+
+            <!-- *Partie Principale  -->
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="name" class="form-label">Nom du document: </label>
+                <input type="text" class="form-control" id="name" name="name">
+              </div>
+              <div class="col-md-6">
+                  <label for="document" class="form-label">Document :</label>
+                  <input type="file" class="form-control" id="document" name="document" accept=".pdf, .doc, .docx, image/*">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="description" class="form-label">Description</label>
+              <textarea class="form-control" name="description" id="description"></textarea>
+            </div>
+            
+            <label for="categpry">Catégorie :</label>
+            <select id="category" name="category">
+              <option value="">--Sélectionner--</option>
+              <option value="Techniques de pose">Techniques de pose</option>
+              <option value="Hygiène et sécurité">Hygiène et sécurité</option>
+              <option value="Produits et matériaux">Produits et matériaux</option>
+              <option value="Design et nail art">Design et nail art</option>
+              <option value="Gestion de salon">Gestion de salon</option>
+              <option value="Règlementation et normes">Règlementation et normes</option>
+            </select><br><br>
+
+            <div class="d-grid mt-4">
+              <button type="submit" class="btn btn-primary">Valider</button>
+            </div>
+          </form>
+        </div>

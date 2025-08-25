@@ -1,4 +1,3 @@
-const { render } = require("ejs");
 const Employee = require("../model/Employee");
 const Poste = require("../model/Poste")
 
