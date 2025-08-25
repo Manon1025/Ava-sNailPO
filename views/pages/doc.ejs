@@ -8,8 +8,9 @@
           <tr>
             <th>Nom document</th>
             <th>Catégorie</th>
-            <th>Description</th>
+            <th class="d-none d-md-table-cell">Description</th> <!-- Masquée sur mobile -->
             <th>Date</th>
+            <th class="d-none d-md-table-cell">Ouvrir</th> <!-- Masquée sur mobile -->
             <th>Télécharger</th>
           </tr>
         </thead>
@@ -18,13 +19,40 @@
             <tr>
               <td><%= doc.name %></td>
               <td><%= doc.category.name %></td>
-              <td><%= doc.description %></td>
+              <td class="d-none d-md-table-cell"><%= doc.description %></td>
               <td><%= new Date(doc.created_at).toLocaleDateString("fr-FR") %></td>
-              <td>
-                <a href="/uploads/<%= doc.fileName %>" class="btn btn-sm btn-primary">
-                  Télécharger
-                </a>
+
+              <!-- Bouton "Ouvrir" -->
+              <td class="d-none d-md-table-cell">
+                <% if (doc.fileName) { %>
+                  <% 
+                    const ext = doc.fileName.split('.').pop().toLowerCase();
+                    const wordFormats = ['doc','docx','txt','odt'];
+                  %>
+
+                  <% if (['pdf','jpg','jpeg','png','gif'].includes(ext)) { %>
+                    <a href="/uploads/<%= doc.fileName %>" target="_blank" class="btn btn-sm btn-info">Ouvrir</a>
+                  <% } else if (wordFormats.includes(ext)) { %>
+                    <% const fileUrl = encodeURIComponent('http://localhost:3000/uploads/' + doc.fileName); %>
+                    <a href="https://docs.google.com/gview?url=<%= fileUrl %>&embedded=true" target="_blank" class="btn btn-sm btn-info">Ouvrir</a>
+                  <% } else { %>
+                    <a href="/uploads/<%= doc.fileName %>" target="_blank" class="btn btn-sm btn-info">Ouvrir</a>
+                  <% } %>
+
+                <% } else { %>
+                  Aucun fichier
+                <% } %>
               </td>
+
+              <!-- Bouton Télécharger -->
+              <td>
+                <% if (doc.fileName) { %>
+                  <a href="/uploads/<%= doc.fileName %>" class="btn btn-sm btn-primary" download>Télécharger</a>
+                <% } else { %>
+                  N/A
+                <% } %>
+              </td>
+
             </tr>
           <% }) %>
         </tbody>
@@ -32,7 +60,8 @@
     </div>
   </div>
 </div>
-<% if (user.admin===true) { %>
+
+<% if (user.admin === true) { %>
 <div class="text-center mt-3">
   <a href="/ajout-document" class="btn btn-success">Ajouter un document</a>
 </div>
