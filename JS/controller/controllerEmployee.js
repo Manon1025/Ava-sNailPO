@@ -18,7 +18,7 @@ exports.show = async (req, res) => {
   try {
     const employeeId = req.params.id;
     const employee = await Employee.findById(employeeId);
-    res.status(200).render('pages/admin/voir-plus.ejs', {title: 'Voir plus', employee, user: req.session.user});
+    res.status(200).render('pages/admin/voir-plus.ejs', {title: 'Voir plus', user: employee});
   } catch (err) {
     throw err;
   }

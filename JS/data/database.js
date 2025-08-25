@@ -23,11 +23,11 @@ module.exports = async () => {
         await mongoose.connect(dbURL)
         console.log('MongoDB connected successfully')
 
-        await Employee.insertMany(data)
-        console.log('Salariés insérés !')
+        // await Employee.insertMany(data)
+        // console.log('Salariés insérés !')
 
-        await Poste.insertMany(posteData)
-        console.log('Postes insérés !')
+        // await Poste.insertMany(posteData)
+        // console.log('Postes insérés !')
 
         // await Document.insertMany(documentData)
         // console.log('Documents insérés !')
