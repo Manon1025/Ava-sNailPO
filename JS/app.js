@@ -60,6 +60,7 @@ app.use('/', isAuth ,routerPages)
 app.use('/', isAuth ,routerDocument)
 app.use('/', isAuth ,routerEmployee)
 
-app.listen(1024, () => {
-    console.log('Connection server Success')
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log('Server running on port ${PORT}')
 })
