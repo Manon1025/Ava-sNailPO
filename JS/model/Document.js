@@ -9,6 +9,7 @@ const DocumentsSchema = new mongoose.Schema ({
         ref: 'Category',
         default: '',
     },
+    fileName: String,
     created_at: Date,
 })
 module.exports = mongoose.model('Document', DocumentsSchema)

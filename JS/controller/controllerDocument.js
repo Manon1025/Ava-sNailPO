@@ -32,8 +32,8 @@ exports.create = async (req, res) => {
             name,
             description,
             category: existanceCategory._id,
-            fileName: file.fileName,
-            originalName: file.originalName,
+            fileName: file.filename,
+            originalName: file.originalname,
             path: file.path,
             created_at: new Date(),
         })
