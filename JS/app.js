@@ -6,6 +6,9 @@ const path = require('path');                                               // ?
 const expressLayouts = require('express-ejs-layouts')                       // ? permet de gérer les layouts EJS
 const cookieParser = require('cookie-parser')                               // ? permet de parser les cookies
 const session = require('express-session')                                  // ? permet de gérer les sessions
+const MongoStore = require('connect-mongo');
+
+require('dotenv').config();
 
     // * FICHIER
 const routerEmployee = require('./routes/routeEmployee')
@@ -28,10 +31,18 @@ app.use(express.static(path.join(__dirname, '../public')));                 // ?
 app.use(cookieParser())                                                     // ? permet de parser les cookies
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads'))) // ? permet de servir les fichiers statiques dans le dossier uploads
 app.use(session({
-    secret: '3bR9xE7aU@zN!mLpG2#dQs4$Wv6YfB8K',                             // ? clé secrète pour signer les cookies de session
+    secret: process.env.SESSION_SECRET,                             // ? clé secrète pour signer les cookies de session
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }                                               // ? à mettre à true si tu utilises HTTPS
+    store: MongoStore.create({                                               // ? à mettre à true si tu utilises HTTPS
+        mongoUrl : process.env.DataMongoURL,
+        ttl: 14 * 24 * 60 * 60
+        }),
+    cookie: {
+        secure: process.env.NODE_ENV === 'production',                      // ? True si HTTPS
+        httpOnly: true,
+        maxAge: 14 * 34 * 60 * 60 * 1000                                    // ? 14 jours en ms
+    }
 }))
 
 app.use((req, res, next) => {
