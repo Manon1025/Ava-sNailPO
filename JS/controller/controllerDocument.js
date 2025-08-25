@@ -3,8 +3,8 @@ const Category = require('../model/Category')
 
 exports.index = async(req, res) => {
     try {
-        const documents = await Document.find()
-        res.render('pages/doc.ejs', {title: 'Documents', documents})
+        const documents = await Document.find().populate('category', {name: 1, _id: 0});
+        res.render('pages/doc.ejs', {title: 'Documents', documents, user: req.session.user})
     } catch (err) {
         throw err
     }

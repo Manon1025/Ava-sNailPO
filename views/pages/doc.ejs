@@ -7,6 +7,7 @@
         <thead class="table-dark">
           <tr>
             <th>Nom document</th>
+            <th>Catégorie</th>
             <th>Description</th>
             <th>Date</th>
             <th>Télécharger</th>
@@ -16,6 +17,7 @@
           <% documents.forEach(doc => { %>
             <tr>
               <td><%= doc.name %></td>
+              <td><%= doc.category.name %></td>
               <td><%= doc.description %></td>
               <td><%= new Date(doc.created_at).toLocaleDateString("fr-FR") %></td>
               <td>
@@ -30,7 +32,8 @@
     </div>
   </div>
 </div>
-
+<% if (user.admin===true) { %>
 <div class="text-center mt-3">
   <a href="/ajout-document" class="btn btn-success">Ajouter un document</a>
 </div>
+<% } %>
