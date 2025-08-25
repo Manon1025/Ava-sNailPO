@@ -48,5 +48,5 @@ app.use('/', isAuth ,routerPages)
 app.use('/', isAuth ,routerEmployee)
 
 app.listen(1024, () => {
-    console.log('Bienvenue sur le serveur 1024')
+    console.log('Connection server Success')
 })
