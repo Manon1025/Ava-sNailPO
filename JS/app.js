@@ -5,7 +5,7 @@ const app = express()
 const path = require('path');                                               // ? permet de gérer les chemins de fichiers
 const expressLayouts = require('express-ejs-layouts')                       // ? permet de gérer les layouts EJS
 const cookieParser = require('cookie-parser')                               // ? permet de parser les cookies
-const session = require('express-session')                                  // ? permet de gérer les sessions
+// const session = require('express-session')                                  // ? permet de gérer les sessions
 require('dotenv').config()                                                  // ? permet de charger les variables d'environnement
 
     // * FICHIER
@@ -32,19 +32,22 @@ app.use('/uploads', express.static(path.join(__dirname, 'public/uploads'))) // ?
 
 // * Cookie / Session
 const isAuth = require('./middleware/isAuth')
+const currentUser = require('./middleware/currentUser')
+
 app.use(cookieParser())                                                     // ? permet de parser les cookies
-app.use(session({
-    secret: process.env.SESSION_SECRET,                                     // ? clé secrète pour signer les cookies de session
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false }                                               // ? à mettre à true si tu utilises HTTPS
-}))
+app.use(currentUser)                                                       // ? permet de récupérer les informations de l'utilisateur connecté
+// app.use(session({
+//     secret: process.env.SESSION_SECRET,                                     // ? clé secrète pour signer les cookies de session
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: { secure: false }                                               // ? à mettre à true si tu utilises HTTPS
+// }))
 
     // * Récupération des informations de l'utilisateur à la connection de la session
-app.use((req, res, next) => {
-    res.locals.user = req.session.user || null;
-    next();
-})
+// app.use((req, res, next) => {
+//     res.locals.user = req.session.user || null;
+//     next();
+// })
 
 
 // ! MongoDB
@@ -55,7 +58,7 @@ connexionDB()
     // * Auth
 app.use('/', routerLogin)
 
-    // * Liens avec tous les fichiers routes
+    // * Routes protégées
 app.use('/', isAuth ,routerPages)
 app.use('/', isAuth ,routerDocument)
 app.use('/', isAuth ,routerEmployee)
@@ -63,5 +66,5 @@ app.use('/', isAuth ,routerEmployee)
 // ! Lancement du serveur
 const port = process.env.PORT
 app.listen(port, () => {
-    console.log('Connection server Success')
+    console.log(`✅ Serveur démarré sur http://localhost:${port}`)
 })
