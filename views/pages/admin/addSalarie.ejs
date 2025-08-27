@@ -4,10 +4,11 @@
       <div class="card">
         <h1 class="m-5 d-flex justify-content-center"> Ajouter un salarié</h1>
 
+        <!-- * Formulaire d'ajout -->
         <div class="card-body p-5">
           <form method="post" action="/add" enctype="multipart/form-data">
 
-            <!-- *Partie Principale  -->
+            <!-- ! Partie Principale  -->
             <div class="row mb-3">
               <div class="col-md-6">
                 <label for="fname" class="form-label">Prénom</label>
@@ -23,6 +24,7 @@
               </div>
             </div>
 
+            <!-- ! Poste -->
             <label for="postes">Poste :</label>
             <select id="postes" name="postes">
               <option value="">--Sélectionner--</option>
@@ -31,13 +33,13 @@
               <option value="Apprenti">Apprenti</option>
             </select><br><br>
 
-
+            <!-- ! Date de naissance -->
             <div class="mb-3">
               <label for="birth_date" class="form-label">Date de naissance</label>
               <input type="date" class="form-control" id="birth_date" name="birth_date">
             </div>
 
-            <!-- * Partie Identification -->
+            <!-- ! Partie Identification -->
             <div class="mb-3">
               <label for="email" class="form-label">Adresse email</label>
               <input type="email" class="form-control" id="email" name="email">
@@ -53,7 +55,7 @@
               <input type="password" class="form-control" id="password" name="password">
             </div>
 
-            <!--* Partie GPS  -->
+            <!-- ! Partie GPS  -->
             <div class="mb-3">
               <label for="adress" class="form-label">Adresse</label>
               <input type="text" class="form-control" id="adress" name="adresse.adress">
@@ -70,7 +72,7 @@
               </div>
             </div>
 
-            <!-- *Partie Supplémentaire -->
+            <!-- ! Partie Supplémentaire -->
             <div>
               <div class="col-md-6">
                 <label for="observation" class="form-label">Observation</label>
@@ -83,6 +85,7 @@
               </div>
             </div>
 
+            <!-- * Post du salarié -->
             <div class="d-grid mt-4">
               <button type="submit" class="btn btn-primary">Valider</button>
             </div>

@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
 
-    <!-- Link -->
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <!-- * Link -->
+        <!-- ! Bootstrap et Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
 
+        <!-- ! hideLayout -->
     <% var hideLayout = typeof hideLayout !== 'undefined' ? hideLayout : false; %>                                                  <!-- Permet d'enlever le style pour la page de connexion -->
     <% if (!hideLayout) { %>
         <link rel="stylesheet" href="/CSS/style.css">
@@ -20,7 +22,8 @@
 </head>
 <body>
     <header>
-       <% if (!hideLayout) { %>
+        <!-- * hideLayout enlevé pour le login -->
+        <% if (!hideLayout) { %>
             <%- include('./partials/nav.ejs') %>
         <% } %>
     </header>
@@ -33,11 +36,13 @@
 
     </aside>
 
+    <!-- * hideLayout enlevé pour le login -->
     <% if (!hideLayout) { %>
         <%- include('./partials/footer.ejs') %>
     <% } %>
 
 
+    <!-- * boostrap script -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
 </body>

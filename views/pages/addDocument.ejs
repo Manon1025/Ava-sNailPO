@@ -7,24 +7,30 @@
         <div class="card-body p-5">
           <form method="post" action="/add-document" enctype="multipart/form-data">
 
-            <!-- *Partie Principale  -->
+            <!-- * Partie Principale  -->
             <div class="row mb-3">
+              <!-- ! Nom du document -->
               <div class="col-md-6">
                 <label for="name" class="form-label">Nom du document: </label>
                 <input type="text" class="form-control" id="name" name="name">
               </div>
+
+              <!-- ! Fichier Document -->
               <div class="col-md-6">
                   <label for="document" class="form-label">Document :</label>
                   <input type="file" class="form-control" id="document" name="document" accept=".pdf, .doc, .docx, image/*">
-                </div>
+              </div>
+
             </div>
 
+            <!-- * Partie Description -->
             <div class="col-md-6">
               <label for="description" class="form-label">Description</label>
               <textarea class="form-control" name="description" id="description"></textarea>
             </div>
-            
-            <label for="categpry">Catégorie :</label>
+
+            <!-- * Partie Catégorie -->
+            <label for="category">Catégorie :</label>
             <select id="category" name="category">
               <option value="">--Sélectionner--</option>
               <option value="Techniques de pose">Techniques de pose</option>

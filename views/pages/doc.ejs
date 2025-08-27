@@ -3,7 +3,10 @@
     <div class="card-body">
       <h3 class="mb-4 text-center">📂 Liste des documents</h3>
 
+      <!-- * Table des documents -->
       <table class="table table-bordered table-hover align-middle">
+
+        <!-- * En-tête de la table -->
         <thead class="table-dark">
           <tr>
             <th>Nom document</th>
@@ -14,12 +17,15 @@
             <th>Télécharger</th>
           </tr>
         </thead>
+
+        <!-- * Corps de la table -->
         <tbody>
+          <!-- ! Liste des documents (BOUCLE) -->
           <% documents.forEach(doc => { %>
             <tr>
               <td><%= doc.name %></td>
 
-              <!-- Catégorie avec badge de couleur -->
+              <!-- ! Catégorie avec badge de couleur -->
               <td>
                 <% 
                   let catColor = "secondary"; // couleur par défaut
@@ -49,17 +55,22 @@
                 <span class="badge bg-<%= catColor %>"><%= doc.category.name %></span>
               </td>
 
+              <!-- ! Description -->
               <td class="d-none d-md-table-cell"><%= doc.description %></td>
+
+              <!-- ! Formatage de la date en français -->
               <td><%= new Date(doc.created_at).toLocaleDateString("fr-FR") %></td>
 
-              <!-- Bouton "Ouvrir" -->
+              <!-- ! Bouton "Ouvrir" -->
               <td class="d-none d-md-table-cell">
                 <% if (doc.fileName) { %>
                   <% 
+                  <!-- TODO: Récupération de l'extension du fichier -->
                     const ext = doc.fileName.split('.').pop().toLowerCase();
                     const wordFormats = ['doc','docx','txt','odt'];
                   %>
 
+                  <!-- TODO: Affichage du document selon son type -->
                   <% if (['pdf','jpg','jpeg','png','gif'].includes(ext)) { %>
                     <a href="/uploads/<%= doc.fileName %>" target="_blank" class="btn btn-sm btn-warning">Ouvrir</a>
                   <% } else if (wordFormats.includes(ext)) { %>
@@ -74,7 +85,7 @@
                 <% } %>
               </td>
 
-              <!-- Bouton Télécharger -->
+              <!-- ! Bouton Télécharger -->
               <td>
                 <% if (doc.fileName) { %>
                   <a href="/uploads/<%= doc.fileName %>" class="btn btn-sm btn-primary" download>Télécharger</a>
@@ -90,6 +101,7 @@
   </div>
 </div>
 
+<!-- * Bouton Ajouter un document (visible uniquement par les admins) -->
 <% if (user.admin === true) { %>
 <div class="text-center mt-3">
   <a href="/ajout-document" class="btn btn-success">Ajouter un document</a>
