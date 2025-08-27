@@ -1,5 +1,7 @@
 const Employee = require("../model/Employee");
 const Poste = require("../model/Poste")
+const employeeValidationSchema = require("../model/validation/employeeValidation");
+const Joi = require('joi');
 
 
 // * Liste de tous les employés
@@ -39,50 +41,66 @@ exports.destroy = async (req, res) => {
 // * Pour ajouter un employé
 exports.create = async (req, res) => {
   try {
-    const adresse = {
-        adress: req.body["adresse.adress"],
-        cp: parseInt(req.body["adresse.cp"]),
-        city: req.body["adresse.city"],
-    };
-
-    const {
-        fname,
-        lname,
-        avatar = req.file?.filename || '',
-        birth_date,
-        email,
-        phone,
-        password,
-        postes,
-        observation,
-        role = "user",
-    } = req.body;
-
-    // TODO : Vérfication si le poste existe
-    const existancePoste = await Poste.findOne({name: postes})
-    if(!existancePoste) {
-      return res.status(404).json({message: 'le poste est inconnue'})
+    // Chercher le poste par son nom
+    const {postes: posteName} = req.body;
+    const existancePoste = await Poste.findOne({ name: posteName });
+    if (!existancePoste) {
+      return res.status(404).json({ message: 'Le poste est inconnu' });
     }
 
+    // Préparer les données à valider
+    const employeeData = {
+      fname: req.body.fname,
+      lname: req.body.lname,
+      avatar: req.file?.filename || 'ASSET/img/avatar-vide.png',
+      adresse: [{
+        adress: req.body['adresse.adress'],
+        cp: parseInt(req.body['adresse.cp']),
+        city: req.body['adresse.city']
+      }],
+      birth_date: req.body.birth_date,
+      email: req.body.email,
+      phone: req.body.phone,
+      password: req.body.password,
+      postes: existancePoste._id.toString(),
+      observations: req.body.observation,
+      documents: req.body.documents || ''
+    };
+
+    // Validation avec Joi
+    const { error } = employeeValidationSchema.validate(employeeData, { abortEarly: false });
+    if (error) {
+      return res.status(400).json({
+        message: 'Erreur de validation',
+        details: error.details.map(d => d.message)
+      });
+    }
+
+    console.log('Données validées :', employeeData);
+
+
+    // Création de l'employé
     const employee = new Employee({
-        avatar: avatar || 'ASSET/img/avatar-vide.png',
-        fname,
-        lname,
-        adresse,
-        birth_date,
-        email,
-        phone,
-        password,
-        observation,
-        postes: existancePoste._id,
-        role,
-        created_at: new Date(),
-        isActive: true,
+      avatar: employeeData.avatar,
+      fname: employeeData.fname,
+      lname: employeeData.lname,
+      adresse: employeeData.adresse[0],
+      birth_date: employeeData.birth_date,
+      email: employeeData.email,
+      phone: employeeData.phone,
+      password: employeeData.password,
+      observation: employeeData.observations,
+      postes: existancePoste._id.toString(),
+      role: req.body.role || 'user',
+      created_at: new Date(),
+      isActive: true
     });
 
     await employee.save();
     res.redirect('/listeEmployer');
   } catch (err) {
-    throw err;
+    console.error(err);
+    res.status(500).json({ message: 'Erreur serveur', error: err.message });
   }
 };
+
