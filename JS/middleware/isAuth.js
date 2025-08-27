@@ -1,18 +1,8 @@
-// // TODO: Middleware pour vérifier si l'utilisateur est authentifié
-// function isAuth(req, res, next){   
-//     // * Vérifier si l'utilisateur est authentifié
-//     if(!req.session.user) { 
-//         return res.redirect("/login");
-//     }
-//     next();
-// }                                                           
-
-// // TODO: Exporter le middleware
-// module.exports = isAuth;
-
+// TODO: Module
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
+// TODO: Middleware pour vérifier si l'utilisateur est authentifié
 function isAuth(req, res, next){
     const SECRET_KEY = process.env.SESSION_SECRET;
     const token = req.cookies && req.cookies.token
@@ -28,4 +18,5 @@ function isAuth(req, res, next){
     }
 }
 
+// TODO: Exporter le middleware
 module.exports = isAuth;

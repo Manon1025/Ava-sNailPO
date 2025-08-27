@@ -1,6 +1,8 @@
+// TODO: Module
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
+// TODO: Middleware pour récupérer l'utilisateur courant
 module.exports = (req, res, next) => {
     res.locals.currentUser = null;
 

@@ -9,6 +9,7 @@ const Employee = require("../model/Employee");
 // TODO: exports des controllers
   // * Pour se déconnecter
 exports.destroy = async(req, res) => {
+    // ! nettoyage du token
     res.clearCookie('token')
     return res.redirect('/login')
 }
@@ -31,6 +32,7 @@ exports.create = async (req, res) => {
       })
     }
 
+    // ! Création du token
     const token = jwt.sign({
           fname: user.fname,
           lname: user.lname,
@@ -46,6 +48,7 @@ exports.create = async (req, res) => {
           observation: user.observation,
     }, SECRET_KEY, {expiresIn: '1h'})
 
+    // ! Enregistrement du token dans un cookie
     res.cookie('token', token, {
       httpOnly: true,
       secure: false,
@@ -53,24 +56,7 @@ exports.create = async (req, res) => {
       expires: new Date(Date.now() + 3600000) // 1 heure
     })
 
-    // ! Vérifier si le mot de passe est correct
-      // if(user.password == password){
-      // // ! Authentifier l'utilisateur
-      //   req.session.user = {
-      //     fname: user.fname,
-      //     lname: user.lname,
-      //     birth: user.birth_date,
-      //     avatar: user.avatar || 'ASSET/img/avatar-vide.png',
-      //     poste: user.postes,
-      //     adresse: user.adresse.adress,
-      //     city: user.adresse.city,
-      //     cp: user.adresse.cp,
-      //     phone: user.phone,
-      //     email: user.email,
-      //     admin: user.admin,
-      //     observation: user.observation,
-      //   }
-      return  res.redirect('/')
+    return  res.redirect('/')
 
   } catch (err) {
     throw err
