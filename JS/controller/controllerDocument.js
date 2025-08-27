@@ -1,5 +1,6 @@
 const Document = require('../model/Document')
 const Category = require('../model/Category')
+const documentValidationSchema = require('../model/validation/documentValidation')
 
 exports.index = async(req, res) => {
     try {
@@ -12,29 +13,36 @@ exports.index = async(req, res) => {
 
 exports.create = async (req, res) => {
     try {
-        const {
-            name,
-            description,
-            category
-        } = req.body;
-
-        const existanceCategory = await Category.findOne({name: category})
-    if(!existanceCategory) {
-      return res.status(404).json({message: 'Category inconnue'})
-    }
-
-        const file = req.file
-        if(!file){
-            return res.status(400).json({error: "veuillez sélectionner un fichier"})
+        const { category: categoryName } = req.body;
+        const existanceCategory = await Category.findOne({name: categoryName})
+        if(!existanceCategory) {
+            return res.status(404).json({message: 'Category inconnue'})
         }
 
+        const documentData ={
+            name: req.body.name,
+            description: req.body.description,
+            category: existanceCategory._id.toString(),
+            fileName: req.file.filename,
+        };
+
+        const { error } = documentValidationSchema.validate(documentData);
+        if (error) {
+            return res.status(400).json({ 
+                message: 'Erreur de validation', 
+                details: error.details.map(detail => detail.message) 
+            });
+        }
+
+        console.log('Donnée Validées : ', documentData)
+
         const document = new Document ({
-            name,
-            description,
-            category: existanceCategory._id,
-            fileName: file.filename,
-            originalName: file.originalname,
-            path: file.path,
+            name: documentData.name,
+            description: documentData.description,
+            category: existanceCategory._id.toString(),
+            fileName: documentData.fileName,
+            originalName: req.file.originalname,
+            path: req.file.path,
             created_at: new Date(),
         })
 
