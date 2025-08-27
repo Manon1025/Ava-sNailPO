@@ -39,7 +39,7 @@ exports.create = async (req, res) => {
         const document = new Document ({
             name: documentData.name,
             description: documentData.description,
-            category: existanceCategory._id.toString(),
+            category: existanceCategory._id,
             fileName: documentData.fileName,
             originalName: req.file.originalname,
             path: req.file.path,
