@@ -9,7 +9,7 @@ const employeeValidationSchema = require("../model/validation/employeeValidation
 exports.index = async (req, res) => {
   try {
     const employees = await Employee.find().populate('postes', '-_id name');
-    res.status(200).render('pages/admin/listingEmployee.ejs', {title: 'Liste des employés', employees , user: req.session.user});
+    res.status(200).render('pages/admin/listingEmployee.ejs', {title: 'Liste des employés', employees , user: req.user});
   } catch (err) {
     throw err;
   }
@@ -20,7 +20,7 @@ exports.show = async (req, res) => {
   try {
     const employeeId = req.params.id;
     const employee = await Employee.findById(employeeId).populate('postes', {name: 1, _id: 0});
-    res.status(200).render('pages/admin/voir-plus.ejs', {title: 'Voir plus', user_ : employee, user: req.session.user});
+    res.status(200).render('pages/admin/voir-plus.ejs', {title: 'Voir plus', user_ : employee, user: req.user});
   } catch (err) {
     throw err;
   }
