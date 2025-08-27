@@ -1,10 +1,11 @@
+// TODO: Fichier
 const Employee = require("../model/Employee");
 const Poste = require("../model/Poste")
 const employeeValidationSchema = require("../model/validation/employeeValidation");
-const Joi = require('joi');
 
 
-// * Liste de tous les employés
+// TODO: exports des controllers
+  // * Liste de tous les employés
 exports.index = async (req, res) => {
   try {
     const employees = await Employee.find().populate('postes', '-_id name');
@@ -14,7 +15,7 @@ exports.index = async (req, res) => {
   }
 };
 
-// * Visu que sur un seul employé par l'id
+  // * Visu que sur un seul employé par l'id
 exports.show = async (req, res) => {
   try {
     const employeeId = req.params.id;
@@ -25,7 +26,7 @@ exports.show = async (req, res) => {
   }
 };
 
-// * Pour supprimer un employee par son id
+  // * Pour supprimer un employee par son id
 exports.destroy = async (req, res) => {
   try {
     const id = req.params.id;
@@ -38,17 +39,17 @@ exports.destroy = async (req, res) => {
   }
 };
 
-// * Pour ajouter un employé
+  // * Pour ajouter un employé
 exports.create = async (req, res) => {
   try {
-    // Chercher le poste par son nom
+    // ! Chercher le poste par son nom
     const {postes: posteName} = req.body;
     const existancePoste = await Poste.findOne({ name: posteName });
     if (!existancePoste) {
       return res.status(404).json({ message: 'Le poste est inconnu' });
     }
 
-    // Préparer les données à valider
+    // ! Récupérer les données du employé
     const employeeData = {
       fname: req.body.fname,
       lname: req.body.lname,
@@ -67,7 +68,7 @@ exports.create = async (req, res) => {
       documents: req.body.documents || ''
     };
 
-    // Validation avec Joi
+    // ! Validation avec Joi
     const { error } = employeeValidationSchema.validate(employeeData, { abortEarly: false });
     if (error) {
       return res.status(400).json({
@@ -76,10 +77,8 @@ exports.create = async (req, res) => {
       });
     }
 
-    console.log('Données validées :', employeeData);
 
-
-    // Création de l'employé
+    // ! Créer une instance du modèle Employee
     const employee = new Employee({
       avatar: employeeData.avatar,
       fname: employeeData.fname,
@@ -96,8 +95,10 @@ exports.create = async (req, res) => {
       isActive: true
     });
 
+    // ! Enregistrer l'employé dans la base de données
     await employee.save();
     res.redirect('/listeEmployer');
+    
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Erreur serveur', error: err.message });

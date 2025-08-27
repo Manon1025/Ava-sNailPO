@@ -1,8 +1,9 @@
+// TODO: Module
 const mongoose = require('mongoose')
-const Poste = require('./Poste') // Importing the Poste model
 
+// TODO: Schéma de données pour les employés
 const EmployeeSchema = new mongoose.Schema ({
-    _id: {type : mongoose.Schema.ObjectId, auto: true}, //est généré par mongoDB
+    _id: {type : mongoose.Schema.ObjectId, auto: true}, 
     fname: String,
     lname: String,
     avatar: {
@@ -34,4 +35,6 @@ const EmployeeSchema = new mongoose.Schema ({
     isActive: Boolean,
     created_at: Date,
 })
+
+// TODO: Exporter le modèle
 module.exports = mongoose.model('Employee', EmployeeSchema)

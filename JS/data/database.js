@@ -1,7 +1,9 @@
+// TODO: Module
 const mongoose = require('mongoose')
 require('dotenv').config()
 const dbURL = process.env.DataMongoURL
 
+// TODO: Fichier
 // Employee model
 const Employee = require('../model/Employee')
 const data = require('././dataEmployee')
@@ -18,6 +20,7 @@ const documentData = require('././dataDocument')
 const Category = require('../model/Category')
 const categoryData = require('././dataCategory')
 
+// TODO: Exporter les données
 module.exports = async () => {
     try {
         await mongoose.connect(dbURL)

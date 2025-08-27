@@ -1,7 +1,10 @@
+// TODO: Fichier
 const Document = require('../model/Document')
 const Category = require('../model/Category')
 const documentValidationSchema = require('../model/validation/documentValidation')
 
+// TODO: exports des controllers
+    // * Afficher la liste des documents
 exports.index = async(req, res) => {
     try {
         const documents = await Document.find().populate('category', {name: 1, _id: 0});
@@ -11,14 +14,17 @@ exports.index = async(req, res) => {
     }
 }
 
+    // * Créer un nouveau document
 exports.create = async (req, res) => {
     try {
+        // ! Vérifier si la catégorie existe
         const { category: categoryName } = req.body;
         const existanceCategory = await Category.findOne({name: categoryName})
         if(!existanceCategory) {
             return res.status(404).json({message: 'Category inconnue'})
         }
 
+        // ! Récupérer les données du document
         const documentData ={
             name: req.body.name,
             description: req.body.description,
@@ -26,6 +32,7 @@ exports.create = async (req, res) => {
             fileName: req.file.filename,
         };
 
+        // ! Valider les données du document avec Joi
         const { error } = documentValidationSchema.validate(documentData);
         if (error) {
             return res.status(400).json({ 
@@ -34,8 +41,7 @@ exports.create = async (req, res) => {
             });
         }
 
-        console.log('Donnée Validées : ', documentData)
-
+        // ! Créer une instance du modèle Document
         const document = new Document ({
             name: documentData.name,
             description: documentData.description,
@@ -46,12 +52,10 @@ exports.create = async (req, res) => {
             created_at: new Date(),
         })
 
-        // console.log("req.body : ", req.body)
-        // console.log("req.file : ", req.file)
-        // console.log("document reçu : ", document)
-
+        // ! Enregistrer le document dans la base de données
         await document.save()
         res.redirect('/documents')
+        
     } catch (err) {
         throw err
     }

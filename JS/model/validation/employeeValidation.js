@@ -1,6 +1,9 @@
+// TODO: Module
 const Joi = require('joi')
+    // ! Joi.objectId permet de valider les identifiants MongoDB
 Joi.objectId = require('joi-objectid')(Joi);
 
+// TODO: Schéma de validation pour les employés
 const employeeValidationSchema = Joi.object({
     fname: Joi.string()
         .min(2)
@@ -61,7 +64,9 @@ const employeeValidationSchema = Joi.object({
         })
     ),
     birth_date: Joi.date()
+        // ! greater permet de définir une date minimale
         .greater('1900-01-01')
+        // ! less permet de définir une date maximale
         .less('now')
         .required()
         .messages({
@@ -78,6 +83,7 @@ const employeeValidationSchema = Joi.object({
             'any.required': 'L\'email est requis.'
         }),
     phone: Joi.string()
+        // ! pattern(/^[0-9]{10}$/) permet de valider un numéro de téléphone français à 10 chiffres
         .pattern(/^[0-9]{10}$/)
         .required()
         .messages({
@@ -87,6 +93,7 @@ const employeeValidationSchema = Joi.object({
         }),
     password: Joi.string()
         .min(8)
+        // ! pattern(new RegExp(...)) permet de valider un mot de passe complexe
         .pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$'))
         .required()
         .messages({
@@ -115,4 +122,5 @@ const employeeValidationSchema = Joi.object({
         }),
 })
 
+// TODO: Exporter le schéma de validation
 module.exports = employeeValidationSchema

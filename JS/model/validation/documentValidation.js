@@ -1,7 +1,10 @@
+// TODO: Module
 const Joi = require('joi');
-const { description } = require('./employeeValidation');
+
+    // ! Joi.objectId permet de valider les identifiants MongoDB
 Joi.objectId = require('joi-objectid')(Joi);
 
+// TODO: Schéma de validation pour les documents
 const documentValidationSchema = Joi.object({
     name: Joi.string()
         .min(2)
@@ -33,4 +36,5 @@ const documentValidationSchema = Joi.object({
         })
 })
 
+// TODO: Exporter le schéma de validation
 module.exports = documentValidationSchema;
