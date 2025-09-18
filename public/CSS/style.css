@@ -1,3 +1,4 @@
+/* ? NavBar */
 header {
   padding-top: 10px;
   padding-bottom: 10px;
@@ -64,6 +65,8 @@ header .avatar-nav:hover {
   filter: brightness(0) invert(1);
 }
 
+/* ? Footer */
+
 footer {
   margin: 0;
 }
@@ -75,12 +78,15 @@ footer #logo {
   width: 100px;
 }
 
+/* ? Main */
+
 main {
   background-color: rgba(238, 238, 238, 0.9333333333);
   padding-top: 20px;
   height: 2000px;
 }
 
+/* ? Carte de l'employé */
 .employee-card {
   background-color: #f2f2f2;
   border-radius: 12px;
@@ -120,6 +126,8 @@ main {
   margin-bottom: 10px;
 }
 
+/* ? Profil de l'employé */
+
 .employee-avatar-profil {
   width: 300px;
   height: 300px;
@@ -130,3 +138,17 @@ main {
   display: inline-block;
   margin-bottom: 15px;
 }/*# sourceMappingURL=style.css.map */
+
+/* ? Formulaire ajout document */
+  .card {
+    border-radius: 1rem;
+  }
+  .form-label {
+    color: #495057;
+  }
+  .is-invalid {
+    border-color: #dc3545 !important;
+  }
+  .alert-heading {
+    font-weight: 600;
+  }

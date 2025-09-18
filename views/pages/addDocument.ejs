@@ -1,48 +1,75 @@
-<div class="container mt-4">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <h1 class="m-5 d-flex justify-content-center"> Ajouter un document</h1>
+<div class="container my-5">
+  <div class="card shadow-sm border-0">
+    <div class="card-body p-5">
+      <h1 class="text-center mb-4">Ajouter un document</h1>
 
-        <div class="card-body p-5">
-          <form method="post" action="/add-document" enctype="multipart/form-data">
-
-            <!-- * Partie Principale  -->
-            <div class="row mb-3">
-              <!-- ! Nom du document -->
-              <div class="col-md-6">
-                <label for="name" class="form-label">Nom du document: </label>
-                <input type="text" class="form-control" id="name" name="name">
-              </div>
-
-              <!-- ! Fichier Document -->
-              <div class="col-md-6">
-                  <label for="document" class="form-label">Document :</label>
-                  <input type="file" class="form-control" id="document" name="document" accept=".pdf, .doc, .docx, image/*">
-              </div>
-
-            </div>
-
-            <!-- * Partie Description -->
-            <div class="col-md-6">
-              <label for="description" class="form-label">Description</label>
-              <textarea class="form-control" name="description" id="description"></textarea>
-            </div>
-
-            <!-- * Partie Catégorie -->
-            <label for="category">Catégorie :</label>
-            <select id="category" name="category">
-              <option value="">--Sélectionner--</option>
-              <option value="Techniques de pose">Techniques de pose</option>
-              <option value="Hygiène et sécurité">Hygiène et sécurité</option>
-              <option value="Produits et matériaux">Produits et matériaux</option>
-              <option value="Design et nail art">Design et nail art</option>
-              <option value="Gestion de salon">Gestion de salon</option>
-              <option value="Règlementation et normes">Règlementation et normes</option>
-            </select><br><br>
-
-            <div class="d-grid mt-4">
-              <button type="submit" class="btn btn-primary">Valider</button>
-            </div>
-          </form>
+      <!-- Alert erreurs -->
+      <% if (details && details.length > 0) { %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <h5 class="alert-heading"><i class="bi bi-exclamation-triangle-fill"></i> Erreurs de validation :</h5>
+          <ul class="mb-0">
+            <% details.forEach(function(err) { %>
+              <li><%= err %></li>
+            <% }) %>
+          </ul>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+      <% } %>
+
+      <form method="post" action="/add-document" enctype="multipart/form-data" class="needs-validation" novalidate>
+        
+        <div class="row g-3 mb-3">
+          <!-- Nom du document -->
+          <div class="col-md-6">
+            <label for="name" class="form-label fw-semibold">Nom du document</label>
+            <input type="text" 
+                   value="<%= formData ? formData.name : '' %>" 
+                   class="form-control <%= details && details.some(d => d.toLowerCase().includes('nom')) ? 'is-invalid' : '' %>" 
+                   id="name" 
+                   name="name" 
+                   placeholder="Entrez le nom du document">
+          </div>
+
+          <!-- Fichier document -->
+          <div class="col-md-6">
+            <label for="document" class="form-label fw-semibold">Document</label>
+            <input type="file" 
+                   class="form-control <%= details && details.some(d => d.toLowerCase().includes('fichier')) ? 'is-invalid' : '' %>" 
+                   id="document" 
+                   name="document" 
+                   accept=".pdf, .doc, .docx, image/*">
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+          <label for="description" class="form-label fw-semibold">Description</label>
+          <textarea class="form-control <%= details && details.some(d => d.toLowerCase().includes('description')) ? 'is-invalid' : '' %>" 
+                    name="description" 
+                    id="description" 
+                    rows="4"
+                    placeholder="Décrivez le document"><%= formData ? formData.description : '' %></textarea>
+        </div>
+
+        <!-- Catégorie -->
+        <div class="mb-3">
+          <label for="category" class="form-label fw-semibold">Catégorie</label>
+          <select id="category" name="category" class="form-select <%= details && details.some(d => d.toLowerCase().includes('catégorie')) ? 'is-invalid' : '' %>">
+            <option value="">--Sélectionner--</option>
+            <option value="Techniques de pose" <%= formData && formData.category === 'Techniques de pose' ? 'selected' : '' %>>Techniques de pose</option>
+            <option value="Hygiène et sécurité" <%= formData && formData.category === 'Hygiène et sécurité' ? 'selected' : '' %>>Hygiène et sécurité</option>
+            <option value="Produits et matériaux" <%= formData && formData.category === 'Produits et matériaux' ? 'selected' : '' %>>Produits et matériaux</option>
+            <option value="Design et nail art" <%= formData && formData.category === 'Design et nail art' ? 'selected' : '' %>>Design et nail art</option>
+            <option value="Gestion de salon" <%= formData && formData.category === 'Gestion de salon' ? 'selected' : '' %>>Gestion de salon</option>
+            <option value="Règlementation et normes" <%= formData && formData.category === 'Règlementation et normes' ? 'selected' : '' %>>Règlementation et normes</option>
+          </select>
+        </div>
+
+        <div class="d-grid mt-4">
+          <button type="submit" class="btn btn-primary btn-lg">Valider</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

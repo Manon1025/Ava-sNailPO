@@ -66,7 +66,10 @@ router.get('/ajout-document', (req, res) => {
     if (!req.user?.admin) return res.redirect('/')
     res.render('pages/addDocument.ejs', {
         title: 'Ajouter Document', 
-        user: req.user})
+        user: req.user,
+        details: [],
+        formData: {}
+    })
 })
 
 // TODO: Exporter le routeur

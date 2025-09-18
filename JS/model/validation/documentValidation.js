@@ -27,12 +27,13 @@ const documentValidationSchema = Joi.object({
     category: Joi.objectId()
         .required()
         .messages({
+            'string.empty': 'La catégorie est requise.',
             'any.required': 'La catégorie est requise.',
         }),
     fileName: Joi.string()
         .required()
         .messages({
-            'string.empty': 'Le nom du fichier est requis.',
+            'string.empty': 'Le fichier est requis.',
         })
 })
 
