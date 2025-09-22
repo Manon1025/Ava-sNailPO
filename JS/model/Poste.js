@@ -1,11 +1,23 @@
-// TODO: Module
-const mongoose = require('mongoose')
+const sequelize = require('../config/sequelize_config');
+const { DataTypes, Model } = require('sequelize');
 
-// TODO: Schéma de données pour les postes
-const PosteSchema = new mongoose.Schema ({
-    _id: {type : mongoose.Schema.ObjectId, auto: true}, 
-    name: String,
-})
+class Poste extends Model {}
 
-// TODO: Exporter le modèle
-module.exports = mongoose.model('Poste', PosteSchema)
+Poste.init({
+    id_poste: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+}, {
+    sequelize,
+    modelName: 'Poste',
+    tableName: 'Poste',
+    timestamps: false
+});
+
+module.exports = Poste;

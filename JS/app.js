@@ -12,7 +12,10 @@ const routerEmployee = require('./routes/routeEmployee')
 const routerPages = require('./routes/routePages')
 const routerDocument = require('./routes/routerDocument')
 const routerLogin = require('./routes/routeLogin')
-const connexionDB = require('./data/database')
+const connectBDD = require('./config/connect_bdd')
+
+// * Associations des modèles (important de les charger avant la connexion BDD)
+require('./model/associations')
 
 // * Configuration EJS
 app.set('view engine', 'ejs')
@@ -38,9 +41,9 @@ app.use(currentUser)                                                       // ? 
 
 
 
-// ! MongoDB
+// ! MySQL
     // * Connexion à la base de données
-connexionDB()
+connectBDD()
 
 // ! Routes
     // * Auth

@@ -1,13 +1,18 @@
 // TODO: Fichier
-const Document = require('../model/Document')
-const Category = require('../model/Category')
-const documentValidationSchema = require('../model/validation/documentValidation')
+const { Documents, Category } = require('../model/associations')
 
 // TODO: exports des controllers
     // * Afficher la liste des documents
 exports.index = async(req, res) => {
     try {
-        const documents = await Document.find().populate('category', {name: 1, _id: 0});
+        const documents = await Documents.findAll({
+            include: [
+                {
+                    model: Category,
+                    attributes: ['name']
+                }
+            ]
+        });
         res.render('pages/doc.ejs', {
             title: 'Documents', 
             documents, 
@@ -15,7 +20,12 @@ exports.index = async(req, res) => {
         })
     } catch (err) {
         console.error(err);
-        res.status(500).render('pages/error', {message: 'Erreur serveur', error: err});
+        res.status(500).render('pages/error', {
+            title: 'Erreur',
+            message: 'Erreur serveur', 
+            error: err,
+            user: req.user
+        });
     }
 }
 
@@ -34,11 +44,6 @@ const documentData = {
     category: existanceCategory ? existanceCategory._id.toString() : '',
     fileName: req.file ? req.file.filename : '',
 };
-
-        // ! Valider les données du document avec Joi
-        const { error } = documentValidationSchema.validate(documentData, { abortEarly: false });   // ? abortEarly: false permet d'afficher toutes les erreurs
-        if (error) errors.push(...error.details.map(d => d.message));
-
 
         if (errors.length > 0) {
             return res.status(400).render('pages/addDocument', {

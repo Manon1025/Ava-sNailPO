@@ -1,11 +1,23 @@
-// TODO: Module
-const mongoose = require('mongoose')
+const sequelize = require('../config/sequelize_config')
+const { DataTypes, Model } = require('sequelize');
 
-// TODO: Schéma de données pour les catégories
-const CategorySchema = new mongoose.Schema ({
-    _id: {type : mongoose.Schema.ObjectId, auto: true}, 
-    name: String,
-})
+class Category extends Model {}
 
-// TODO: Exporter le modèle
-module.exports = mongoose.model('Category', CategorySchema)
+Category.init({
+    id_category: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+}, {
+    sequelize,
+    modelName: 'Category',
+    tableName: 'Category',
+    timestamps: false
+});
+
+module.exports = Category;

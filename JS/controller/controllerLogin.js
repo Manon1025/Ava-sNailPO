@@ -4,7 +4,7 @@ require('dotenv').config()
 const SECRET_KEY = process.env.SESSION_SECRET
 
 // TODO: Fichier
-const Employee = require("../model/Employee");
+const { Employee, Poste } = require("../model/associations");
 
 // TODO: exports des controllers
   // * Pour se déconnecter
@@ -19,16 +19,38 @@ exports.create = async (req, res) => {
   const {email, password} = req.body
   if(!email || !password){
     return res.status(400).render("login", {
-      error: 'Email et mot de passe requis'
+      title: 'Se Connecter',
+      error: 'Email et mot de passe requis',
+      hideLayout: true
     })
   }
 
   try {
     // ! Vérifier si l'utilisateur existe
-    const user = await Employee.findOne({ email: email }).populate('postes', {name: 1, _id: 0}) 
+    const user = await Employee.findOne({ 
+      where: { email: email },
+      include: [
+        {
+          model: Poste,
+          attributes: ['name']
+        }
+      ]
+    });
+    
     if(!user){
       return res.status(401).render("login", {
-        error: 'Identifiants incorrects'
+        title: 'Se Connecter',
+        error: 'Identifiants incorrects',
+        hideLayout: true
+      })
+    }
+
+    // ! Vérifier le mot de passe
+    if(user.password !== password) {
+      return res.status(401).render("login", {
+        title: 'Se Connecter',
+        error: 'Identifiants incorrects',
+        hideLayout: true
       })
     }
 
@@ -36,16 +58,17 @@ exports.create = async (req, res) => {
     const token = jwt.sign({
           fname: user.fname,
           lname: user.lname,
-          birth: user.birth_date,
+          birth_date: user.birth_date,
           avatar: user.avatar || 'ASSET/img/avatar-vide.png',
-          poste: user.postes,
-          adresse: user.adresse.adress,
-          city: user.adresse.city,
-          cp: user.adresse.cp,
+          poste: user.Poste ? user.Poste.name : 'Non défini',
+          street: user.street,
+          city: user.city,
+          cp: user.cp,
           phone: user.phone,
           email: user.email,
-          admin: user.admin,
+          role: user.role,
           observation: user.observation,
+          isActive: user.isActive
     }, SECRET_KEY, {expiresIn: '1h'})
 
     // ! Enregistrement du token dans un cookie
@@ -59,6 +82,11 @@ exports.create = async (req, res) => {
     return  res.redirect('/')
 
   } catch (err) {
-    throw err
+    console.error('Erreur lors de la connexion:', err);
+    return res.status(500).render("login", {
+      title: 'Se Connecter',
+      error: 'Erreur serveur. Veuillez réessayer.',
+      hideLayout: true
+    });
   }
 };

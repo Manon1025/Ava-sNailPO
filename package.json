@@ -13,8 +13,10 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.1",
     "multer": "^2.0.2",
+    "mysql2": "^3.15.0",
     "nodemon": "^3.1.10",
-    "sass": "^1.89.2"
+    "sass": "^1.89.2",
+    "sequelize": "^6.37.7"
   },
   "devDependencies": {
     "@types/bootstrap": "^5.2.10",

@@ -5,14 +5,14 @@ require('dotenv').config()
 // TODO: Middleware pour récupérer l'utilisateur courant
 module.exports = (req, res, next) => {
     res.locals.currentUser = null;
+    req.user = null;
 
     const token = req.cookies?.token;
     if(token){
         try {
-            res.locals.currentUser = jwt.verify(
-                token,
-                process.env.SESSION_SECRET
-            ).fname
+            const decoded = jwt.verify(token, process.env.SESSION_SECRET);
+            res.locals.currentUser = decoded.fname;
+            req.user = decoded;  // Ajouter l'utilisateur complet à req.user
         } catch (e) {
             console.error(e);
         }

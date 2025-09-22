@@ -31,7 +31,7 @@ router.get('/profil',(req, res) => {
         poste,
         email,
         phone,
-        adresse,
+        street,
         city,
         cp,
         avatar,
@@ -45,7 +45,7 @@ router.get('/profil',(req, res) => {
         email, 
         avatar, 
         phone, 
-        adresse, 
+        street, 
         city, 
         cp,
     });
@@ -55,7 +55,7 @@ router.get('/profil',(req, res) => {
     //  ! user: req.user me permet de bloqué le lien salarié si la personne n'est pas admin
     // * Ajouter un salarié
 router.get('/ajout-salarie', (req, res) => {
-    if (!req.user?.admin) return res.redirect('/')
+    if (!req.user || req.user.role !== 1) return res.redirect('/')
     res.render('pages/admin/addSalarie.ejs', {
         title: 'Ajouter un Salarié', 
         user: req.user})
@@ -63,7 +63,7 @@ router.get('/ajout-salarie', (req, res) => {
 
     // * Ajouter un document
 router.get('/ajout-document', (req, res) => {
-    if (!req.user?.admin) return res.redirect('/')
+    if (!req.user || req.user.role !== 1) return res.redirect('/')
     res.render('pages/addDocument.ejs', {
         title: 'Ajouter Document', 
         user: req.user,
