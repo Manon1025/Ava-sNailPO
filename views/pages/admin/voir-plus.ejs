@@ -14,7 +14,7 @@
                     <strong> <%= user_.lname%> </strong> 
                     <strong> <%= user_.fname%> </strong>
                 </h1>
-                <p> ( <%= user_.postes.name %> ) </p>
+                <p> ( <%= user_.Poste ? user_.Poste.name : 'Non défini' %>) </p>
             </div>
 
             <!-- * Informations supplémentaires -->
@@ -28,17 +28,17 @@
                     <p><strong>TELEPHONE -</strong>
                         <br> <%= user_.phone %></p>
                     <p><strong> ANNIVERSAIRE - </strong> 
-                        <br> <%= user_.birth_date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) %> </p>
+                        <br> <%= user_.birth_date ? new Date(user_.birth_date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Non renseigné' %> </p>
                 </div>
 
                 <!-- ! Column droite -->
                 <div class="d-sm-flex flex-sm-column gap-2">
                     <p><strong>ADRESSE -</strong> 
-                        <br> <%= user_.adresse.adress %></p>
+                        <br> <%= user_.street %></p>
                     <p><strong>VILLE -</strong>
-                        <br> <%= user_.adresse.city %></p>
+                        <br> <%= user_.city %></p>
                     <p><strong>CODE POSTALE -</strong>
-                        <br> <%= user_.adresse.cp %></p>
+                        <br> <%= user_.cp %></p>
                 </div>
             </div>
 

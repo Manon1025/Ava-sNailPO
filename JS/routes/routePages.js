@@ -48,6 +48,7 @@ router.get('/profil',(req, res) => {
         street, 
         city, 
         cp,
+        user: req.user
     });
 })
 

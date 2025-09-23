@@ -6,7 +6,18 @@ const { Employee, Poste, Contrat } = require("../model/associations");
   // * Liste de tous les employés
 exports.index = async (req, res) => {
   try {
-    const employees = await Employee.findAll()
+    const employees = await Employee.findAll({
+      include: [
+        {
+          model: Poste,
+          attributes: ['name']
+        },
+        {
+          model: Contrat,
+          attributes: ['name']
+        }
+      ]
+    });
     res.status(200).render('pages/admin/listingEmployee.ejs', {title: 'Liste des employés', employees , user: req.user});
   } catch (error) {
     console.error(error);
@@ -17,7 +28,7 @@ exports.index = async (req, res) => {
   // * Visu que sur un seul employé par l'id
 exports.show = async (req, res) => {
   try {
-    const employeeId = req.params.id_employee;
+    const employeeId = req.params.id;
     const employee = await Employee.findOne({ where: { id_employee: employeeId }, include: [Poste, Contrat] });
 
     if (!employee) {
@@ -34,7 +45,7 @@ exports.show = async (req, res) => {
   // * Pour supprimer un employee par son id
 exports.destroy = async (req, res) => {
   try {
-    const id = req.params.id_employee;
+    const id = req.params.id;
     
     // Infos sur l'employee
     const employee = await Employee.findOne({ where: { id_employee: id } });

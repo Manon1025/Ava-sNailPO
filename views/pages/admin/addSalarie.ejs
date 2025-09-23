@@ -25,18 +25,32 @@
             </div>
 
             <!-- ! Poste -->
-            <label for="postes">Poste :</label>
-            <select id="postes" name="postes">
+            <label for="poste_id">Poste :</label>
+            <select id="poste_id" name="poste_id" required>
               <option value="">--Sélectionner--</option>
-              <option value="Salarie">Salarié</option>
-              <option value="Stagiaire">Stagiaire</option>
-              <option value="Apprenti">Apprenti</option>
+              <option value="1">Prothésiste ongulaire</option>
+              <option value="2">Styliste ongulaire</option>
+              <option value="3">Estheticien.ne</option>
+              <option value="4">Conseiller.ère</option>
+              <option value="5">Maquilleur.euse</option>
+              <option value="6">SPA praticien.ne</option>
+              <option value="7">Dermographe</option>
+            </select><br><br>
+
+            <!-- ! Contrat -->
+            <label for="contrat_id">Type de contrat :</label>
+            <select id="contrat_id" name="contrat_id" required>
+              <option value="">--Sélectionner--</option>
+              <option value="1">CDI</option>
+              <option value="2">CDD</option>
+              <option value="3">Stage</option>
+              <option value="4">Apprentissage</option>
             </select><br><br>
 
             <!-- ! Date de naissance -->
             <div class="mb-3">
               <label for="birth_date" class="form-label">Date de naissance</label>
-              <input type="date" class="form-control" id="birth_date" name="birth_date">
+              <input type="date" class="form-control" id="birth_date" name="birth_date" max="<%= new Date().toISOString().split('T')[0] %>" required>
             </div>
 
             <!-- ! Partie Identification -->
@@ -57,18 +71,18 @@
 
             <!-- ! Partie GPS  -->
             <div class="mb-3">
-              <label for="adress" class="form-label">Adresse</label>
-              <input type="text" class="form-control" id="adress" name="adresse.adress">
+              <label for="street" class="form-label">Adresse</label>
+              <input type="text" class="form-control" id="street" name="street">
             </div>
 
             <div class="row mb-3">
               <div class="col-md-6">
                 <label for="cp" class="form-label">Code postal</label>
-                <input type="number" class="form-control" id="cp" name="adresse.cp">
+                <input type="text" class="form-control" id="cp" name="cp">
               </div>
               <div class="col-md-6">
                 <label for="city" class="form-label">Ville</label>
-                <input type="text" class="form-control" id="city" name="adresse.city">
+                <input type="text" class="form-control" id="city" name="city">
               </div>
             </div>
 
