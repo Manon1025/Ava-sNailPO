@@ -108,12 +108,13 @@ footer {
 main {
     background-color: #EEEE;
     padding-top: 20px;
-    height: 2000px;
+    padding-bottom: 20px;
+    // height: 2000px;
 }
 
 // ! Liste des employés
 .employee-card {
-      background-color: #f2f2f2;
+      background-color: #ffffff;
       border-radius: 12px;
       padding: 20px;
       text-align: center;
