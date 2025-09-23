@@ -20,57 +20,40 @@ exports.index = async(req, res) => {
         })
     } catch (err) {
         console.error(err);
-        res.status(500).render('pages/error', {
-            title: 'Erreur',
-            message: 'Erreur serveur', 
-            error: err,
-            user: req.user
-        });
+        res.redirect('/documents');
     }
 }
 
     // * Créer un nouveau document
 exports.create = async (req, res) => {
     try {
-        const errors = [];
+        const { name, description, category: categoryId } = req.body;
 
         // ! Vérifier si la catégorie existe
-        const { category: categoryName } = req.body;
-        const existanceCategory = await Category.findOne({name: categoryName})
-
-const documentData = {
-    name: req.body.name || '',
-    description: req.body.description || '',
-    category: existanceCategory ? existanceCategory._id.toString() : '',
-    fileName: req.file ? req.file.filename : '',
-};
-
-        if (errors.length > 0) {
-            return res.status(400).render('pages/addDocument', {
-                title: 'Ajouter un document',
-                user: req.user,
-                details: errors,
-                formData: req.body
-            });
+        const existanceCategory = await Category.findByPk(categoryId);
+        
+        if (!existanceCategory) {
+            console.error('Catégorie non trouvée avec ID:', categoryId);
+            return res.redirect('/documents');
         }
 
-        // ! Créer une instance du modèle Document
-        const document = new Document ({
-            name: documentData.name,
-            description: documentData.description,
-            category: existanceCategory._id,
-            fileName: documentData.fileName,
-            originalName: req.file.originalname,
-            path: req.file.path,
-            created_at: new Date(),
-        })
+        if (!req.file) {
+            console.error('Aucun fichier uploadé');
+            return res.redirect('/documents');
+        }
 
-        // ! Enregistrer le document dans la base de données
-        await document.save()
-        res.redirect('/documents')
-        
+        // ! Créer le document avec Sequelize
+        const document = await Documents.create({
+            name: name || '',
+            description: description || '',
+            category_id: existanceCategory.id_category,
+            fileName: req.file.filename,
+            create_at: new Date(),
+        });
+
+        res.redirect('/documents');
     } catch (err) {
         console.error(err);
-        res.status(500).render('pages/error', {message: 'Erreur serveur', error: err});
+        res.redirect('/documents');
     }
 }

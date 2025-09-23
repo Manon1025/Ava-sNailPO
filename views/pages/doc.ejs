@@ -29,37 +29,56 @@
               <td>
                 <% 
                   let catColor = "secondary"; // couleur par défaut
-                  switch (doc.category.name) {
-                    case "Techniques de pose":
-                      catColor = "primary"; // bleu
-                      break;
-                    case "Hygiène et sécurité":
-                      catColor = "danger"; // rouge
-                      break;
-                    case "Produits et matériaux":
-                      catColor = "success"; // vert
-                      break;
-                    case "Design et nail art":
-                      catColor = "info"; // turquoise
-                      break;
-                    case "Gestion de salon":
-                      catColor = "warning"; // jaune
-                      break;
-                    case "Règlementation et normes":
-                      catColor = "dark"; // noir/gris foncé
-                      break;
-                    default:
-                      catColor = "secondary"; // gris si non listée
-                                }
+                  if (doc.Category && doc.Category.name) {
+                    switch (doc.Category.name) {
+                      case "Réglement intérieur":
+                        catColor = "primary"; // bleu
+                        break;
+                      case "Hygiène et sécurité":
+                        catColor = "danger"; // rouge
+                        break;
+                      case "Produits et matériaux":
+                        catColor = "success"; // vert
+                        break;
+                      case "Prestations":
+                        catColor = "info"; // turquoise
+                        break;
+                      case "Formation & Diplôme":
+                        catColor = "warning"; // jaune
+                        break;
+                      case "Techniques de pose":
+                        catColor = "dark"; // noir/gris foncé
+                        break;
+                      case "Design et nail art":
+                        catColor = "light text-dark"; // gris clair avec texte foncé
+                        break;
+                      case "Gestion de salon":
+                        catColor = "primary"; // bleu (alternative)
+                        break;
+                      case "Règlementation et normes":
+                        catColor = "secondary"; // gris
+                        break;
+                      default:
+                        catColor = "outline-secondary"; // contour gris pour les non définies
+                    }
+                  }
                 %>
-                <span class="badge bg-<%= catColor %>"><%= doc.category.name %></span>
+                <span class="badge bg-<%= catColor %>">
+                  <%= doc.Category && doc.Category.name ? doc.Category.name : 'Non définie' %>
+                </span>
               </td>
 
               <!-- ! Description -->
               <td class="d-none d-md-table-cell"><%= doc.description %></td>
 
               <!-- ! Formatage de la date en français -->
-              <td><%= new Date(doc.created_at).toLocaleDateString("fr-FR") %></td>
+              <td>
+                <% if (doc.create_at) { %>
+                  <%= new Date(doc.create_at).toLocaleDateString("fr-FR") %>
+                <% } else { %>
+                  Non définie
+                <% } %>
+              </td>
 
               <!-- ! Bouton "Ouvrir" -->
               <td class="d-none d-md-table-cell">
@@ -102,7 +121,7 @@
 </div>
 
 <!-- * Bouton Ajouter un document (visible uniquement par les admins) -->
-<% if (user.admin === true) { %>
+<% if (user.role === 1 ) { %>
 <div class="text-center mt-3">
   <a href="/ajout-document" class="btn btn-success">Ajouter un document</a>
 </div>

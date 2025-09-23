@@ -3,19 +3,6 @@
     <div class="card-body p-5">
       <h1 class="text-center mb-4">Ajouter un document</h1>
 
-      <!-- Alert erreurs -->
-      <% if (details && details.length > 0) { %>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <h5 class="alert-heading"><i class="bi bi-exclamation-triangle-fill"></i> Erreurs de validation :</h5>
-          <ul class="mb-0">
-            <% details.forEach(function(err) { %>
-              <li><%= err %></li>
-            <% }) %>
-          </ul>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      <% } %>
-
       <form method="post" action="/add-document" enctype="multipart/form-data" class="needs-validation" novalidate>
         
         <div class="row g-3 mb-3">
@@ -56,12 +43,19 @@
           <label for="category" class="form-label fw-semibold">Catégorie</label>
           <select id="category" name="category" class="form-select <%= details && details.some(d => d.toLowerCase().includes('catégorie')) ? 'is-invalid' : '' %>">
             <option value="">--Sélectionner--</option>
-            <option value="Techniques de pose" <%= formData && formData.category === 'Techniques de pose' ? 'selected' : '' %>>Techniques de pose</option>
-            <option value="Hygiène et sécurité" <%= formData && formData.category === 'Hygiène et sécurité' ? 'selected' : '' %>>Hygiène et sécurité</option>
-            <option value="Produits et matériaux" <%= formData && formData.category === 'Produits et matériaux' ? 'selected' : '' %>>Produits et matériaux</option>
-            <option value="Design et nail art" <%= formData && formData.category === 'Design et nail art' ? 'selected' : '' %>>Design et nail art</option>
-            <option value="Gestion de salon" <%= formData && formData.category === 'Gestion de salon' ? 'selected' : '' %>>Gestion de salon</option>
-            <option value="Règlementation et normes" <%= formData && formData.category === 'Règlementation et normes' ? 'selected' : '' %>>Règlementation et normes</option>
+            <option value="1" <%= formData && formData.category === 1 ? 'selected' : '' %>>Réglement intérieur</option>
+            <option value="2" <%= formData && formData.category === 2 ? 'selected' : '' %>>Hygiène et sécurité</option>
+            <option value="3" <%= formData && formData.category === 3 ? 'selected' : '' %>>Produits et matériaux</option>
+            <option value="4" <%= formData && formData.category === 4 ? 'selected' : '' %>>Prestations</option>
+            <option value="5" <%= formData && formData.category === 5 ? 'selected' : '' %>>Formation & Diplôme</option>
+            <option value="6" <%= formData && formData.category === 6 ? 'selected' : '' %>>Accueil & Client</option>
+            <option value="7" <%= formData && formData.category === 7 ? 'selected' : '' %>>Administration</option>
+            <option value="8" <%= formData && formData.category === 8 ? 'selected' : '' %>>Organisation</option>
+            <option value="9" <%= formData && formData.category === 9 ? 'selected' : '' %>>Equipe & Communication</option>
+            <option value="10" <%= formData && formData.category === 10 ? 'selected' : '' %>>Qualité & Satisfaction client</option>
+            <option value="11" <%= formData && formData.category === 11 ? 'selected' : '' %>>Evénement & Promotions</option>
+            <option value="12" <%= formData && formData.category === 12 ? 'selected' : '' %>>Santé & Bien-être au travail</option>
+            <option value="13" <%= formData && formData.category === 13 ? 'selected' : '' %>>Mention Légale & RGPD</option>
           </select>
         </div>
 
