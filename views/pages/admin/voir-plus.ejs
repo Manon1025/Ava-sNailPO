@@ -66,10 +66,13 @@
                 </div>
             </div>
 
-            <!-- TODO ajouter bouton modifier et supprimer l'employé -->
+            <!-- TODO ajouter bouton modifier et désactiver l'employé -->
             <div class="d-flex justify-content-center gap-3">
                 <a href="" class="btn btn-warning">Modifier</a>
-                <a href="" class="btn btn-danger">Supprimer</a>
+                <form action="/deactivate/<%= user_.id_employee %>" method="POST" class="d-inline" 
+                      onsubmit="return confirm('Êtes-vous sûr de vouloir désactiver cet employé ? Il n\'aura plus accès au site.')">
+                    <button type="submit" class="btn btn-danger"> Supprimer </button>
+                </form>
             </div>
         </div>
     </div>

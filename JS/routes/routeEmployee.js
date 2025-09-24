@@ -13,8 +13,8 @@ router.get('/listeEmployer', controllerEmployee.index)
     // * Détails employé
 router.get('/voir-plus/:id', controllerEmployee.show)
 
-    // * Supprimer un employé
-router.delete('/delete/:id', controllerEmployee.destroy)
+    // * Désactiver un employé
+router.post('/deactivate/:id', controllerEmployee.deactivate)
 
     // * Ajouter un employé
     // ! upload.single('avatar') permet d'importer un fichier

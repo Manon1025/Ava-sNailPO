@@ -3,10 +3,13 @@ const { Employee, Poste, Contrat } = require("../model/associations");
 
 
 // TODO: exports des controllers
-  // * Liste de tous les employés
+  // * Liste de tous les employés actifs seulement
 exports.index = async (req, res) => {
   try {
     const employees = await Employee.findAll({
+      where: {
+        isActive: true
+      },
       include: [
         {
           model: Poste,
@@ -18,7 +21,12 @@ exports.index = async (req, res) => {
         }
       ]
     });
-    res.status(200).render('pages/admin/listingEmployee.ejs', {title: 'Liste des employés', employees , user: req.user});
+    res.status(200).render('pages/admin/listingEmployee.ejs', {
+      title: 'Liste des employés', 
+      employees, 
+      user: req.user,
+      query: req.query
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send('Erreur serveur');
@@ -42,18 +50,47 @@ exports.show = async (req, res) => {
   }
 };
 
-  // * Pour supprimer un employee par son id
-exports.destroy = async (req, res) => {
+  // * Pour désactiver un employé par son id 
+exports.deactivate = async (req, res) => {
   try {
     const id = req.params.id;
     
-    // Infos sur l'employee
+    // ! Infos sur l'employé
     const employee = await Employee.findOne({ where: { id_employee: id } });
     if (!employee) {
       return res.status(404).json({ message: 'Employé non trouvé' });
     }
     
-    // Suppression
+    // ! Désactivation 
+    const result = await Employee.update(
+      { isActive: false }, 
+      { where: { id_employee: id } }
+    );
+    
+    if (result > 0) {
+      // ! Redirection avec un message de succès
+      res.redirect('/listeEmployer?message=désactivé&name=' + encodeURIComponent(employee.fname + ' ' + employee.lname));
+    } else {
+      res.status(404).json({ message: 'Impossible de désactiver l\'employé' });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Erreur serveur', error: err.message });
+  }
+};
+
+  // * Pour supprimer un employee par son id (fonction conservée si besoin de vraie suppression)
+exports.destroy = async (req, res) => {
+  try {
+    const id = req.params.id;
+    
+    // ! Infos sur l'employee
+    const employee = await Employee.findOne({ where: { id_employee: id } });
+    if (!employee) {
+      return res.status(404).json({ message: 'Employé non trouvé' });
+    }
+    
+    // ! Suppression
     const result = await Employee.destroy({ where: { id_employee: id } });
     
     // ! Reponse en JSON penser à le changer en réponse RES 
@@ -69,6 +106,7 @@ exports.destroy = async (req, res) => {
     res.status(500).json({ message: 'Erreur serveur', error: err.message });
   }
 };
+
 
   // * Pour ajouter un employé
 exports.create = async (req, res) => {
@@ -89,7 +127,7 @@ exports.create = async (req, res) => {
       role
     } = req.body;
 
-    await Employee.create({
+    const employee =await Employee.create({
       fname,
       lname,
       street,
@@ -103,12 +141,12 @@ exports.create = async (req, res) => {
       contrat_id,
       observation,
       avatar: req.file?.filename || 'ASSET/img/avatar-vide.png',
-      role: role || 0,  // 0 = user, 1 = admin
+      role: role || 0,
       create_at: new Date(),
       isActive: true
     });
 
-    res.redirect('/listeEmployer');
+    res.redirect('/listeEmployer?message=ajouté&name=' + encodeURIComponent(employee.fname + ' ' + employee.lname));
   } catch (error) {
     console.error('Erreur lors de la création de l\'employé:', error);
     res.status(500).json({ 

@@ -45,6 +45,15 @@ exports.create = async (req, res) => {
       })
     }
 
+    // ! Vérifier si le compte est actif
+    if(!user.isActive){
+      return res.status(401).render("login", {
+        title: 'Se Connecter',
+        error: 'Votre compte a été désactivé. Contactez un administrateur.',
+        hideLayout: true
+      })
+    }
+
     // ! Vérifier le mot de passe
     if(user.password !== password) {
       return res.status(401).render("login", {
