@@ -129,4 +129,79 @@ main {
   background-color: #ddd;
   display: inline-block;
   margin-bottom: 15px;
-}/*# sourceMappingURL=style.css.map */
+}
+
+/* * Classes personnalisées pour les badges de catégories */
+.badge-reglement {
+  background-color: #0d6efd !important;
+  color: white !important;
+}
+
+.badge-hygiene {
+  background-color: #dc3545 !important;
+  color: white !important;
+}
+
+.badge-produits {
+  background-color: #198754 !important;
+  color: white !important;
+}
+
+.badge-prestations {
+  background-color: #0dcaf0 !important;
+  color: black !important;
+}
+
+.badge-formation {
+  background-color: #ffc107 !important;
+  color: black !important;
+}
+
+.badge-accueil {
+  background-color: #212529 !important;
+  color: white !important;
+}
+
+.badge-administration {
+  background-color: #f8f9fa !important;
+  color: black !important;
+}
+
+.badge-organisation {
+  background-color: #8e44ad !important; 
+  color: white !important;
+}
+
+.badge-equipe {
+  background-color: #e67e22 !important; 
+  color: white !important;
+}
+
+.badge-qualite {
+  background-color: #20c997 !important; 
+  color: white !important;
+}
+
+.badge-event {
+  background-color: #6f42c1 !important; 
+  color: white !important;
+}
+
+.badge-sante {
+  background-color: #dc3545 !important; 
+  color: white !important;
+}
+
+.badge-mention {
+  background-color: #fd7e14 !important; 
+  color: white !important;
+}
+
+
+.badge-default {
+  background-color: #6c757d !important;
+  color: white !important;
+  border: 1px solid #495057 !important;
+}
+
+/*# sourceMappingURL=style.css.map */

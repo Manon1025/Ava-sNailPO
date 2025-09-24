@@ -15,6 +15,11 @@
             <th>Date</th>
             <th class="d-none d-md-table-cell">Ouvrir</th> <!-- Masquée sur mobile -->
             <th>Télécharger</th>
+
+            <% if(user.role === 1) { %>
+            <th>Actions</th>
+            <% } %>
+
           </tr>
         </thead>
 
@@ -28,42 +33,54 @@
               <!-- ! Catégorie avec badge de couleur -->
               <td>
                 <% 
-                  let catColor = "secondary"; // couleur par défaut
+                  let catClass = "badge-default"; // classe par défaut
                   if (doc.Category && doc.Category.name) {
                     switch (doc.Category.name) {
                       case "Réglement intérieur":
-                        catColor = "primary"; // bleu
+                        catClass = "badge-reglement";
                         break;
-                      case "Hygiène et sécurité":
-                        catColor = "danger"; // rouge
+                      case "Hygiène & Sécurité":
+                        catClass = "badge-hygiene";
                         break;
-                      case "Produits et matériaux":
-                        catColor = "success"; // vert
+                      case "Produit & Matériel":
+                        catClass = "badge-produits";
                         break;
                       case "Prestations":
-                        catColor = "info"; // turquoise
+                        catClass = "badge-prestations";
                         break;
                       case "Formation & Diplôme":
-                        catColor = "warning"; // jaune
+                        catClass = "badge-formation";
                         break;
-                      case "Techniques de pose":
-                        catColor = "dark"; // noir/gris foncé
+                      case "Accueil & Client":
+                        catClass = "badge-accueil";
                         break;
-                      case "Design et nail art":
-                        catColor = "light text-dark"; // gris clair avec texte foncé
+                      case "Administration":
+                        catClass = "badge-administration";
                         break;
-                      case "Gestion de salon":
-                        catColor = "primary"; // bleu (alternative)
+                      case "Organisation":
+                        catClass = "badge-organisation"; 
                         break;
-                      case "Règlementation et normes":
-                        catColor = "secondary"; // gris
+                      case "Equipe & Communication":
+                        catClass = "badge-equipe"; 
+                        break;
+                      case "Qualité & Satisfaction client":
+                        catClass = "badge-qualite"; 
+                        break;
+                      case "Evénement & Promotions":
+                        catClass = "badge-event"; 
+                        break;
+                      case "Santé & Bien-être au travail":
+                        catClass = "badge-sante"; 
+                        break;
+                      case "Mention Légale & RGPD":
+                        catClass = "badge-mention"; 
                         break;
                       default:
-                        catColor = "outline-secondary"; // contour gris pour les non définies
+                        catClass = "badge-default";
                     }
                   }
                 %>
-                <span class="badge bg-<%= catColor %>">
+                <span class="badge <%= catClass %>">
                   <%= doc.Category && doc.Category.name ? doc.Category.name : 'Non définie' %>
                 </span>
               </td>
@@ -84,21 +101,16 @@
               <td class="d-none d-md-table-cell">
                 <% if (doc.fileName) { %>
                   <% 
-                  <!-- TODO: Récupération de l'extension du fichier -->
+                    // Récupération de l'extension du fichier
                     const ext = doc.fileName.split('.').pop().toLowerCase();
-                    const wordFormats = ['doc','docx','txt','odt'];
                   %>
 
-                  <!-- TODO: Affichage du document selon son type -->
+                  <%// Affichage du document selon son type %>
                   <% if (['pdf','jpg','jpeg','png','gif'].includes(ext)) { %>
                     <a href="/uploads/<%= doc.fileName %>" target="_blank" class="btn btn-sm btn-warning">Ouvrir</a>
-                  <% } else if (wordFormats.includes(ext)) { %>
-                    <% const fileUrl = encodeURIComponent('https://ava-snailpo-1.onrender.com/uploads/' + doc.fileName); %>
-                    <a href="https://docs.google.com/gview?url=<%= fileUrl %>&embedded=true" target="_blank" class="btn btn-sm btn-warning">Ouvrir</a>
                   <% } else { %>
                     <a href="/uploads/<%= doc.fileName %>" target="_blank" class="btn btn-sm btn-warning">Ouvrir</a>
                   <% } %>
-
                 <% } else { %>
                   Aucun fichier
                 <% } %>
@@ -109,9 +121,16 @@
                 <% if (doc.fileName) { %>
                   <a href="/uploads/<%= doc.fileName %>" class="btn btn-sm btn-primary" download>Télécharger</a>
                 <% } else { %>
-                  N/A
+                  Aucun fichier
                 <% } %>
               </td>
+
+              <% if(user.role === 1) { %>
+              <td>
+                <button class="btn btn-sm btn-info me-1">Modifier</button>
+                <button class="btn btn-sm btn-danger">Supprimer</button>
+              </td>
+              <% } %>
             </tr>
           <% }) %>
         </tbody>
