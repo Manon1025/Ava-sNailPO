@@ -1,0 +1,70 @@
+@charset "UTF-8";
+.badge-reglement {
+  background-color: #28a745;
+  color: white;
+}
+
+.badge-hygiène {
+  background-color: #ffc107;
+  color: black;
+}
+
+.badge-produits {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.badge-prestations {
+  background-color: #6f42c1;
+  color: white;
+}
+
+.badge-formation {
+  background-color: #fd7e14;
+  color: white;
+}
+
+.badge-accueil {
+  background-color: #20c997;
+  color: white;
+}
+
+.badge-administration {
+  background-color: #343a40;
+  color: white;
+}
+
+.badge-organisation {
+  background-color: #007bff;
+  color: white;
+}
+
+.badge-equipe {
+  background-color: #e83e8c;
+  color: white;
+}
+
+.badge-qualite {
+  background-color: #6610f2;
+  color: white;
+}
+
+.badge-event {
+  background-color: #fd7e14;
+  color: white;
+}
+
+.badge-sante {
+  background-color: #dc3545;
+  color: white;
+}
+
+.badge-mention {
+  background-color: #ff85ef;
+  color: white;
+}
+
+.badge-default {
+  background-color: #6c757d;
+  color: white;
+}/*# sourceMappingURL=badgeDoc.css.map */
