@@ -1,0 +1,136 @@
+@import 'variables';
+
+// Container et layout
+.login-page {
+    .container-fluid {
+        padding: 0;
+        height: 100vh;
+    }
+
+    .row {
+        margin: 0;
+        height: 100%;
+    }
+}
+
+// Image côté droit
+.login-image-container {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+
+    .login-background-image {
+        width: 100%;
+        height: 100vh;
+        object-fit: cover;
+        border-top-left-radius: $login-border-radius;
+        border-bottom-left-radius: $login-border-radius;
+    }
+}
+
+// Formulaire côté gauche
+.login-form-container {
+    animation: fadeInUp 0.6s ease-out;
+    max-width: 400px;
+    width: 100%;
+
+    .text-center {
+        h2 {
+            font-weight: bold;
+            color: $login-primary;
+        }
+
+        p {
+            color: #6c757d;
+        }
+    }
+
+    // Champs de formulaire
+    .form-label {
+        font-weight: 600;
+
+        i {
+            color: $login-primary;
+        }
+    }
+
+    .form-control {
+        &:focus {
+            border-color: $login-primary;
+            box-shadow: 0 0 0 0.2rem rgba($login-primary, 0.25);
+        }
+
+        &.form-control-lg {
+            padding: 0.75rem 1rem;
+        }
+    }
+
+    // Bouton de connexion
+    .btn-primary {
+        background: linear-gradient(45deg, $login-primary, $quatuor-color);
+        border: none;
+        transition: all 0.3s ease;
+        font-weight: 600;
+
+        &:hover, &:focus, &:active {
+            background: linear-gradient(45deg, $primary-color, $login-primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px $login-shadow-color;
+            border: none;
+        }
+
+        i {
+            margin-right: 0.5rem;
+        }
+    }
+
+    // Messages d'alerte
+    .alert {
+        border-radius: 0.5rem;
+
+        &.alert-danger {
+            background-color: rgba(220, 53, 69, 0.1);
+            border-color: rgba(220, 53, 69, 0.2);
+            color: #721c24;
+
+            i {
+                color: #dc3545;
+            }
+        }
+    }
+}
+
+// Animation fadeInUp
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+    .login-page {
+        .vh-100 {
+            min-height: 100vh;
+        }
+    }
+    
+    .login-form-container {
+        padding: 2rem 1rem;
+    }
+
+    .login-image-container {
+        display: none;
+    }
+}
+
+@media (max-width: 992px) {
+    .login-form-container {
+        max-width: 350px;
+    }
+}

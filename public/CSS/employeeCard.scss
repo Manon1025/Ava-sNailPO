@@ -1,0 +1,45 @@
+@import 'variables.scss';
+
+// ! Liste des employés
+.employee-card {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .employee-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      background-color: #ddd;
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+    .btn-voir-plus {
+      background-color: #66ccff;
+      border: none;
+      border-radius: 12px;
+      padding: 5px 15px;
+      color: white;
+      font-weight: 500;
+    }
+    .employee-name {
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+    .employee-poste {
+      color: #777;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+    .employee-avatar-profil{
+          width: 400px;
+          height: 400px;
+          border-radius: 50%;
+          object-fit: cover;
+          background-color: #ddd;
+          display: inline-block;
+          margin-bottom: 15px;
+    }

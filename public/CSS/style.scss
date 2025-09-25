@@ -1,107 +1,11 @@
-$primary-color: #8F95D3;
-$secondary-color: #89DAFF;
-$tertiaire-color: #D3C4E3;
-$quatuor-color: #DBB1BC;
-$valid-color: #64C36B;
-$white: #FFF;
+@import 'variables';
 
-// ! NAVBAR
-// TODO : BACKGROUND NAVBAR
-header {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 50px;
-    padding-right: 50px;
-    background: linear-gradient(45deg, $primary-color, $tertiaire-color, $quatuor-color);
-    font-size: large;
-    border-bottom: 1px solid black;
-
-    div {
-        color: $white ;
-
-        ul {
-            list-style-type: none;
-
-            a {
-                text-decoration: none;
-                color: $white;
-            }
-
-            a:hover {
-                text-decoration: underline;
-                color: $secondary-color;
-            }
-        }
-
-    }
-
-    // TODO : LOGO 
-    #logo {
-        width: 50px;
-        transition: all 0.3s ease;
-
-    }
-    #logo:hover {
-        content: url('/ASSET/img/Logo_Noir.svg');
-    }
-
-    // TODO : AVATAR
-    .avatar-nav {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-    .avatar-nav:hover {
-        transform: scale(1.1);
-    }
-
-
-}
-
-// TODO : NAVBAR SMALL
-.gradient-navbar {
-  background: linear-gradient(45deg, $primary-color, $tertiaire-color, $quatuor-color);
-  padding: 0 15px;
-  height: 60px; // ajuste selon ta hauteur désirée
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid black;
-
-  .container-fluid {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  #logo {
-    width: 40px;
-  }
-
-  .navbar-toggler {
-    margin: 0 auto; // centre horizontalement
-  }
-
-  .navbar-toggler-icon {
-    filter: brightness(0) invert(1); // icône blanche si fond coloré
-  }
-}
-
-// ! FOOTER
-footer {
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #EEEE;
     margin: 0;
-
-    .logo {
-        width: 50%;
-        border-bottom: 1px solid black;
-    }
-
-    #logo {
-        width: 100px;
-    }
+    padding: 0;
+    box-sizing: border-box;
 }
 
 // ! MAIN
@@ -109,49 +13,5 @@ main {
     background-color: #EEEE;
     padding-top: 20px;
     padding-bottom: 20px;
-    // height: 2000px;
 }
 
-// ! Liste des employés
-.employee-card {
-      background-color: #ffffff;
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .employee-avatar {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-      background-color: #ddd;
-      display: inline-block;
-      margin-bottom: 15px;
-    }
-    .btn-voir-plus {
-      background-color: #66ccff;
-      border: none;
-      border-radius: 12px;
-      padding: 5px 15px;
-      color: white;
-      font-weight: 500;
-    }
-    .employee-name {
-      font-weight: 600;
-      margin-bottom: 3px;
-    }
-    .employee-poste {
-      color: #777;
-      font-size: 0.95rem;
-      margin-bottom: 10px;
-    }
-    .employee-avatar-profil{
-          width: 400px;
-          height: 400px;
-          border-radius: 50%;
-          object-fit: cover;
-          background-color: #ddd;
-          display: inline-block;
-          margin-bottom: 15px;
-    }

@@ -1,0 +1,11 @@
+footer {
+  margin: 0;
+  background-color: #FFF;
+}
+footer .logo {
+  width: 50%;
+  border-bottom: 1px solid black;
+}
+footer #logo {
+  width: 100px;
+}/*# sourceMappingURL=footer.css.map */

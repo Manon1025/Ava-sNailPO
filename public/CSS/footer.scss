@@ -1,0 +1,16 @@
+@import 'variables.scss';
+
+// ! FOOTER
+footer {
+    margin: 0;
+    background-color: $white;
+
+    .logo {
+        width: 50%;
+        border-bottom: 1px solid black;
+    }
+
+    #logo {
+        width: 100px;
+    }
+}

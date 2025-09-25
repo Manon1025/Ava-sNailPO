@@ -1,0 +1,67 @@
+header {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
+  background: linear-gradient(45deg, #8F95D3, #D3C4E3, #DBB1BC);
+  font-size: large;
+  border-bottom-left-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+}
+header div {
+  color: #FFF;
+}
+header div ul {
+  list-style-type: none;
+}
+header div ul a {
+  text-decoration: none;
+  color: #FFF;
+}
+header div ul a:hover {
+  text-decoration: underline;
+  color: #89DAFF;
+}
+header #logo {
+  width: 50px;
+  transition: all 0.3s ease;
+}
+header #logo:hover {
+  content: url("/ASSET/img/Logo_Noir.svg");
+}
+header .avatar-nav {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+header .avatar-nav:hover {
+  transform: scale(1.1);
+}
+
+.gradient-navbar {
+  background: linear-gradient(45deg, #8F95D3, #D3C4E3, #DBB1BC);
+  padding: 0 15px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom-left-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+}
+.gradient-navbar .container-fluid {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.gradient-navbar #logo {
+  width: 40px;
+}
+.gradient-navbar .navbar-toggler {
+  margin: 0 auto;
+}
+.gradient-navbar .navbar-toggler-icon {
+  filter: brightness(0) invert(1);
+}/*# sourceMappingURL=navbar.css.map */
