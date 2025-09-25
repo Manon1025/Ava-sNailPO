@@ -7,14 +7,6 @@ $quatuor-color: #DBB1BC;
 $valid-color: #64C36B;
 $white: #FFF;
 
-// Variables pour le login
-$login-primary: #8e44ad;
-$login-secondary: #4a90e2;
-$login-primary-hover: #7d3c98;
-$login-secondary-hover: #3a7bc8;
-$login-border-radius: 2rem;
-$login-shadow-color: rgba(142, 68, 173, 0.3);
-
 // Variables de tailles
 $font-size-base: 16px;
 $font-size-sm: 14px;
@@ -32,3 +24,9 @@ $breakpoint-sm: 576px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 992px;
 $breakpoint-xl: 1200px;
+
+// Variables pour liste des employés
+$card-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+$card-shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.15);
+$border-radius: 20px;
+$transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);

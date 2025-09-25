@@ -1,77 +1,137 @@
-<div class="container bg-profil d-flex">
-    <div
-        class="container card d-lg-flex flex-lg-row justify-content-lg-center align-items-lg-center p-5 d-sm-flex flex-sm-column justify-content-sm-center align-items-sm-center gap-5">
-        <div class="col-lg-4">
-            <img src="/uploads/<%= user_.avatar %>" alt="avatar" class="employee-avatar-profil" />
+<div class="admin-profile-page">
+    <div class="admin-profile-container">
+        
+        <!-- Header avec breadcrumb -->
+        <div class="admin-breadcrumb">
+            <a href="/listeEmployer" class="breadcrumb-link">
+                <i class="fas fa-arrow-left"></i>
+                Retour à la liste des employés
+            </a>
         </div>
 
-        <!-- * Carte Profil employé -->
-        <div class="card-body col-8 d-flex flex-column justify-content-between gap-5">
-            <div class="d-flex flex-column justify-content-center align-items-center">
-                <!-- * Nom complet -->
-                <h1 class="text-center">
-                    <strong>
-                        <%= user_.lname%>
-                    </strong>
-                    <strong>
-                        <%= user_.fname%>
-                    </strong>
+        <!-- Header de profil employé -->
+        <div class="admin-profile-header">
+            <div class="admin-profile-cover">
+                <div class="admin-avatar-wrapper">
+                    <img src="/uploads/<%= user_.avatar %>" alt="avatar" class="admin-profile-avatar">
+                    <div class="admin-avatar-border"></div>
+                    <div class="admin-status-badge <%= user_.isActive ? 'active' : 'inactive' %>">
+                        <i class="fas fa-circle"></i>
+                        <%= user_.isActive ? 'Actif' : 'Inactif' %>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="admin-profile-info">
+                <h1 class="admin-profile-name">
+                    <%= user_.fname %> <%= user_.lname %>
                 </h1>
-                <p>( <%= user_.Poste ? user_.Poste.name : 'Non défini' %>)</p>
+                <p class="admin-profile-position">
+                    <i class="fas fa-briefcase"></i>
+                    <%= user_.Poste ? user_.Poste.name : 'Non défini' %>
+                </p>
             </div>
+        </div>
 
-            <!-- * Informations supplémentaires -->
-            <div class="d-lg-flex flex-lg-row justify-content-lg-around d-sm-flex flex-sm-column gap-5">
-                <!-- ! Column gauche -->
-                <div class="d-sm-flex flex-sm-column gap-2">
-                    <p>
-                        <strong>EMAIL -</strong> <br />
-                        <%= user_.email %>
-                    </p>
-                    <p>
-                        <strong>TELEPHONE -</strong> <br />
-                        <%= user_.phone %>
-                    </p>
-                    <p>
-                        <strong> ANNIVERSAIRE - </strong> <br />
-                        <%= user_.birth_date ? new Date(user_.birth_date).toLocaleDateString('fr-FR', { day: 'numeric' ,
-                            month: 'long' , year: 'numeric' }) : 'Non renseigné' %>
-                    </p>
+        <!-- Corps du profil -->
+        <div class="admin-profile-body">
+            <div class="admin-info-cards">
+                
+                <!-- Carte Informations personnelles -->
+                <div class="admin-info-card personal-card">
+                    <div class="admin-card-header">
+                        <i class="fas fa-user"></i>
+                        <h3>Informations personnelles</h3>
+                    </div>
+                    <div class="admin-card-content">
+                        <div class="admin-info-item">
+                            <i class="fas fa-envelope"></i>
+                            <div class="admin-info-details">
+                                <span class="admin-info-label">Email</span>
+                                <span class="admin-info-value"><%= user_.email %></span>
+                            </div>
+                        </div>
+                        
+                        <div class="admin-info-item">
+                            <i class="fas fa-phone"></i>
+                            <div class="admin-info-details">
+                                <span class="admin-info-label">Téléphone</span>
+                                <span class="admin-info-value"><%= user_.phone %></span>
+                            </div>
+                        </div>
+
+                        <div class="admin-info-item">
+                            <i class="fas fa-birthday-cake"></i>
+                            <div class="admin-info-details">
+                                <span class="admin-info-label">Date de naissance</span>
+                                <span class="admin-info-value">
+                                    <%= user_.birth_date ? new Date(user_.birth_date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Non renseigné' %>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- ! Column droite -->
-                <div class="d-sm-flex flex-sm-column gap-2">
-                    <p>
-                        <strong>ADRESSE -</strong> <br />
-                        <%= user_.street %>
-                    </p>
-                    <p>
-                        <strong>VILLE -</strong> <br />
-                        <%= user_.city %>
-                    </p>
-                    <p>
-                        <strong>CODE POSTALE -</strong> <br />
-                        <%= user_.cp %>
-                    </p>
+                <!-- Carte Adresse -->
+                <div class="admin-info-card address-card">
+                    <div class="admin-card-header">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Adresse</h3>
+                    </div>
+                    <div class="admin-card-content">
+                        <div class="admin-info-item">
+                            <i class="fas fa-home"></i>
+                            <div class="admin-info-details">
+                                <span class="admin-info-label">Rue</span>
+                                <span class="admin-info-value"><%= user_.street %></span>
+                            </div>
+                        </div>
+                        
+                        <div class="admin-info-item">
+                            <i class="fas fa-city"></i>
+                            <div class="admin-info-details">
+                                <span class="admin-info-label">Ville</span>
+                                <span class="admin-info-value"><%= user_.city %></span>
+                            </div>
+                        </div>
+                        
+                        <div class="admin-info-item">
+                            <i class="fas fa-mail-bulk"></i>
+                            <div class="admin-info-details">
+                                <span class="admin-info-label">Code postal</span>
+                                <span class="admin-info-value"><%= user_.cp %></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carte Observations -->
+                <div class="admin-info-card observations-card full-width">
+                    <div class="admin-card-header">
+                        <i class="fas fa-sticky-note"></i>
+                        <h3>Observations</h3>
+                    </div>
+                    <div class="admin-card-content">
+                        <div class="admin-observation-content">
+                            <%= user_.observation || 'Aucune observation' %>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- * Observations -->
-            <div class="card-body col-lg-8">
-                <div class="d-lg-flex flex-lg-column justify-content-lg-around d-sm-flex flex-sm-column">
-                    <p><strong>OBSERVATION :</strong></p>
-                    <p>
-                        <%= user_.observation %>
-                    </p>
-                </div>
-            </div>
-
-            <!-- TODO ajouter bouton modifier et désactiver l'employé -->
-            <div class="d-flex justify-content-center gap-3">
-                <a href="" class="btn btn-warning">Modifier</a>
-                <form action="/deactivate/<%= user_.id_employee %>" method="POST" class="d-inline" 
+            <!-- Actions administrateur -->
+            <div class="admin-profile-actions">
+                <a href="#" class="admin-btn edit-btn">
+                    <i class="fas fa-edit"></i>
+                    <span>Modifier</span>
+                </a>
+                
+                <form action="/deactivate/<%= user_.id_employee %>" method="POST" class="admin-action-form" 
                       onsubmit="return confirm('Êtes-vous sûr de vouloir désactiver cet employé ? Il n\'aura plus accès au site.')">
-                    <button type="submit" class="btn btn-danger"> Supprimer </button>
+                    <button type="submit" class="admin-btn deactivate-btn">
+                        <i class="fas fa-user-slash"></i>
+                        <span><%= user_.isActive ? 'Désactiver' : 'Réactiver' %></span>
+                    </button>
                 </form>
             </div>
         </div>

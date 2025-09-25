@@ -1,7 +1,584 @@
-.bg-profil {
-  margin: auto;
-  margin-top: 50px;
-  background: linear-gradient(45deg, #8F95D3, #D3C4E3, #DBB1BC);
-  padding: 20px;
+.profile-page {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+.profile-page .profile-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+.profile-header {
+  position: relative;
+}
+.profile-header .profile-cover {
+  height: 200px;
+  background: linear-gradient(135deg, #8F95D3, #D3C4E3, #DBB1BC);
+  position: relative;
+}
+.profile-header .profile-cover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1.5" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="10" r="1" fill="rgba(255,255,255,0.08)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  opacity: 0.3;
+}
+.profile-header .profile-cover .profile-avatar-wrapper {
+  position: absolute;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.profile-header .profile-cover .profile-avatar-wrapper .profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 5px solid white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+.profile-header .profile-cover .profile-avatar-wrapper .profile-avatar:hover {
+  transform: scale(1.05);
+}
+.profile-header .profile-cover .profile-avatar-wrapper .avatar-border {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #89DAFF, #DBB1BC);
+  z-index: 1;
+  animation: pulse 2s infinite;
+}
+.profile-header .profile-info {
+  text-align: center;
+  padding: 80px 2rem 2rem;
+}
+.profile-header .profile-info .profile-name {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(45deg, #8F95D3, #DBB1BC);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.profile-header .profile-info .profile-position {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.profile-header .profile-info .profile-position i {
+  color: #8F95D3;
+}
+
+.profile-body {
+  padding: 2rem;
+}
+.profile-body .info-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.profile-body .info-card {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 1.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+.profile-body .info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+.profile-body .info-card .card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.profile-body .info-card .card-header i {
+  font-size: 1.5rem;
+  color: #8F95D3;
+  background: rgba(143, 149, 211, 0.1);
+  padding: 0.75rem;
   border-radius: 10px;
+}
+.profile-body .info-card .card-header h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+}
+.profile-body .info-card .card-content .info-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+.profile-body .info-card .card-content .info-item:last-child {
+  border-bottom: none;
+}
+.profile-body .info-card .card-content .info-item i {
+  font-size: 1.1rem;
+  color: #89DAFF;
+  width: 20px;
+  text-align: center;
+}
+.profile-body .info-card .card-content .info-item .info-details {
+  flex: 1;
+}
+.profile-body .info-card .card-content .info-item .info-details .info-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #7f8c8d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+.profile-body .info-card .card-content .info-item .info-details .info-value {
+  display: block;
+  font-size: 1rem;
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.profile-actions {
+  text-align: center;
+  padding: 1rem 0;
+}
+.profile-actions .logout-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(45deg, #e74c3c, #c0392b);
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+}
+.profile-actions .logout-btn i {
+  font-size: 1.1rem;
+}
+.profile-actions .logout-btn:hover {
+  background: linear-gradient(45deg, #c0392b, #a93226);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(231, 76, 60, 0.4);
+  color: white;
+  text-decoration: none;
+}
+.profile-actions .logout-btn:active {
+  transform: translateY(-1px);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+@media (max-width: 768px) {
+  .profile-page {
+    padding: 1rem 0.5rem;
+  }
+  .profile-page .profile-container {
+    border-radius: 15px;
+  }
+  .profile-header .profile-cover {
+    height: 150px;
+  }
+  .profile-header .profile-cover .profile-avatar-wrapper .profile-avatar {
+    width: 100px;
+    height: 100px;
+  }
+  .profile-header .profile-info {
+    padding: 70px 1rem 1rem;
+  }
+  .profile-header .profile-info .profile-name {
+    font-size: 2rem;
+  }
+  .profile-header .profile-info .profile-position {
+    font-size: 1rem;
+  }
+  .profile-body {
+    padding: 1rem;
+  }
+  .profile-body .info-cards {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .profile-body .info-card {
+    padding: 1rem;
+  }
+}
+.admin-profile-page {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+.admin-profile-page .admin-profile-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  position: relative;
+}
+
+.admin-breadcrumb {
+  padding: 1.5rem 2rem;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+.admin-breadcrumb .breadcrumb-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #8F95D3;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.admin-breadcrumb .breadcrumb-link i {
+  font-size: 0.9rem;
+}
+.admin-breadcrumb .breadcrumb-link:hover {
+  color: #89DAFF;
+  transform: translateX(-3px);
+}
+
+.admin-profile-header {
+  position: relative;
+}
+.admin-profile-header .admin-profile-cover {
+  height: 220px;
+  background: linear-gradient(135deg, #8F95D3, #D3C4E3, #DBB1BC);
+  position: relative;
+}
+.admin-profile-header .admin-profile-cover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="admin-grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1.5" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="10" r="1" fill="rgba(255,255,255,0.08)"/></pattern></defs><rect width="100" height="100" fill="url(%23admin-grain)"/></svg>');
+  opacity: 0.3;
+}
+.admin-profile-header .admin-profile-cover .admin-avatar-wrapper {
+  position: absolute;
+  bottom: -70px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.admin-profile-header .admin-profile-cover .admin-avatar-wrapper .admin-profile-avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 6px solid white;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+.admin-profile-header .admin-profile-cover .admin-avatar-wrapper .admin-profile-avatar:hover {
+  transform: scale(1.05);
+}
+.admin-profile-header .admin-profile-cover .admin-avatar-wrapper .admin-avatar-border {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #89DAFF, #DBB1BC);
+  z-index: 1;
+  animation: pulse 2s infinite;
+}
+.admin-profile-header .admin-profile-cover .admin-avatar-wrapper .admin-status-badge {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 3;
+}
+.admin-profile-header .admin-profile-cover .admin-avatar-wrapper .admin-status-badge.active {
+  background: #d4edda;
+  color: #155724;
+  border: 2px solid #c3e6cb;
+}
+.admin-profile-header .admin-profile-cover .admin-avatar-wrapper .admin-status-badge.active i {
+  color: #28a745;
+}
+.admin-profile-header .admin-profile-cover .admin-avatar-wrapper .admin-status-badge.inactive {
+  background: #f8d7da;
+  color: #721c24;
+  border: 2px solid #f5c6cb;
+}
+.admin-profile-header .admin-profile-cover .admin-avatar-wrapper .admin-status-badge.inactive i {
+  color: #dc3545;
+}
+.admin-profile-header .admin-profile-info {
+  text-align: center;
+  padding: 90px 2rem 2rem;
+}
+.admin-profile-header .admin-profile-info .admin-profile-name {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(45deg, #8F95D3, #DBB1BC);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.admin-profile-header .admin-profile-info .admin-profile-position {
+  font-size: 1.3rem;
+  color: #7f8c8d;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.admin-profile-header .admin-profile-info .admin-profile-position i {
+  color: #8F95D3;
+}
+.admin-profile-header .admin-profile-info .admin-employee-id {
+  font-size: 1rem;
+  color: #95a5a6;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.admin-profile-header .admin-profile-info .admin-employee-id i {
+  color: #89DAFF;
+}
+
+.admin-profile-body {
+  padding: 2rem;
+}
+.admin-profile-body .admin-info-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.admin-profile-body .admin-info-cards .full-width {
+  grid-column: 1/-1;
+}
+.admin-profile-body .admin-info-card {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 1.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+.admin-profile-body .admin-info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+.admin-profile-body .admin-info-card .admin-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.admin-profile-body .admin-info-card .admin-card-header i {
+  font-size: 1.5rem;
+  color: #8F95D3;
+  background: rgba(143, 149, 211, 0.1);
+  padding: 0.75rem;
+  border-radius: 10px;
+}
+.admin-profile-body .admin-info-card .admin-card-header h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+}
+.admin-profile-body .admin-info-card .admin-card-content .admin-info-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+.admin-profile-body .admin-info-card .admin-card-content .admin-info-item:last-child {
+  border-bottom: none;
+}
+.admin-profile-body .admin-info-card .admin-card-content .admin-info-item i {
+  font-size: 1.1rem;
+  color: #89DAFF;
+  width: 20px;
+  text-align: center;
+}
+.admin-profile-body .admin-info-card .admin-card-content .admin-info-item .admin-info-details {
+  flex: 1;
+}
+.admin-profile-body .admin-info-card .admin-card-content .admin-info-item .admin-info-details .admin-info-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #7f8c8d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+.admin-profile-body .admin-info-card .admin-card-content .admin-info-item .admin-info-details .admin-info-value {
+  display: block;
+  font-size: 1rem;
+  color: #2c3e50;
+  font-weight: 500;
+}
+.admin-profile-body .admin-info-card .admin-card-content .admin-observation-content {
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
+  border-left: 4px solid #8F95D3;
+  font-style: italic;
+  color: #555;
+  line-height: 1.6;
+  min-height: 60px;
+}
+
+.admin-profile-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+.admin-profile-actions .admin-action-form {
+  display: inline-block;
+}
+.admin-profile-actions .admin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+.admin-profile-actions .admin-btn i {
+  font-size: 1.1rem;
+}
+.admin-profile-actions .admin-btn.edit-btn {
+  background: linear-gradient(45deg, #f39c12, #e67e22);
+  color: white;
+  box-shadow: 0 5px 15px rgba(243, 156, 18, 0.3);
+}
+.admin-profile-actions .admin-btn.edit-btn:hover {
+  background: linear-gradient(45deg, #e67e22, #d35400);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(243, 156, 18, 0.4);
+  color: white;
+  text-decoration: none;
+}
+.admin-profile-actions .admin-btn.deactivate-btn {
+  background: linear-gradient(45deg, #e74c3c, #c0392b);
+  color: white;
+  box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+}
+.admin-profile-actions .admin-btn.deactivate-btn:hover {
+  background: linear-gradient(45deg, #c0392b, #a93226);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(231, 76, 60, 0.4);
+}
+.admin-profile-actions .admin-btn:active {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .admin-profile-page {
+    padding: 1rem 0.5rem;
+  }
+  .admin-profile-page .admin-profile-container {
+    border-radius: 15px;
+  }
+  .admin-breadcrumb {
+    padding: 1rem;
+  }
+  .admin-profile-header .admin-profile-cover {
+    height: 180px;
+  }
+  .admin-profile-header .admin-profile-cover .admin-avatar-wrapper .admin-profile-avatar {
+    width: 120px;
+    height: 120px;
+  }
+  .admin-profile-header .admin-profile-cover .admin-avatar-wrapper .admin-status-badge {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+  }
+  .admin-profile-header .admin-profile-info {
+    padding: 80px 1rem 1rem;
+  }
+  .admin-profile-header .admin-profile-info .admin-profile-name {
+    font-size: 2.2rem;
+  }
+  .admin-profile-header .admin-profile-info .admin-profile-position {
+    font-size: 1.1rem;
+  }
+  .admin-profile-body {
+    padding: 1rem;
+  }
+  .admin-profile-body .admin-info-cards {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .admin-profile-body .admin-info-card {
+    padding: 1rem;
+  }
+  .admin-profile-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  .admin-profile-actions .admin-btn {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
 }/*# sourceMappingURL=profil.css.map */

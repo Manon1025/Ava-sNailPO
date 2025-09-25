@@ -1,105 +1,238 @@
-<div class="container mt-4">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <h1 class="m-5 d-flex justify-content-center"> Ajouter un salarié</h1>
-
-        <!-- * Formulaire d'ajout -->
-        <div class="card-body p-5">
-          <form method="post" action="/add" enctype="multipart/form-data">
-
-            <!-- ! Partie Principale  -->
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="fname" class="form-label">Prénom</label>
-                <input type="text" class="form-control" id="fname" name="fname">
-              </div>
-              <div class="col-md-6">
-                <label for="lname" class="form-label">Nom</label>
-                <input type="text" class="form-control" id="lname" name="lname">
-              </div>
-              <div class="col-md-6">
-                <label for="avatar" class="form-label">Photo</label>
-                <input type="file" class="form-control" id="avatar" name="avatar" accept="image/*">
-              </div>
+<div class="add-employee-page">
+    <!-- Header avec retour -->
+    <div class="form-header">
+        <div class="header-content">
+            <div class="back-button">
+                <a href="/listeEmployer" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Retour</span>
+                </a>
             </div>
-
-            <!-- ! Poste -->
-            <label for="poste_id">Poste :</label>
-            <select id="poste_id" name="poste_id" required>
-              <option value="">--Sélectionner--</option>
-              <option value="1">Prothésiste ongulaire</option>
-              <option value="3">Estheticien.ne</option>
-              <option value="4">Conseiller.ère</option>
-              <option value="5">Maquilleur.euse</option>
-              <option value="6">SPA praticien.ne</option>
-            </select><br><br>
-
-            <!-- ! Contrat -->
-            <label for="contrat_id">Type de contrat :</label>
-            <select id="contrat_id" name="contrat_id" required>
-              <option value="">--Sélectionner--</option>
-              <option value="1">CDI</option>
-              <option value="2">CDD</option>
-              <option value="3">Stage</option>
-              <option value="4">Apprentissage</option>
-            </select><br><br>
-
-            <!-- ! Date de naissance -->
-            <div class="mb-3">
-              <label for="birth_date" class="form-label">Date de naissance</label>
-              <input type="date" class="form-control" id="birth_date" name="birth_date" max="<%= new Date().toISOString().split('T')[0] %>" required>
+            <div class="form-title-section">
+                <div class="title-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <div>
+                    <h1 class="form-title">Ajouter un employé</h1>
+                    <p class="form-subtitle">Complétez les informations pour créer un nouveau compte employé</p>
+                </div>
             </div>
-
-            <!-- ! Partie Identification -->
-            <div class="mb-3">
-              <label for="email" class="form-label">Adresse email</label>
-              <input type="email" class="form-control" id="email" name="email">
-            </div>
-            
-            <div class="mb-3">
-              <label for="phone" class="form-label">Téléphone</label>
-              <input type="text" class="form-control" id="phone" name="phone">
-            </div>
-            
-            <div class="mb-3">
-              <label for="password" class="form-label">Mot de passe</label>
-              <input type="password" class="form-control" id="password" name="password">
-            </div>
-
-            <!-- ! Partie GPS  -->
-            <div class="mb-3">
-              <label for="street" class="form-label">Adresse</label>
-              <input type="text" class="form-control" id="street" name="street">
-            </div>
-
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="cp" class="form-label">Code postal</label>
-                <input type="text" class="form-control" id="cp" name="cp">
-              </div>
-              <div class="col-md-6">
-                <label for="city" class="form-label">Ville</label>
-                <input type="text" class="form-control" id="city" name="city">
-              </div>
-            </div>
-
-            <!-- ! Partie Supplémentaire -->
-            <div>
-              <div class="col-md-6">
-                <label for="observation" class="form-label">Observation</label>
-                <textarea class="form-control" name="observation" id="observation"></textarea>
-              </div>
-              <div class="col-md-6">
-                <label for="documents">Documents</label>
-                <input type="file" name="documents" id="documents" class="form-control" accept=".pdf" multiple>
-
-              </div>
-            </div>
-
-            <!-- * Post du salarié -->
-            <div class="d-grid mt-4">
-              <button type="submit" class="btn btn-primary">Valider</button>
-            </div>
-          </form>
         </div>
+    </div>
+
+    <!-- Formulaire moderne -->
+    <div class="form-container">
+        <form method="post" action="/add" enctype="multipart/form-data" class="modern-form">
+
+            <!-- Section 1: Informations personnelles -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="section-title">Informations personnelles</h3>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="fname" class="form-label">
+                            <i class="fas fa-user"></i>
+                            Prénom *
+                        </label>
+                        <input type="text" class="form-input" id="fname" name="fname" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lname" class="form-label">
+                            <i class="fas fa-user"></i>
+                            Nom *
+                        </label>
+                        <input type="text" class="form-input" id="lname" name="lname" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="birth_date" class="form-label">
+                            <i class="fas fa-calendar"></i>
+                            Date de naissance *
+                        </label>
+                        <input type="date" class="form-input" id="birth_date" name="birth_date" max="<%= new Date().toISOString().split('T')[0] %>" required>
+                    </div>
+                    
+                    <div class="form-group avatar-upload">
+                        <label for="avatar" class="form-label">
+                            <i class="fas fa-camera"></i>
+                            Photo de profil
+                        </label>
+                        <div class="upload-area">
+                            <input type="file" class="form-input-file" id="avatar" name="avatar" accept="image/*">
+                            <div class="upload-placeholder">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Cliquez pour ajouter une photo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Informations professionnelles -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3 class="section-title">Informations professionnelles</h3>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="poste_id" class="form-label">
+                            <i class="fas fa-id-badge"></i>
+                            Poste *
+                        </label>
+                        <select id="poste_id" name="poste_id" class="form-select" required>
+                            <option value="">Sélectionner un poste</option>
+                            <option value="1">Prothésiste ongulaire</option>
+                            <option value="3">Esthéticien.ne</option>
+                            <option value="4">Conseiller.ère</option>
+                            <option value="5">Maquilleur.euse</option>
+                            <option value="6">SPA praticien.ne</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contrat_id" class="form-label">
+                            <i class="fas fa-file-contract"></i>
+                            Type de contrat *
+                        </label>
+                        <select id="contrat_id" name="contrat_id" class="form-select" required>
+                            <option value="">Sélectionner un contrat</option>
+                            <option value="1">CDI</option>
+                            <option value="2">CDD</option>
+                            <option value="3">Stage</option>
+                            <option value="4">Apprentissage</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Contact -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-address-book"></i>
+                    </div>
+                    <h3 class="section-title">Informations de contact</h3>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="email" class="form-label">
+                            <i class="fas fa-envelope"></i>
+                            Adresse email *
+                        </label>
+                        <input type="email" class="form-input" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="form-label">
+                            <i class="fas fa-phone"></i>
+                            Téléphone
+                        </label>
+                        <input type="tel" class="form-input" id="phone" name="phone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="form-label">
+                            <i class="fas fa-lock"></i>
+                            Mot de passe *
+                        </label>
+                        <input type="password" class="form-input" id="password" name="password" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Adresse -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="section-title">Adresse</h3>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="street" class="form-label">
+                            <i class="fas fa-home"></i>
+                            Adresse
+                        </label>
+                        <input type="text" class="form-input" id="street" name="street">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cp" class="form-label">
+                            <i class="fas fa-map-pin"></i>
+                            Code postal
+                        </label>
+                        <input type="text" class="form-input" id="cp" name="cp">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="city" class="form-label">
+                            <i class="fas fa-city"></i>
+                            Ville
+                        </label>
+                        <input type="text" class="form-input" id="city" name="city">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Informations supplémentaires -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <h3 class="section-title">Informations supplémentaires</h3>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="observation" class="form-label">
+                            <i class="fas fa-sticky-note"></i>
+                            Observations
+                        </label>
+                        <textarea class="form-textarea" name="observation" id="observation" rows="4" placeholder="Notes, commentaires ou observations particulières..."></textarea>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="documents" class="form-label">
+                            <i class="fas fa-file-pdf"></i>
+                            Documents (PDF uniquement)
+                        </label>
+                        <div class="file-upload-area">
+                            <input type="file" name="documents" id="documents" class="form-input-file" accept=".pdf" multiple>
+                            <div class="file-upload-placeholder">
+                                <i class="fas fa-upload"></i>
+                                <span>Cliquez pour ajouter des documents</span>
+                                <small>Formats acceptés: PDF</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Boutons d'action -->
+            <div class="form-actions">
+                <button type="button" class="btn-cancel" onclick="history.back()">
+                    <i class="fas fa-times"></i>
+                    Annuler
+                </button>
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-check"></i>
+                    Créer l'employé
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

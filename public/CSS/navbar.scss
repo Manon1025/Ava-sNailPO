@@ -1,5 +1,46 @@
 @import 'variables';
 
+// Animations pour la navbar
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 // ! NAVBAR
 // TODO : BACKGROUND NAVBAR
 header {
@@ -11,6 +52,7 @@ header {
     font-size: large;
     border-bottom-left-radius: 1.5rem;
     border-bottom-right-radius: 1.5rem;
+    animation: slideInDown 0.6s ease-out;
 
     div {
         color: $white ;
@@ -18,14 +60,86 @@ header {
         ul {
             list-style-type: none;
 
+            li {
+                position: relative;
+                overflow: hidden;
+                animation: fadeInLeft 0.6s ease-out both;
+                
+                // Animation décalée pour chaque élément
+                &:nth-child(1) { animation-delay: 0.1s; }
+                &:nth-child(2) { animation-delay: 0.2s; }
+                &:nth-child(3) { animation-delay: 0.3s; }
+                &:nth-child(4) { animation-delay: 0.4s; }
+                &:nth-child(5) { animation-delay: 0.5s; }
+                &:nth-child(6) { animation-delay: 0.6s; }
+            }
+
             a {
                 text-decoration: none;
                 color: $white;
-            }
+                position: relative;
+                display: inline-block;
+                padding: 8px 16px;
+                border-radius: 8px;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                transform: translateY(0);
 
-            a:hover {
-                text-decoration: underline;
-                color: $secondary-color;
+                // Effet de background au hover
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(45deg, rgba($secondary-color, 0.2), rgba($quatuor-color, 0.2));
+                    border-radius: 8px;
+                    transform: scaleX(0);
+                    transform-origin: left;
+                    transition: transform 0.3s ease;
+                    z-index: -1;
+                }
+
+                // Ligne animée en dessous
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 2px;
+                    left: 50%;
+                    width: 0;
+                    height: 2px;
+                    background: $secondary-color;
+                    transition: all 0.3s ease;
+                    transform: translateX(-50%);
+                }
+
+                &:hover {
+                    color: $secondary-color;
+                    text-decoration: none;
+                    transform: translateY(-2px);
+                    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+                    &::before {
+                        transform: scaleX(1);
+                    }
+
+                    &::after {
+                        width: 80%;
+                    }
+                }
+
+                // Animation au focus pour l'accessibilité
+                &:focus {
+                    outline: 2px solid $secondary-color;
+                    outline-offset: 2px;
+                    border-radius: 4px;
+                }
+
+                // Animation de pulse au clic
+                &:active {
+                    transform: translateY(0) scale(0.95);
+                    transition: transform 0.1s ease;
+                }
             }
         }
 
@@ -35,10 +149,12 @@ header {
     #logo {
         width: 50px;
         transition: all 0.3s ease;
+        animation: bounceIn 0.8s ease-out;
 
-    }
-    #logo:hover {
-        content: url('/ASSET/img/Logo_Noir.svg');
+        &:hover {
+            content: url('/ASSET/img/Logo_Noir.svg');
+            transform: rotate(5deg) scale(1.1);
+        }
     }
 
     // TODO : AVATAR
@@ -47,9 +163,21 @@ header {
         height: 50px;
         border-radius: 50%;
         object-fit: cover;
-    }
-    .avatar-nav:hover {
-        transform: scale(1.1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        animation: fadeInLeft 0.6s ease-out;
+        animation-delay: 0.7s;
+        animation-fill-mode: both;
+        border: 2px solid transparent;
+
+        &:hover {
+            transform: scale(1.1) rotate(5deg);
+            border-color: $secondary-color;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        &:active {
+            transform: scale(0.95);
+        }
     }
 
 
@@ -58,31 +186,379 @@ header {
 // TODO : NAVBAR SMALL
 .gradient-navbar {
   background: linear-gradient(45deg, $primary-color, $tertiaire-color, $quatuor-color);
-  padding: 0 15px;
-  height: 60px; // ajuste selon ta hauteur désirée
+  padding: 0 20px;
+  height: 70px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
 
   display: flex;
   align-items: center;
   justify-content: center;
   border-bottom-left-radius: 1.5rem;
   border-bottom-right-radius: 1.5rem;
+  animation: slideInDown 0.6s ease-out;
 
   .container-fluid {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
   }
 
   #logo {
-    width: 40px;
+    width: 45px;
+    transition: all 0.3s ease;
+    animation: bounceIn 0.8s ease-out;
+    
+    &:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
   }
 
   .navbar-toggler {
-    margin: 0 auto; // centre horizontalement
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInLeft 0.6s ease-out;
+    animation-delay: 0.3s;
+    animation-fill-mode: both;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba($secondary-color, 0.3);
+      outline: none;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
   }
 
   .navbar-toggler-icon {
-    filter: brightness(0) invert(1); // icône blanche si fond coloré
+    filter: brightness(0) invert(1);
+    width: 24px;
+    height: 24px;
+    transition: all 0.3s ease;
+  }
+
+  // Animation du menu hamburger
+  .navbar-toggler[aria-expanded="true"] {
+    .navbar-toggler-icon {
+      transform: rotate(90deg);
+    }
+  }
+
+
+}
+
+// Menu mobile personnalisé (sans Bootstrap)
+.custom-mobile-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: linear-gradient(45deg, $primary-color, $tertiaire-color, $quatuor-color);
+  padding: 15px 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-bottom-left-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+
+  .mobile-nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+  }
+
+  .mobile-logo {
+    img {
+      width: 45px;
+      height: auto;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.1) rotate(5deg);
+      }
+    }
+  }
+
+  .mobile-burger {
+    .burger-btn {
+      background: none;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      .burger-line {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background: $white;
+        margin: 5px 0;
+        transition: all 0.3s ease;
+        border-radius: 2px;
+      }
+
+      &.active {
+        .burger-line:nth-child(1) {
+          transform: rotate(45deg) translate(8px, 8px);
+        }
+        .burger-line:nth-child(2) {
+          opacity: 0;
+        }
+        .burger-line:nth-child(3) {
+          transform: rotate(-45deg) translate(8px, -8px);
+        }
+      }
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .mobile-icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .notification-icon {
+      color: $white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: $secondary-color;
+        transform: scale(1.1);
+      }
+    }
+
+    .avatar-link {
+      .avatar-nav {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        transition: all 0.3s ease;
+
+        &:hover {
+          border-color: $secondary-color;
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+}
+
+// Menu déroulant mobile
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .mobile-menu-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+  }
+
+  .mobile-menu-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 320px;
+    height: 100%;
+    background: linear-gradient(135deg, $primary-color, $tertiaire-color, $quatuor-color);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+
+    .mobile-menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+      h3 {
+        color: $white;
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin: 0;
+      }
+
+      .close-btn {
+        background: none;
+        border: none;
+        color: $white;
+        font-size: 2rem;
+        cursor: pointer;
+        padding: 5px;
+        line-height: 1;
+        transition: all 0.3s ease;
+
+        &:hover {
+          color: $secondary-color;
+          transform: scale(1.2);
+        }
+      }
+    }
+
+    .mobile-menu-body {
+      padding: 20px;
+
+      .mobile-nav-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          margin-bottom: 15px;
+
+          a {
+            display: block;
+            color: $white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 15px 20px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+
+            &:hover {
+              background: rgba(255, 255, 255, 0.2);
+              color: $secondary-color;
+              transform: translateX(10px);
+              border-color: rgba(255, 255, 255, 0.4);
+            }
+          }
+        }
+      }
+
+      .mobile-menu-footer {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+        .logout-btn {
+          display: block;
+          width: 100%;
+          padding: 15px;
+          background: linear-gradient(45deg, #dc3545, #c82333);
+          color: $white;
+          text-decoration: none;
+          text-align: center;
+          border-radius: 10px;
+          font-weight: 600;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: linear-gradient(45deg, #c82333, #a71e2a);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+          }
+        }
+      }
+    }
+  }
+
+  &.active .mobile-menu-content {
+    transform: translateX(0);
+  }
+}
+
+
+
+// Media queries pour différentes tailles d'écran
+@media (max-width: 576px) {
+  .gradient-navbar {
+    padding: 0 15px;
+    height: 65px;
+
+    #logo {
+      width: 40px;
+    }
+
+    .navbar-collapse {
+      .navbar-nav {
+        padding: 15px;
+
+        .nav-item .nav-link {
+          padding: 10px 15px;
+          font-size: 0.95rem;
+        }
+      }
+    }
+  }
+
+  // Navbar desktop plus compacte sur petits écrans
+  header {
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: medium;
+
+    #logo {
+      width: 45px;
+    }
+
+    .avatar-nav {
+      width: 45px;
+      height: 45px;
+    }
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .gradient-navbar {
+    padding: 0 25px;
+
+    .navbar-collapse {
+      .navbar-nav {
+        .nav-item .nav-link {
+          font-size: 1.05rem;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  header {
+    padding-left: 40px;
+    padding-right: 40px;
+
+    div ul li a {
+      padding: 10px 14px;
+      font-size: 0.95rem;
+    }
   }
 }

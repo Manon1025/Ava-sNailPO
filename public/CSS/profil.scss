@@ -1,9 +1,703 @@
 @import 'variables';
 
-.bg-profil {
-    margin: auto;
-    margin-top: 50px;
-    background: linear-gradient(45deg, $primary-color, $tertiaire-color, $quatuor-color);
-    padding: 20px;
-    border-radius: 10px;
+// Page de profil moderne
+.profile-page {
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    
+    .profile-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        position: relative;
+    }
+}
+
+// Header du profil
+.profile-header {
+    position: relative;
+    
+    .profile-cover {
+        height: 200px;
+        background: linear-gradient(135deg, $primary-color, $tertiaire-color, $quatuor-color);
+        position: relative;
+        
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1.5" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="10" r="1" fill="rgba(255,255,255,0.08)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .profile-avatar-wrapper {
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            
+            .profile-avatar {
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 5px solid white;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                position: relative;
+                z-index: 2;
+                transition: transform 0.3s ease;
+                
+                &:hover {
+                    transform: scale(1.05);
+                }
+            }
+            
+            .avatar-border {
+                position: absolute;
+                top: -5px;
+                left: -5px;
+                right: -5px;
+                bottom: -5px;
+                border-radius: 50%;
+                background: linear-gradient(45deg, $secondary-color, $quatuor-color);
+                z-index: 1;
+                animation: pulse 2s infinite;
+            }
+        }
+    }
+    
+    .profile-info {
+        text-align: center;
+        padding: 80px 2rem 2rem;
+        
+        .profile-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, $primary-color, $quatuor-color);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .profile-position {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            
+            i {
+                color: $primary-color;
+            }
+        }
+    }
+}
+
+// Corps du profil
+.profile-body {
+    padding: 2rem;
+    
+    .info-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .info-card {
+        background: #f8f9fa;
+        border-radius: 15px;
+        padding: 1.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            
+            i {
+                font-size: 1.5rem;
+                color: $primary-color;
+                background: rgba($primary-color, 0.1);
+                padding: 0.75rem;
+                border-radius: 10px;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
+                font-weight: 600;
+                color: #2c3e50;
+                margin: 0;
+            }
+        }
+        
+        .card-content {
+            .info-item {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                
+                &:last-child {
+                    border-bottom: none;
+                }
+                
+                i {
+                    font-size: 1.1rem;
+                    color: $secondary-color;
+                    width: 20px;
+                    text-align: center;
+                }
+                
+                .info-details {
+                    flex: 1;
+                    
+                    .info-label {
+                        display: block;
+                        font-size: 0.85rem;
+                        font-weight: 600;
+                        color: #7f8c8d;
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
+                        margin-bottom: 0.25rem;
+                    }
+                    
+                    .info-value {
+                        display: block;
+                        font-size: 1rem;
+                        color: #2c3e50;
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Actions du profil
+.profile-actions {
+    text-align: center;
+    padding: 1rem 0;
+    
+    .logout-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem 2rem;
+        background: linear-gradient(45deg, #e74c3c, #c0392b);
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        
+        i {
+            font-size: 1.1rem;
+        }
+        
+        &:hover {
+            background: linear-gradient(45deg, #c0392b, #a93226);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(231, 76, 60, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+        
+        &:active {
+            transform: translateY(-1px);
+        }
+    }
+}
+
+// Animations
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.05);
+    }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+    .profile-page {
+        padding: 1rem 0.5rem;
+        
+        .profile-container {
+            border-radius: 15px;
+        }
+    }
+    
+    .profile-header {
+        .profile-cover {
+            height: 150px;
+            
+            .profile-avatar-wrapper .profile-avatar {
+                width: 100px;
+                height: 100px;
+            }
+        }
+        
+        .profile-info {
+            padding: 70px 1rem 1rem;
+            
+            .profile-name {
+                font-size: 2rem;
+            }
+            
+            .profile-position {
+                font-size: 1rem;
+            }
+        }
+    }
+    
+    .profile-body {
+        padding: 1rem;
+        
+        .info-cards {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        .info-card {
+            padding: 1rem;
+        }
+    }
+}
+
+// ========================================
+// STYLES POUR LA PAGE ADMIN VOIR-PLUS
+// ========================================
+
+.admin-profile-page {
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    
+    .admin-profile-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        position: relative;
+    }
+}
+
+// Breadcrumb
+.admin-breadcrumb {
+    padding: 1.5rem 2rem;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    
+    .breadcrumb-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: $primary-color;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        
+        i {
+            font-size: 0.9rem;
+        }
+        
+        &:hover {
+            color: $secondary-color;
+            transform: translateX(-3px);
+        }
+    }
+}
+
+// Header admin
+.admin-profile-header {
+    position: relative;
+    
+    .admin-profile-cover {
+        height: 220px;
+        background: linear-gradient(135deg, $primary-color, $tertiaire-color, $quatuor-color);
+        position: relative;
+        
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="admin-grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1.5" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="10" r="1" fill="rgba(255,255,255,0.08)"/></pattern></defs><rect width="100" height="100" fill="url(%23admin-grain)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .admin-avatar-wrapper {
+            position: absolute;
+            bottom: -70px;
+            left: 50%;
+            transform: translateX(-50%);
+            
+            .admin-profile-avatar {
+                width: 140px;
+                height: 140px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 6px solid white;
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+                position: relative;
+                z-index: 2;
+                transition: transform 0.3s ease;
+                
+                &:hover {
+                    transform: scale(1.05);
+                }
+            }
+            
+            .admin-avatar-border {
+                position: absolute;
+                top: -6px;
+                left: -6px;
+                right: -6px;
+                bottom: -6px;
+                border-radius: 50%;
+                background: linear-gradient(45deg, $secondary-color, $quatuor-color);
+                z-index: 1;
+                animation: pulse 2s infinite;
+            }
+            
+            .admin-status-badge {
+                position: absolute;
+                bottom: 10px;
+                right: 10px;
+                padding: 0.5rem 1rem;
+                border-radius: 20px;
+                font-size: 0.85rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                z-index: 3;
+                
+                &.active {
+                    background: #d4edda;
+                    color: #155724;
+                    border: 2px solid #c3e6cb;
+                    
+                    i {
+                        color: #28a745;
+                    }
+                }
+                
+                &.inactive {
+                    background: #f8d7da;
+                    color: #721c24;
+                    border: 2px solid #f5c6cb;
+                    
+                    i {
+                        color: #dc3545;
+                    }
+                }
+            }
+        }
+    }
+    
+    .admin-profile-info {
+        text-align: center;
+        padding: 90px 2rem 2rem;
+        
+        .admin-profile-name {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, $primary-color, $quatuor-color);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .admin-profile-position {
+            font-size: 1.3rem;
+            color: #7f8c8d;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            
+            i {
+                color: $primary-color;
+            }
+        }
+        
+        .admin-employee-id {
+            font-size: 1rem;
+            color: #95a5a6;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            
+            i {
+                color: $secondary-color;
+            }
+        }
+    }
+}
+
+// Corps admin
+.admin-profile-body {
+    padding: 2rem;
+    
+    .admin-info-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+        
+        .full-width {
+            grid-column: 1 / -1;
+        }
+    }
+    
+    .admin-info-card {
+        background: #f8f9fa;
+        border-radius: 15px;
+        padding: 1.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .admin-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            
+            i {
+                font-size: 1.5rem;
+                color: $primary-color;
+                background: rgba($primary-color, 0.1);
+                padding: 0.75rem;
+                border-radius: 10px;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
+                font-weight: 600;
+                color: #2c3e50;
+                margin: 0;
+            }
+        }
+        
+        .admin-card-content {
+            .admin-info-item {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                
+                &:last-child {
+                    border-bottom: none;
+                }
+                
+                i {
+                    font-size: 1.1rem;
+                    color: $secondary-color;
+                    width: 20px;
+                    text-align: center;
+                }
+                
+                .admin-info-details {
+                    flex: 1;
+                    
+                    .admin-info-label {
+                        display: block;
+                        font-size: 0.85rem;
+                        font-weight: 600;
+                        color: #7f8c8d;
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
+                        margin-bottom: 0.25rem;
+                    }
+                    
+                    .admin-info-value {
+                        display: block;
+                        font-size: 1rem;
+                        color: #2c3e50;
+                        font-weight: 500;
+                    }
+                }
+            }
+            
+            .admin-observation-content {
+                padding: 1rem;
+                background: white;
+                border-radius: 10px;
+                border-left: 4px solid $primary-color;
+                font-style: italic;
+                color: #555;
+                line-height: 1.6;
+                min-height: 60px;
+            }
+        }
+    }
+}
+
+// Actions admin
+.admin-profile-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    
+    .admin-action-form {
+        display: inline-block;
+    }
+    
+    .admin-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        
+        i {
+            font-size: 1.1rem;
+        }
+        
+        &.edit-btn {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            color: white;
+            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.3);
+            
+            &:hover {
+                background: linear-gradient(45deg, #e67e22, #d35400);
+                transform: translateY(-3px);
+                box-shadow: 0 10px 25px rgba(243, 156, 18, 0.4);
+                color: white;
+                text-decoration: none;
+            }
+        }
+        
+        &.deactivate-btn {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+            
+            &:hover {
+                background: linear-gradient(45deg, #c0392b, #a93226);
+                transform: translateY(-3px);
+                box-shadow: 0 10px 25px rgba(231, 76, 60, 0.4);
+            }
+        }
+        
+        &:active {
+            transform: translateY(-1px);
+        }
+    }
+}
+
+// Responsive admin
+@media (max-width: 768px) {
+    .admin-profile-page {
+        padding: 1rem 0.5rem;
+        
+        .admin-profile-container {
+            border-radius: 15px;
+        }
+    }
+    
+    .admin-breadcrumb {
+        padding: 1rem;
+    }
+    
+    .admin-profile-header {
+        .admin-profile-cover {
+            height: 180px;
+            
+            .admin-avatar-wrapper {
+                .admin-profile-avatar {
+                    width: 120px;
+                    height: 120px;
+                }
+                
+                .admin-status-badge {
+                    font-size: 0.75rem;
+                    padding: 0.4rem 0.8rem;
+                }
+            }
+        }
+        
+        .admin-profile-info {
+            padding: 80px 1rem 1rem;
+            
+            .admin-profile-name {
+                font-size: 2.2rem;
+            }
+            
+            .admin-profile-position {
+                font-size: 1.1rem;
+            }
+        }
+    }
+    
+    .admin-profile-body {
+        padding: 1rem;
+        
+        .admin-info-cards {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        .admin-info-card {
+            padding: 1rem;
+        }
+    }
+    
+    .admin-profile-actions {
+        flex-direction: column;
+        align-items: center;
+        
+        .admin-btn {
+            width: 100%;
+            max-width: 280px;
+            justify-content: center;
+        }
+    }
 }
