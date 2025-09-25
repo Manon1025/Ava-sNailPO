@@ -2,6 +2,8 @@
 
 // Container et layout
 .login-page {
+    position: relative;
+    
     .container-fluid {
         padding: 0;
         height: 100vh;
@@ -10,6 +12,25 @@
     .row {
         margin: 0;
         height: 100%;
+    }
+}
+
+// Logo en haut à gauche (desktop)
+.login-logo {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    z-index: 1000;
+    
+    .login-logo-img {
+        height: 60px;
+        width: auto;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        transition: transform 0.3s ease;
+        
+        &:hover {
+            transform: scale(1.05);
+        }
     }
 }
 
@@ -114,6 +135,26 @@
 
 // Mobile (jusqu'à 768px)
 @media (max-width: 768px) {
+    .login-logo {
+        position: relative;
+        top: auto;
+        left: auto;
+        text-align: center;
+        margin: 0;
+        z-index: auto;
+        order: 2;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem 0;
+        background-color: #f8f9fa;
+        
+        .login-logo-img {
+            height: 100px;
+        }
+    }
+    
     .login-page {
         .container-fluid {
             height: auto;
@@ -123,6 +164,7 @@
         .row {
             flex-direction: column;
             height: auto;
+            display: flex;
         }
         
         // Image en bannière mobile
@@ -136,7 +178,7 @@
         // Formulaire mobile
         .col-lg-6, .col-md-7 {
             width: 100%;
-            order: 2;
+            order: 3;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -185,6 +227,26 @@
 
 // Tablette (769px à 992px)
 @media (min-width: 769px) and (max-width: 992px) {
+    .login-logo {
+        position: relative;
+        top: auto;
+        left: auto;
+        text-align: center;
+        margin: 0;
+        z-index: auto;
+        order: 2;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1.5rem 0;
+        background-color: #f8f9fa;
+        
+        .login-logo-img {
+            height: 100px;
+        }
+    }
+    
     .login-page {
         .container-fluid {
             height: auto;
@@ -194,6 +256,7 @@
         .row {
             flex-direction: column;
             height: auto;
+            display: flex;
         }
         
         // Image en bannière tablette
@@ -207,7 +270,7 @@
         // Formulaire tablette
         .col-lg-6, .col-md-7 {
             width: 100%;
-            order: 2;
+            order: 3;
             display: flex;
             align-items: center;
             justify-content: center;
