@@ -79,35 +79,6 @@ exports.deactivate = async (req, res) => {
   }
 };
 
-  // * Pour supprimer un employee par son id (fonction conservée si besoin de vraie suppression)
-exports.destroy = async (req, res) => {
-  try {
-    const id = req.params.id;
-    
-    // ! Infos sur l'employee
-    const employee = await Employee.findOne({ where: { id_employee: id } });
-    if (!employee) {
-      return res.status(404).json({ message: 'Employé non trouvé' });
-    }
-    
-    // ! Suppression
-    const result = await Employee.destroy({ where: { id_employee: id } });
-    
-    // ! Reponse en JSON penser à le changer en réponse RES 
-    if (result > 0) {
-      res.status(200).json({ 
-        message: `${employee.fname} ${employee.lname} vient d'être supprimé` 
-      });
-    } else {
-      res.status(404).json({ message: 'Employé non trouvé' });
-    }
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Erreur serveur', error: err.message });
-  }
-};
-
-
   // * Pour ajouter un employé
 exports.create = async (req, res) => {
   try {

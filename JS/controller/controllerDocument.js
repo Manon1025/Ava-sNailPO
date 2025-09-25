@@ -57,3 +57,21 @@ exports.create = async (req, res) => {
         res.redirect('/documents');
     }
 }
+
+exports.destroy = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const document = await Documents.findByPk(id);
+
+        if (!document) {
+            console.error('Document non trouvé avec ID:', id);
+            return res.redirect('/documents');
+        }
+
+        await document.destroy();
+        res.redirect('/documents?message=supprimé&name=' + encodeURIComponent(document.name));
+    } catch (error) {
+        console.error('Erreur lors de la suppression du document:', error);
+        res.redirect('/documents');
+    }
+}

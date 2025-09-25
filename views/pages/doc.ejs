@@ -128,7 +128,10 @@
               <% if(user.role === 1) { %>
               <td>
                 <button class="btn btn-sm btn-info me-1">Modifier</button>
-                <button class="btn btn-sm btn-danger">Supprimer</button>
+                <form action="/delete-document/<%= doc.id_document %>" method="POST" class="d-inline" 
+                      onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce document ?')">
+                  <button class="btn btn-sm btn-danger">Supprimer</button>
+                </form>
               </td>
               <% } %>
             </tr>

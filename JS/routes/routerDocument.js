@@ -14,5 +14,8 @@ router.get('/documents', controllerDocument.index)
     // ! upload.single('document') permet d'importer un fichier
 router.post('/add-document', uploads.single('document') ,controllerDocument.create)
 
+    // * Supprimer un document
+router.post('/delete-document/:id', controllerDocument.destroy)
+
 // TODO: Exporter le routeur
 module.exports = router
