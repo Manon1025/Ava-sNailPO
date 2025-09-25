@@ -1,150 +1,244 @@
-<div class="container mt-5">
-  <div class="card shadow">
-    <div class="card-body">
-      <h3 class="mb-4 text-center">📂 Liste des documents</h3>
-
-      <!-- * Table des documents -->
-      <table class="table table-bordered table-hover align-middle">
-
-        <!-- * En-tête de la table -->
-        <thead class="table-dark">
-          <tr>
-            <th>Nom document</th>
-            <th>Catégorie</th>
-            <th class="d-none d-md-table-cell">Description</th> <!-- Masquée sur mobile -->
-            <th>Date</th>
-            <th class="d-none d-md-table-cell">Ouvrir</th> <!-- Masquée sur mobile -->
-            <th>Télécharger</th>
-
-            <% if(user.role === 1) { %>
-            <th>Actions</th>
-            <% } %>
-
-          </tr>
-        </thead>
-
-        <!-- * Corps de la table -->
-        <tbody>
-          <!-- ! Liste des documents (BOUCLE) -->
-          <% documents.forEach(doc => { %>
-            <tr>
-              <td><%= doc.name %></td>
-
-              <!-- ! Catégorie avec badge de couleur -->
-              <td>
-                <% 
-                  let catClass = "badge-default"; // classe par défaut
-                  if (doc.Category && doc.Category.name) {
-                    switch (doc.Category.name) {
-                      case "Réglement intérieur":
-                        catClass = "badge-reglement";
-                        break;
-                      case "Hygiène & Sécurité":
-                        catClass = "badge-hygiene";
-                        break;
-                      case "Produit & Matériel":
-                        catClass = "badge-produits";
-                        break;
-                      case "Prestations":
-                        catClass = "badge-prestations";
-                        break;
-                      case "Formation & Diplôme":
-                        catClass = "badge-formation";
-                        break;
-                      case "Accueil & Client":
-                        catClass = "badge-accueil";
-                        break;
-                      case "Administration":
-                        catClass = "badge-administration";
-                        break;
-                      case "Organisation":
-                        catClass = "badge-organisation"; 
-                        break;
-                      case "Equipe & Communication":
-                        catClass = "badge-equipe"; 
-                        break;
-                      case "Qualité & Satisfaction client":
-                        catClass = "badge-qualite"; 
-                        break;
-                      case "Evénement & Promotions":
-                        catClass = "badge-event"; 
-                        break;
-                      case "Santé & Bien-être au travail":
-                        catClass = "badge-sante"; 
-                        break;
-                      case "Mention Légale & RGPD":
-                        catClass = "badge-mention"; 
-                        break;
-                      default:
-                        catClass = "badge-default";
-                    }
-                  }
-                %>
-                <span class="badge <%= catClass %>">
-                  <%= doc.Category && doc.Category.name ? doc.Category.name : 'Non définie' %>
-                </span>
-              </td>
-
-              <!-- ! Description -->
-              <td class="d-none d-md-table-cell"><%= doc.description %></td>
-
-              <!-- ! Formatage de la date en français -->
-              <td>
-                <% if (doc.create_at) { %>
-                  <%= new Date(doc.create_at).toLocaleDateString("fr-FR") %>
-                <% } else { %>
-                  Non définie
+<div class="documents-page">
+    <!-- Header de la page -->
+    <div class="documents-header">
+        <div class="header-content">
+            <div class="title-section">
+                <div class="title-icon">
+                    <i class="fas fa-folder-open"></i>
+                </div>
+                <div>
+                    <h1 class="page-title">Centre de documents</h1>
+                    <p class="page-subtitle">Consultez et gérez tous vos documents importants</p>
+                </div>
+            </div>
+            
+            <div class="header-stats">
+                <div class="stat-card">
+                    <div class="stat-number"><%= documents.length %></div>
+                    <div class="stat-label">Document<%= documents.length > 1 ? 's' : '' %></div>
+                </div>
+                <% if (user.role === 1) { %>
+                <a href="/ajout-document" class="add-document-btn">
+                    <i class="fas fa-plus"></i>
+                    <span>Ajouter</span>
+                </a>
                 <% } %>
-              </td>
-
-              <!-- ! Bouton "Ouvrir" -->
-              <td class="d-none d-md-table-cell">
-                <% if (doc.fileName) { %>
-                  <% 
-                    // Récupération de l'extension du fichier
-                    const ext = doc.fileName.split('.').pop().toLowerCase();
-                  %>
-
-                  <%// Affichage du document selon son type %>
-                  <% if (['pdf','jpg','jpeg','png','gif'].includes(ext)) { %>
-                    <a href="/uploads/<%= doc.fileName %>" target="_blank" class="btn btn-sm btn-warning">Ouvrir</a>
-                  <% } else { %>
-                    <a href="/uploads/<%= doc.fileName %>" target="_blank" class="btn btn-sm btn-warning">Ouvrir</a>
-                  <% } %>
-                <% } else { %>
-                  Aucun fichier
-                <% } %>
-              </td>
-
-              <!-- ! Bouton Télécharger -->
-              <td>
-                <% if (doc.fileName) { %>
-                  <a href="/uploads/<%= doc.fileName %>" class="btn btn-sm btn-primary" download>Télécharger</a>
-                <% } else { %>
-                  Aucun fichier
-                <% } %>
-              </td>
-
-              <% if(user.role === 1) { %>
-              <td>
-                <button class="btn btn-sm btn-info me-1">Modifier</button>
-                <form action="/delete-document/<%= doc.id_document %>" method="POST" class="d-inline" 
-                      onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce document ?')">
-                  <button class="btn btn-sm btn-danger">Supprimer</button>
-                </form>
-              </td>
-              <% } %>
-            </tr>
-          <% }) %>
-        </tbody>
-      </table>
+            </div>
+        </div>
     </div>
-  </div>
+
+    <!-- Grille des documents -->
+    <div class="documents-container">
+        <div class="documents-grid">
+            <% documents.forEach((doc, index) => { %>
+            <div class="document-card">
+                <!-- Header de la carte avec icône de fichier -->
+                <div class="card-header-doc">
+                    <div class="file-icon">
+                        <% 
+                          const ext = doc.fileName ? doc.fileName.split('.').pop().toLowerCase() : 'unknown';
+                          let iconClass = 'fas fa-file';
+                          let iconColor = '#6b7280';
+                          
+                          switch(ext) {
+                            case 'pdf':
+                              iconClass = 'fas fa-file-pdf';
+                              iconColor = '#dc2626';
+                              break;
+                            case 'jpg':
+                            case 'jpeg':
+                            case 'png':
+                            case 'gif':
+                              iconClass = 'fas fa-file-image';
+                              iconColor = '#059669';
+                              break;
+                            case 'doc':
+                            case 'docx':
+                              iconClass = 'fas fa-file-word';
+                              iconColor = '#2563eb';
+                              break;
+                            case 'xls':
+                            case 'xlsx':
+                              iconClass = 'fas fa-file-excel';
+                              iconColor = '#16a34a';
+                              break;
+                            default:
+                              iconClass = 'fas fa-file-alt';
+                              iconColor = '#6b7280';
+                          }
+                        %>
+                        <i class="<%= iconClass %>" data-color="<%= iconColor %>"></i>
+                    </div>
+                    
+                    <!-- Badge catégorie -->
+                    <div class="category-badge">
+                        <% 
+                          let catClass = "badge-default";
+                          let catIcon = "fas fa-tag";
+                          
+                          if (doc.Category && doc.Category.name) {
+                            switch (doc.Category.name) {
+                              case "Réglement intérieur":
+                                catClass = "badge-reglement";
+                                catIcon = "fas fa-gavel";
+                                break;
+                              case "Hygiène & Sécurité":
+                                catClass = "badge-hygiene";
+                                catIcon = "fas fa-shield-alt";
+                                break;
+                              case "Produit & Matériel":
+                                catClass = "badge-produits";
+                                catIcon = "fas fa-box";
+                                break;
+                              case "Prestations":
+                                catClass = "badge-prestations";
+                                catIcon = "fas fa-spa";
+                                break;
+                              case "Formation & Diplôme":
+                                catClass = "badge-formation";
+                                catIcon = "fas fa-graduation-cap";
+                                break;
+                              case "Accueil & Client":
+                                catClass = "badge-accueil";
+                                catIcon = "fas fa-handshake";
+                                break;
+                              case "Administration":
+                                catClass = "badge-administration";
+                                catIcon = "fas fa-building";
+                                break;
+                              case "Organisation":
+                                catClass = "badge-organisation";
+                                catIcon = "fas fa-sitemap";
+                                break;
+                              case "Equipe & Communication":
+                                catClass = "badge-equipe";
+                                catIcon = "fas fa-users";
+                                break;
+                              case "Qualité & Satisfaction client":
+                                catClass = "badge-qualite";
+                                catIcon = "fas fa-star";
+                                break;
+                              case "Evénement & Promotions":
+                                catClass = "badge-event";
+                                catIcon = "fas fa-calendar-alt";
+                                break;
+                              case "Santé & Bien-être au travail":
+                                catClass = "badge-sante";
+                                catIcon = "fas fa-heart";
+                                break;
+                              case "Mention Légale & RGPD":
+                                catClass = "badge-mention";
+                                catIcon = "fas fa-balance-scale";
+                                break;
+                              default:
+                                catClass = "badge-default";
+                                catIcon = "fas fa-tag";
+                            }
+                          }
+                        %>
+                        <span class="category-pill <%= catClass %>">
+                            <i class="<%= catIcon %>"></i>
+                            <%= doc.Category && doc.Category.name ? doc.Category.name : 'Non définie' %>
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- Corps de la carte -->
+                <div class="card-body-doc">
+                    <h3 class="document-title"><%= doc.name %></h3>
+                    
+                    <% if (doc.description) { %>
+                    <p class="document-description"><%= doc.description %></p>
+                    <% } %>
+                    
+                    <div class="document-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>
+                                <% if (doc.create_at) { %>
+                                    <%= new Date(doc.create_at).toLocaleDateString("fr-FR") %>
+                                <% } else { %>
+                                    Non définie
+                                <% } %>
+                            </span>
+                        </div>
+                        
+                        <% if (doc.fileName) { %>
+                        <div class="meta-item">
+                            <i class="fas fa-file"></i>
+                            <span><%= ext.toUpperCase() %></span>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+                
+                <!-- Actions de la carte -->
+                <div class="card-actions-doc">
+                    <% if (doc.fileName) { %>
+                    <a href="/uploads/<%= doc.fileName %>" target="_blank" class="action-btn view-btn">
+                        <i class="fas fa-eye"></i>
+                        <span>Ouvrir</span>
+                    </a>
+                    
+                    <a href="/uploads/<%= doc.fileName %>" download class="action-btn download-btn">
+                        <i class="fas fa-download"></i>
+                        <span>Télécharger</span>
+                    </a>
+                    <% } else { %>
+                    <div class="no-file-message">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Aucun fichier</span>
+                    </div>
+                    <% } %>
+                    
+                    <% if(user.role === 1) { %>
+                    <div class="admin-actions">
+                        <button class="action-btn edit-btn">
+                            <i class="fas fa-edit"></i>
+                            <span>Modifier</span>
+                        </button>
+                        <form action="/delete-document/<%= doc.id_document %>" method="POST" class="delete-form" 
+                              onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce document ?')">
+                            <button type="submit" class="action-btn delete-btn">
+                                <i class="fas fa-trash"></i>
+                                <span>Supprimer</span>
+                            </button>
+                        </form>
+                    </div>
+                    <% } %>
+                </div>
+                
+                <!-- Overlay pour les actions rapides -->
+                <div class="card-overlay-doc">
+                    <div class="overlay-actions">
+                        <% if (doc.fileName) { %>
+                        <a href="/uploads/<%= doc.fileName %>" target="_blank" class="overlay-btn">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+        
+        <!-- État vide -->
+        <% if (documents.length === 0) { %>
+        <div class="empty-state-doc">
+            <div class="empty-illustration">
+                <i class="fas fa-folder-open"></i>
+            </div>
+            <h3>Aucun document trouvé</h3>
+            <p>Il n'y a encore aucun document dans votre centre de documents.</p>
+            <% if (user.role === 1) { %>
+            <a href="/ajout-document" class="btn-add-first-doc">
+                <i class="fas fa-plus"></i>
+                Ajouter le premier document
+            </a>
+            <% } %>
+        </div>
+        <% } %>
+    </div>
 </div>
 
-<!-- * Bouton Ajouter un document (visible uniquement par les admins) -->
-<% if (user.role === 1 ) { %>
-<div class="text-center mt-3">
-  <a href="/ajout-document" class="btn btn-success">Ajouter un document</a>
-</div>
-<% } %>
+

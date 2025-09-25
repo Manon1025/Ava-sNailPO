@@ -1,69 +1,207 @@
-<div class="container my-5">
-  <div class="card shadow-sm border-0">
-    <div class="card-body p-5">
-      <h1 class="text-center mb-4">Ajouter un document</h1>
-
-      <form method="post" action="/add-document" enctype="multipart/form-data" class="needs-validation" novalidate>
-        
-        <div class="row g-3 mb-3">
-          <!-- Nom du document -->
-          <div class="col-md-6">
-            <label for="name" class="form-label fw-semibold">Nom du document</label>
-            <input type="text" 
-                   value="<%= formData ? formData.name : '' %>" 
-                   class="form-control <%= details && details.some(d => d.toLowerCase().includes('nom')) ? 'is-invalid' : '' %>" 
-                   id="name" 
-                   name="name" 
-                   placeholder="Entrez le nom du document">
-          </div>
-
-          <!-- Fichier document -->
-          <div class="col-md-6">
-            <label for="document" class="form-label fw-semibold">Document</label>
-            <input type="file" 
-                   class="form-control <%= details && details.some(d => d.toLowerCase().includes('fichier')) ? 'is-invalid' : '' %>" 
-                   id="document" 
-                   name="document" 
-                   accept=".pdf, image/*">
-          </div>
+<div class="add-employee-page">
+    <!-- Header avec retour -->
+    <div class="form-header">
+        <div class="header-content">
+            <div class="back-button">
+                <a href="/documents" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Retour</span>
+                </a>
+            </div>
+            <div class="form-title-section">
+                <div class="title-icon">
+                    <i class="bi bi-file-arrow-down"></i>
+                </div>
+                <div>
+                    <h1 class="form-title">Ajouter un document</h1>
+                    <p class="form-subtitle">Téléchargez et catégorisez un nouveau document</p>
+                </div>
+            </div>
         </div>
-
-        <!-- Description -->
-        <div class="mb-3">
-          <label for="description" class="form-label fw-semibold">Description</label>
-          <textarea class="form-control <%= details && details.some(d => d.toLowerCase().includes('description')) ? 'is-invalid' : '' %>" 
-                    name="description" 
-                    id="description" 
-                    rows="4"
-                    placeholder="Décrivez le document"><%= formData ? formData.description : '' %></textarea>
-        </div>
-
-        <!-- Catégorie -->
-        <div class="mb-3">
-          <label for="category" class="form-label fw-semibold">Catégorie</label>
-          <select id="category" name="category" class="form-select <%= details && details.some(d => d.toLowerCase().includes('catégorie')) ? 'is-invalid' : '' %>">
-            <option value="">--Sélectionner--</option>
-            <option value="1" <%= formData && formData.category === 1 ? 'selected' : '' %>>Réglement intérieur</option>
-            <option value="2" <%= formData && formData.category === 2 ? 'selected' : '' %>>Hygiène et sécurité</option>
-            <option value="3" <%= formData && formData.category === 3 ? 'selected' : '' %>>Produits et matériaux</option>
-            <option value="4" <%= formData && formData.category === 4 ? 'selected' : '' %>>Prestations</option>
-            <option value="5" <%= formData && formData.category === 5 ? 'selected' : '' %>>Formation & Diplôme</option>
-            <option value="6" <%= formData && formData.category === 6 ? 'selected' : '' %>>Accueil & Client</option>
-            <option value="7" <%= formData && formData.category === 7 ? 'selected' : '' %>>Administration</option>
-            <option value="8" <%= formData && formData.category === 8 ? 'selected' : '' %>>Organisation</option>
-            <option value="9" <%= formData && formData.category === 9 ? 'selected' : '' %>>Equipe & Communication</option>
-            <option value="10" <%= formData && formData.category === 10 ? 'selected' : '' %>>Qualité & Satisfaction client</option>
-            <option value="11" <%= formData && formData.category === 11 ? 'selected' : '' %>>Evénement & Promotions</option>
-            <option value="12" <%= formData && formData.category === 12 ? 'selected' : '' %>>Santé & Bien-être au travail</option>
-            <option value="13" <%= formData && formData.category === 13 ? 'selected' : '' %>>Mention Légale & RGPD</option>
-          </select>
-        </div>
-
-        <div class="d-grid mt-4">
-          <button type="submit" class="btn btn-primary btn-lg">Valider</button>
-        </div>
-
-      </form>
     </div>
-  </div>
+
+    <!-- Formulaire moderne -->
+    <div class="form-container">
+        <form method="post" action="/add-document" enctype="multipart/form-data" class="modern-form">
+
+            <!-- Section 1: Informations du document -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h3 class="section-title">Informations du document</h3>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name" class="form-label">
+                            <i class="fas fa-file-alt"></i>
+                            Nom du document *
+                        </label>
+                        <input type="text" 
+                               value="<%= formData ? formData.name : '' %>" 
+                               class="form-input <%= details && details.some(d => d.toLowerCase().includes('nom')) ? 'is-invalid' : '' %>" 
+                               id="name" 
+                               name="name" 
+                               placeholder="Entrez le nom du document"
+                               required>
+                        <% if (details && details.some(d => d.toLowerCase().includes('nom'))) { %>
+                        <div class="form-error">Le nom du document est requis</div>
+                        <% } %>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="category" class="form-label">
+                            <i class="fas fa-tags"></i>
+                            Catégorie *
+                        </label>
+                        <select id="category" name="category" class="form-select <%= details && details.some(d => d.toLowerCase().includes('catégorie')) ? 'is-invalid' : '' %>" required>
+                            <option value="">Sélectionner une catégorie</option>
+                            <option value="1" <%= formData && formData.category === 1 ? 'selected' : '' %>>Règlement intérieur</option>
+                            <option value="2" <%= formData && formData.category === 2 ? 'selected' : '' %>>Hygiène et sécurité</option>
+                            <option value="3" <%= formData && formData.category === 3 ? 'selected' : '' %>>Produits et matériaux</option>
+                            <option value="4" <%= formData && formData.category === 4 ? 'selected' : '' %>>Prestations</option>
+                            <option value="5" <%= formData && formData.category === 5 ? 'selected' : '' %>>Formation & Diplôme</option>
+                            <option value="6" <%= formData && formData.category === 6 ? 'selected' : '' %>>Accueil & Client</option>
+                            <option value="7" <%= formData && formData.category === 7 ? 'selected' : '' %>>Administration</option>
+                            <option value="8" <%= formData && formData.category === 8 ? 'selected' : '' %>>Organisation</option>
+                            <option value="9" <%= formData && formData.category === 9 ? 'selected' : '' %>>Équipe & Communication</option>
+                            <option value="10" <%= formData && formData.category === 10 ? 'selected' : '' %>>Qualité & Satisfaction client</option>
+                            <option value="11" <%= formData && formData.category === 11 ? 'selected' : '' %>>Événement & Promotions</option>
+                            <option value="12" <%= formData && formData.category === 12 ? 'selected' : '' %>>Santé & Bien-être au travail</option>
+                            <option value="13" <%= formData && formData.category === 13 ? 'selected' : '' %>>Mention Légale & RGPD</option>
+                        </select>
+                        <% if (details && details.some(d => d.toLowerCase().includes('catégorie'))) { %>
+                        <div class="form-error">Veuillez sélectionner une catégorie</div>
+                        <% } %>
+                    </div>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="description" class="form-label">
+                        <i class="fas fa-align-left"></i>
+                        Description
+                    </label>
+                    <textarea class="form-textarea <%= details && details.some(d => d.toLowerCase().includes('description')) ? 'is-invalid' : '' %>" 
+                              name="description" 
+                              id="description" 
+                              rows="4"
+                              placeholder="Décrivez le contenu et l'objectif de ce document..."><%= formData ? formData.description : '' %></textarea>
+                    <% if (details && details.some(d => d.toLowerCase().includes('description'))) { %>
+                    <div class="form-error">Description invalide</div>
+                    <% } %>
+                </div>
+            </div>
+
+            <!-- Section 2: Fichier -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h3 class="section-title">Fichier du document</h3>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="document" class="form-label">
+                        <i class="fas fa-paperclip"></i>
+                        Fichier du document *
+                    </label>
+                    <div class="file-upload-area <%= details && details.some(d => d.toLowerCase().includes('fichier')) ? 'is-invalid' : '' %>">
+                        <input type="file" 
+                               class="form-input-file" 
+                               id="document" 
+                               name="document" 
+                               accept=".pdf, image/*"
+                               required>
+                        <div class="file-upload-placeholder">
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <div class="upload-text">
+                                <span class="upload-main">Cliquez pour sélectionner un fichier</span>
+                                <small class="upload-hint">ou glissez-déposez votre fichier ici</small>
+                                <small class="upload-formats">Formats acceptés: PDF, JPG, PNG, GIF</small>
+                            </div>
+                        </div>
+                        <div class="file-selected" style="display: none;">
+                            <i class="fas fa-file-check"></i>
+                            <span class="file-name"></span>
+                            <button type="button" class="remove-file">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <% if (details && details.some(d => d.toLowerCase().includes('fichier'))) { %>
+                    <div class="form-error">Veuillez sélectionner un fichier</div>
+                    <% } %>
+                </div>
+            </div>
+
+            <!-- Boutons d'action -->
+            <div class="form-actions">
+                <button type="button" class="btn-cancel" onclick="history.back()">
+                    <i class="fas fa-times"></i>
+                    Annuler
+                </button>
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-plus"></i>
+                    Ajouter le document
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
+
+<script>
+// JavaScript pour la prévisualisation du fichier sélectionné
+document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('document');
+    const uploadArea = document.querySelector('.file-upload-area');
+    const placeholder = document.querySelector('.file-upload-placeholder');
+    const selectedArea = document.querySelector('.file-selected');
+    const fileName = document.querySelector('.file-name');
+    const removeBtn = document.querySelector('.remove-file');
+
+    fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            fileName.textContent = file.name;
+            placeholder.style.display = 'none';
+            selectedArea.style.display = 'flex';
+            uploadArea.classList.add('has-file');
+        }
+    });
+
+    removeBtn.addEventListener('click', function() {
+        fileInput.value = '';
+        placeholder.style.display = 'block';
+        selectedArea.style.display = 'none';
+        uploadArea.classList.remove('has-file');
+    });
+
+    // Drag and drop
+    uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        uploadArea.classList.add('drag-over');
+    });
+
+    uploadArea.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        uploadArea.classList.remove('drag-over');
+    });
+
+    uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        uploadArea.classList.remove('drag-over');
+        
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            fileInput.files = files;
+            const event = new Event('change', { bubbles: true });
+            fileInput.dispatchEvent(event);
+        }
+    });
+});
+</script>
