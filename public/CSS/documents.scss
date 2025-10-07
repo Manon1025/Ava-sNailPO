@@ -1,4 +1,4 @@
-@import 'variables.scss';
+@import '_variables';
 
 // Variables pour la page des documents
 $card-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
@@ -465,6 +465,84 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
     }
 }
+
+// TODO: Update Document
+.current-file-info {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 1.5rem;
+    }
+
+    .file-preview {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .file-icon {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .file-icon i {
+        font-size: 1.5rem;
+    }
+
+    .file-details {
+        flex: 1;
+    }
+
+    .file-details h4 {
+        margin: 0 0 0.25rem 0;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #1e293b;
+    }
+
+    .file-details p {
+        margin: 0;
+        font-size: 0.875rem;
+        color: #64748b;
+    }
+
+    .preview-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .preview-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        color: white;
+        text-decoration: none;
+    }
+
+    .no-file-message {
+        background: #fef3c7;
+        border: 1px solid #f59e0b;
+        border-radius: 8px;
+        padding: 1rem;
+        text-align: center;
+        color: #92400e;
+    }
+
+    .no-file-message i {
+        font-size: 1.25rem;
+        margin-right: 0.5rem;
+    }
 
 // Animations
 @keyframes fadeInUp {

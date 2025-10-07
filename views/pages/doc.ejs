@@ -193,10 +193,10 @@
                     
                     <% if(user.role === 1) { %>
                     <div class="admin-actions">
-                        <button class="action-btn edit-btn">
+                        <a href="/edit-document/<%= doc.id_document %>" class="action-btn edit-btn">
                             <i class="fas fa-edit"></i>
                             <span>Modifier</span>
-                        </button>
+                        </a>
                         <form action="/delete-document/<%= doc.id_document %>" method="POST" class="delete-form" 
                               onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce document ?')">
                             <button type="submit" class="action-btn delete-btn">
@@ -208,16 +208,6 @@
                     <% } %>
                 </div>
                 
-                <!-- Overlay pour les actions rapides -->
-                <div class="card-overlay-doc">
-                    <div class="overlay-actions">
-                        <% if (doc.fileName) { %>
-                        <a href="/uploads/<%= doc.fileName %>" target="_blank" class="overlay-btn">
-                            <i class="fas fa-external-link-alt"></i>
-                        </a>
-                        <% } %>
-                    </div>
-                </div>
             </div>
             <% }) %>
         </div>

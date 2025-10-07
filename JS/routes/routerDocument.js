@@ -14,6 +14,10 @@ router.get('/documents', controllerDocument.index)
     // ! upload.single('document') permet d'importer un fichier
 router.post('/add-document', uploads.single('document') ,controllerDocument.create)
 
+    // * Modifier un document
+router.get('/edit-document/:id', controllerDocument.edit)
+router.post('/edit-document/:id', uploads.single('document'), controllerDocument.update)
+
     // * Supprimer un document
 router.post('/delete-document/:id', controllerDocument.destroy)
 

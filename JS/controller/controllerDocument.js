@@ -58,6 +58,81 @@ exports.create = async (req, res) => {
     }
 }
 
+    // * Afficher le formulaire d'édition d'un document
+exports.edit = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const document = await Documents.findByPk(id, {
+            include: [
+                {
+                    model: Category,
+                    attributes: ['id_category', 'name']
+                }
+            ]
+        });
+
+        if (!document) {
+            console.error('Document non trouvé avec ID:', id);
+            return res.redirect('/documents');
+        }
+
+        const categories = await Category.findAll();
+
+        res.render('pages/editDocument.ejs', {
+            title: 'Modifier le document',
+            document,
+            categories,
+            user: req.user
+        });
+    } catch (err) {
+        console.error(err);
+        res.redirect('/documents');
+    }
+}
+
+    // * Mettre à jour un document
+exports.update = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const { name, description, category: categoryId } = req.body;
+
+        const document = await Documents.findByPk(id);
+
+        if (!document) {
+            console.error('Document non trouvé avec ID:', id);
+            return res.redirect('/documents');
+        }
+
+        // ! Vérifier si la catégorie existe
+        const existanceCategory = await Category.findByPk(categoryId);
+        
+        if (!existanceCategory) {
+            console.error('Catégorie non trouvée avec ID:', categoryId);
+            return res.redirect('/documents');
+        }
+
+        // ! Préparer les données de mise à jour
+        const updateData = {
+            name: name || document.name,
+            description: description || document.description,
+            category_id: existanceCategory.id_category,
+        };
+
+        // ! Si un nouveau fichier est uploadé, l'ajouter
+        if (req.file) {
+            updateData.fileName = req.file.filename;
+        }
+
+        // ! Mettre à jour le document
+        await document.update(updateData);
+
+        res.redirect('/documents');
+    } catch (err) {
+        console.error(err);
+        res.redirect('/documents');
+    }
+}
+
 exports.destroy = async (req, res) => {
     try {
         const id = req.params.id;

@@ -30,3 +30,7 @@ $card-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
 $card-shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.15);
 $border-radius: 20px;
 $transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Variables de gradients
+$primary-gradient: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+$secondary-gradient: linear-gradient(135deg, #f56565 0%, #f093fb 100%);

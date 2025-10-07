@@ -1,0 +1,160 @@
+<div class="add-employee-page">
+    <!-- Header avec retour -->
+    <div class="form-header">
+        <div class="header-content">
+            <div class="back-button">
+                <a href="/documents" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Retour</span>
+                </a>
+            </div>
+            <div class="form-title-section">
+                <div class="title-icon">
+                    <i class="fas fa-edit"></i>
+                </div>
+                <div>
+                    <h1 class="form-title">Modifier le document</h1>
+                    <p class="form-subtitle">Modifiez les informations et le fichier de ce document</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulaire -->
+    <div class="form-container">
+        <form method="post" action="/edit-document/<%= document.id_document %>" enctype="multipart/form-data"
+            class="modern-form">
+
+            <!-- Section 1: Informations du document -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h3 class="section-title">Informations du document</h3>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name" class="form-label">
+                            <i class="fas fa-file-alt"></i>
+                            Nom du document *
+                        </label>
+                        <input type="text" value="<%= document.name %>" class="form-input" id="name" name="name"
+                            placeholder="Entrez le nom du document" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category" class="form-label">
+                            <i class="fas fa-tags"></i>
+                            Catégorie *
+                        </label>
+                        <select class="form-select" id="category" name="category" required>
+                            <option value="">Sélectionnez une catégorie</option>
+                            <% categories.forEach(category=> { %>
+                                <option value="<%= category.id_category %>"
+                                    <%=document.category_id===category.id_category ? 'selected' : '' %>>
+                                    <%= category.name %>
+                                </option>
+                                <% }); %>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description" class="form-label">
+                        <i class="fas fa-align-left"></i>
+                        Description
+                    </label>
+                    <textarea class="form-textarea" id="description" name="description" rows="4"
+                        placeholder="Entrez une description du document (optionnel)"><%= document.description || '' %></textarea>
+                </div>
+            </div>
+
+            <!-- Section 2: Fichier actuel -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-file"></i>
+                    </div>
+                    <h3 class="section-title">Fichier actuel</h3>
+                </div>
+
+                <% if (document.fileName) { %>
+                    <div class="current-file-info">
+                        <div class="file-preview">
+                            <div class="file-icon">
+                                <% const ext=document.fileName.split('.').pop().toLowerCase(); let
+                                    iconClass='fas fa-file' ; let iconColor='#6b7280' ; switch(ext) { case 'pdf' :
+                                    iconClass='fas fa-file-pdf' ; iconColor='#dc2626' ; break; case 'jpg' : case 'jpeg'
+                                    : case 'png' : case 'gif' : iconClass='fas fa-file-image' ; iconColor='#059669' ;
+                                    break; case 'doc' : case 'docx' : iconClass='fas fa-file-word' ; iconColor='#2563eb'
+                                    ; break; case 'xls' : case 'xlsx' : iconClass='fas fa-file-excel' ;
+                                    iconColor='#16a34a' ; break; default: iconClass='fas fa-file-alt' ;
+                                    iconColor='#6b7280' ; } %>
+                                    <i class="<%= iconClass %>" style="color: <%= iconColor %>"></i>
+                            </div>
+                            <div class="file-details">
+                                <h4>
+                                    <%= document.fileName %>
+                                </h4>
+                                <p>Type: <%= ext.toUpperCase() %>
+                                </p>
+                            </div>
+                            <div class="file-actions">
+                                <a href="/uploads/<%= document.fileName %>" target="_blank" class="preview-btn">
+                                    <i class="fas fa-eye"></i>
+                                    Aperçu
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <% } else { %>
+                        <div class="no-file-message">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Aucun fichier associé à ce document</span>
+                        </div>
+                        <% } %>
+            </div>
+
+            <!-- Section 3: Nouveau fichier (optionnel) -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-upload"></i>
+                    </div>
+                    <h3 class="section-title">Remplacer le fichier (optionnel)</h3>
+                </div>
+
+                <div class="form-group">
+                    <label for="document" class="form-label">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        Nouveau fichier
+                    </label>
+                    <div class="file-upload-area">
+                        <input type="file" class="form-file" id="document" name="document"
+                            accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.xls,.xlsx">
+                        <div class="file-upload-content">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <h4>Choisir un nouveau fichier</h4>
+                            <p>Glissez-déposez votre fichier ici ou cliquez pour parcourir</p>
+                            <small>PDF, DOC, DOCX, Images, XLS, XLSX acceptés</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions du formulaire -->
+            <div class="form-actions">
+                <button type="button" class="btn-secondary" onclick="window.history.back()">
+                    <i class="fas fa-times"></i>
+                    Annuler
+                </button>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-save"></i>
+                    Mettre à jour le document
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
