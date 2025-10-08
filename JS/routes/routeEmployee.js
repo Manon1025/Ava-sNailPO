@@ -20,5 +20,9 @@ router.post('/deactivate/:id', controllerEmployee.deactivate)
     // ! upload.single('avatar') permet d'importer un fichier
 router.post('/add', upload.single('avatar') , controllerEmployee.create)
 
+    // * Éditer un employé
+router.get('/updateEmployee/:id', controllerEmployee.edit)
+router.post('/updateEmployee/:id', upload.single('avatar'), controllerEmployee.update)
+
 // TODO: Exporter le routeur
 module.exports = router

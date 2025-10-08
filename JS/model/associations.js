@@ -4,6 +4,7 @@ const Poste = require('./Poste');
 const Contrat = require('./contrat');
 const Documents = require('./Documents');
 const Category = require('./Category');
+// const EmployeeDocument = require('./EmployeeDocument');
 
 // Associations Employee
 Employee.belongsTo(Poste, {
@@ -15,6 +16,23 @@ Employee.belongsTo(Contrat, {
     foreignKey: 'contrat_id',
     targetKey: 'id_contrat'
 });
+
+// Association Employee - Documents (Many to Many) - Temporairement commentée
+// Employee.belongsToMany(Documents, {
+//     through: EmployeeDocument,
+//     foreignKey: 'employee_id',
+//     otherKey: 'document_id',
+//     sourceKey: 'id_employee',
+//     targetKey: 'id_document'
+// });
+
+// Documents.belongsToMany(Employee, {
+//     through: EmployeeDocument,
+//     foreignKey: 'document_id',
+//     otherKey: 'employee_id',
+//     sourceKey: 'id_document',
+//     targetKey: 'id_employee'
+// });
 
 // Associations Poste
 Poste.hasMany(Employee, {
@@ -46,4 +64,5 @@ module.exports = {
     Contrat,
     Documents,
     Category
+    // EmployeeDocument
 };

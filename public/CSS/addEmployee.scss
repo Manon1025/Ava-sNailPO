@@ -213,6 +213,28 @@
                 background: rgba(102, 126, 234, 0.05);
             }
             
+            .current-avatar {
+                margin-bottom: 1rem;
+                
+                .avatar-preview {
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    border: 3px solid #667eea;
+                    display: block;
+                    margin: 0 auto 0.5rem;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                }
+                
+                .current-file-name {
+                    font-size: 0.9rem;
+                    color: #667eea;
+                    font-weight: 500;
+                    display: block;
+                }
+            }
+            
             .upload-placeholder {
                 color: #666;
                 

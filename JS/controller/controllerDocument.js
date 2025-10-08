@@ -63,12 +63,7 @@ exports.edit = async (req, res) => {
     try {
         const id = req.params.id;
         const document = await Documents.findByPk(id, {
-            include: [
-                {
-                    model: Category,
-                    attributes: ['id_category', 'name']
-                }
-            ]
+            include: [Category]
         });
 
         if (!document) {
@@ -126,7 +121,7 @@ exports.update = async (req, res) => {
         // ! Mettre à jour le document
         await document.update(updateData);
 
-        res.redirect('/documents');
+        res.redirect('/documents?message=modifié&name=' + encodeURIComponent(document.name));
     } catch (err) {
         console.error(err);
         res.redirect('/documents');

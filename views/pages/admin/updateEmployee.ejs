@@ -1,0 +1,245 @@
+<div class="add-employee-page">
+    <!-- Header avec retour -->
+    <div class="form-header">
+        <div class="header-content">
+            <div class="back-button">
+                <a href="/listeEmployer" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Retour</span>
+                </a>
+            </div>
+            <div class="form-title-section">
+                <div class="title-icon">
+                    <i class="fas fa-user-edit"></i>
+                </div>
+                <div>
+                    <h1 class="form-title">Modifier l'employé</h1>
+                    <p class="form-subtitle">Modifiez les informations de <%= employee.fname %> <%= employee.lname %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulaire moderne -->
+    <div class="form-container">
+        <form method="post" action="/updateEmployee/<%= employee.id_employee %>" enctype="multipart/form-data" class="modern-form">
+
+            <!-- Section 1: Informations personnelles -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="section-title">Informations personnelles</h3>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="fname" class="form-label">
+                            <i class="fas fa-user"></i>
+                            Prénom *
+                        </label>
+                        <input type="text" class="form-input" id="fname" name="fname" value="<%= employee.fname %>" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lname" class="form-label">
+                            <i class="fas fa-user"></i>
+                            Nom *
+                        </label>
+                        <input type="text" class="form-input" id="lname" name="lname" value="<%= employee.lname %>" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="birth_date" class="form-label">
+                            <i class="fas fa-calendar"></i>
+                            Date de naissance *
+                        </label>
+                        <input type="date" class="form-input" id="birth_date" name="birth_date" value="<%= employee.birth_date ? new Date(employee.birth_date).toISOString().split('T')[0] : '' %>" max="<%= new Date().toISOString().split('T')[0] %>" required>
+                    </div>
+                    
+                    <div class="form-group avatar-upload">
+                        <label for="avatar" class="form-label">
+                            <i class="fas fa-camera"></i>
+                            Photo de profil
+                        </label>
+                        <div class="upload-area">
+                            <% if (employee.avatar) { %>
+                                <div class="current-avatar">
+                                    <img src="/uploads/<%= employee.avatar %>" alt="Avatar actuel" class="avatar-preview">
+                                    <span class="current-file-name">Photo actuelle</span>
+                                </div>
+                            <% } %>
+                            <input type="file" class="form-input-file" id="avatar" name="avatar" accept="image/*">
+                            <div class="upload-placeholder">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span><%= employee.avatar ? 'Cliquez pour changer la photo' : 'Cliquez pour ajouter une photo' %></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Informations professionnelles -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3 class="section-title">Informations professionnelles</h3>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="poste_id" class="form-label">
+                            <i class="fas fa-id-badge"></i>
+                            Poste *
+                        </label>
+                        <select id="poste_id" name="poste_id" class="form-select" required>
+                            <option value="">Sélectionner un poste</option>
+                            <option value="1" <%= employee.poste_id == 1 ? 'selected' : '' %>>Prothésiste ongulaire</option>
+                            <option value="3" <%= employee.poste_id == 3 ? 'selected' : '' %>>Esthéticien.ne</option>
+                            <option value="4" <%= employee.poste_id == 4 ? 'selected' : '' %>>Conseiller.ère</option>
+                            <option value="5" <%= employee.poste_id == 5 ? 'selected' : '' %>>Maquilleur.euse</option>
+                            <option value="6" <%= employee.poste_id == 6 ? 'selected' : '' %>>SPA praticien.ne</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contrat_id" class="form-label">
+                            <i class="fas fa-file-contract"></i>
+                            Type de contrat *
+                        </label>
+                        <select id="contrat_id" name="contrat_id" class="form-select" required>
+                            <option value="">Sélectionner un contrat</option>
+                            <option value="1" <%= employee.contrat_id == 1 ? 'selected' : '' %>>CDI</option>
+                            <option value="2" <%= employee.contrat_id == 2 ? 'selected' : '' %>>CDD</option>
+                            <option value="3" <%= employee.contrat_id == 3 ? 'selected' : '' %>>Stage</option>
+                            <option value="4" <%= employee.contrat_id == 4 ? 'selected' : '' %>>Apprentissage</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Contact -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-address-book"></i>
+                    </div>
+                    <h3 class="section-title">Informations de contact</h3>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="email" class="form-label">
+                            <i class="fas fa-envelope"></i>
+                            Adresse email *
+                        </label>
+                        <input type="email" class="form-input" id="email" name="email" value="<%= employee.email %>" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="form-label">
+                            <i class="fas fa-phone"></i>
+                            Téléphone
+                        </label>
+                        <input type="tel" class="form-input" id="phone" name="phone" value="<%= employee.phone || '' %>">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="form-label">
+                            <i class="fas fa-lock"></i>
+                            Nouveau mot de passe
+                        </label>
+                        <input type="password" class="form-input" id="password" name="password" placeholder="Laissez vide pour conserver le mot de passe actuel">
+                        <small class="form-help">Laissez ce champ vide si vous ne souhaitez pas changer le mot de passe</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Adresse -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="section-title">Adresse</h3>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="street" class="form-label">
+                            <i class="fas fa-home"></i>
+                            Adresse
+                        </label>
+                        <input type="text" class="form-input" id="street" name="street" value="<%= employee.street || '' %>">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cp" class="form-label">
+                            <i class="fas fa-map-pin"></i>
+                            Code postal
+                        </label>
+                        <input type="text" class="form-input" id="cp" name="cp" value="<%= employee.cp || '' %>">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="city" class="form-label">
+                            <i class="fas fa-city"></i>
+                            Ville
+                        </label>
+                        <input type="text" class="form-input" id="city" name="city" value="<%= employee.city || '' %>">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Informations supplémentaires -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <h3 class="section-title">Informations supplémentaires</h3>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="observation" class="form-label">
+                            <i class="fas fa-sticky-note"></i>
+                            Observations
+                        </label>
+                        <textarea class="form-textarea" name="observation" id="observation" rows="4" placeholder="Notes, commentaires ou observations particulières..."><%= employee.observation || '' %></textarea>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="documents" class="form-label">
+                            <i class="fas fa-file-pdf"></i>
+                            Ajouter des documents (PDF uniquement)
+                        </label>
+                        <div class="file-upload-area">
+                            <input type="file" name="documents" id="documents" class="form-input-file" accept=".pdf" multiple>
+                            <div class="file-upload-placeholder">
+                                <i class="fas fa-upload"></i>
+                                <span>Cliquez pour ajouter de nouveaux documents</span>
+                                <small>Formats acceptés: PDF</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Boutons d'action -->
+            <div class="form-actions">
+                <button type="button" class="btn-cancel" onclick="history.back()">
+                    <i class="fas fa-times"></i>
+                    Annuler
+                </button>
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-save"></i>
+                    Enregistrer les modifications
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
