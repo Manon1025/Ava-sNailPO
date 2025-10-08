@@ -1,16 +1,304 @@
 @import 'variables.scss';
 
-// ! FOOTER
-footer {
-    margin: 0;
-    background-color: $white;
+// ! FOOTER MODERNE
+.modern-footer {
+    position: relative;
+    background: $primary-gradient;
+    margin-top: 4rem;
+    color: $white;
+    overflow: hidden;
 
-    .logo {
-        width: 50%;
-        border-bottom: 1px solid black;
+    .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 2rem 2rem;
+        position: relative;
+        z-index: 2;
     }
 
-    #logo {
-        width: 100px;
+    .footer-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 3rem;
+        margin-bottom: 3rem;
+
+        @media (max-width: $breakpoint-lg) {
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: $breakpoint-md) {
+            grid-template-columns: 1fr;
+            text-align: center;
+            gap: 2.5rem;
+        }
     }
+
+    // Section de la marque
+    .footer-brand {
+        .footer-logo {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+
+            @media (max-width: $breakpoint-md) {
+                margin: 0 auto 1.5rem;
+            }
+
+            img {
+                width: 50px;
+                height: 50px;
+                filter: brightness(0) invert(1);
+            }
+        }
+
+        .brand-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, $white, rgba(255, 255, 255, 0.8));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .brand-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            margin: 0;
+        }
+    }
+
+    // Section des liens
+    .footer-links {
+        h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+            
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: -8px;
+                left: 0;
+                width: 40px;
+                height: 3px;
+                background: rgba(255, 255, 255, 0.8);
+                border-radius: 2px;
+
+                @media (max-width: $breakpoint-md) {
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+            }
+        }
+
+        .links-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .footer-link {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: $transition;
+            padding: 0.5rem 0;
+
+            @media (max-width: $breakpoint-md) {
+                justify-content: center;
+            }
+
+            i {
+                width: 16px;
+                color: rgba(255, 255, 255, 0.7);
+                transition: $transition;
+            }
+
+            &:hover {
+                color: $white;
+                transform: translateX(5px);
+
+                @media (max-width: $breakpoint-md) {
+                    transform: translateY(-2px);
+                }
+
+                i {
+                    color: $white;
+                }
+            }
+        }
+    }
+
+    // Section contact
+    .footer-contact {
+        h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+            
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: -8px;
+                left: 0;
+                width: 40px;
+                height: 3px;
+                background: rgba(255, 255, 255, 0.8);
+                border-radius: 2px;
+
+                @media (max-width: $breakpoint-md) {
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+            }
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+
+            @media (max-width: $breakpoint-md) {
+                justify-content: center;
+                text-align: left;
+            }
+
+            i {
+                width: 16px;
+                margin-top: 0.2rem;
+                color: rgba(255, 255, 255, 0.7);
+                flex-shrink: 0;
+            }
+
+            span {
+                line-height: 1.5;
+            }
+        }
+    }
+
+    // Séparateur avec gradient
+    .footer-divider {
+        height: 1px;
+        background: linear-gradient(90deg, 
+            transparent 0%, 
+            rgba(255, 255, 255, 0.3) 20%, 
+            rgba(255, 255, 255, 0.8) 50%, 
+            rgba(255, 255, 255, 0.3) 80%, 
+            transparent 100%
+        );
+        margin: 2rem 0;
+    }
+
+    // Section du bas
+    .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 1.5rem;
+
+        @media (max-width: $breakpoint-md) {
+            flex-direction: column;
+            gap: 1.5rem;
+            text-align: center;
+        }
+
+        .copyright {
+            p {
+                margin: 0;
+                opacity: 0.8;
+                font-size: 0.9rem;
+            }
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: $transition;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.2);
+                color: $white;
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            }
+
+            i {
+                font-size: 0.9rem;
+            }
+        }
+    }
+
+    // Effet de vague en arrière-plan
+    .footer-wave {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 120px;
+        z-index: 1;
+
+        svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 120px;
+            transform: rotateY(180deg);
+        }
+
+        .shape-fill {
+            fill: rgba(255, 255, 255, 0.1);
+        }
+    }
+}
+
+// Animation de particules (optionnel)
+.modern-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 1;
 }
