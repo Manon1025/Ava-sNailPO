@@ -1,1 +1,49 @@
-<h1>Bonjour Vous êtes sur le planning</h1>
+<!-- TODO : HEADER -->
+<div class="calendar-page">
+    <!-- Header de la page -->
+    <div class="calendar-header">
+        <div class="header-content">
+            <div class="title-section">
+                <div class="title-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div>
+                    <h1 class="page-title">Planning</h1>
+                    <p class="page-subtitle">Consultez votre planning </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenu principal de la page -->
+    <div class="calendar-container">
+        <div>
+            <div>
+                <% if (user.role === 1) { %>
+                <button>
+                    <i class="fas fa-plus"></i>Ajouter un événement
+                </button>
+                <% } %>
+                <button>
+                    <i class="fas fa-calendar-day"></i> Aujourd'hui
+                </button>
+            </div>
+            <div>
+                <span>Vues: </span>
+                <select name="viewSelector" id="viewSelector">
+                    <option value="dayGridDay">Jour</option>
+                    <option value="dayGridWeek" selected>Semaine</option>
+                    <option value="dayGridMonth">Mois</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="calendar"></div>
+    </div>
+</div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script>
+    <script src="/JS/configCalendar.js"></script>
