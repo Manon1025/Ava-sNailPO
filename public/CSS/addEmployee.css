@@ -199,17 +199,18 @@
   margin-bottom: 1rem;
 }
 .form-group.avatar-upload .upload-area .current-avatar .avatar-preview {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #667eea;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 3px solid #667eea;
   display: block;
   margin: 0 auto 0.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 .form-group.avatar-upload .upload-area .current-avatar .current-file-name {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: #667eea;
   font-weight: 500;
   display: block;
