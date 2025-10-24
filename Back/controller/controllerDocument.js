@@ -73,7 +73,7 @@ exports.edit = async (req, res) => {
 
         const categories = await Category.findAll();
 
-        res.render('pages/editDocument.ejs', {
+        res.render('pages/admin/editDocument.ejs', {
             title: 'Modifier le document',
             document,
             categories,
