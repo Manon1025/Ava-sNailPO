@@ -65,7 +65,7 @@ router.get('/ajout-salarie', (req, res) => {
     // * Ajouter un document
 router.get('/ajout-document', (req, res) => {
     if (!req.user || req.user.role !== 1) return res.redirect('/')
-    res.render('pages/addDocument.ejs', {
+    res.render('pages/admin/addDocument.ejs', {
         title: 'Ajouter Document', 
         user: req.user,
         details: [],

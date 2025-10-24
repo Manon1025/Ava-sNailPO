@@ -1,5 +1,10 @@
+<!-- START STYLE -->
+<link rel="stylesheet" href="/CSS/documents.css">
+<!-- END STYLE -->
+
+<!-- START CONTENT -->
 <div class="documents-page">
-    <!-- Header de la page -->
+    <!-- ! START HEADER -->
     <div class="documents-header">
         <div class="header-content">
             <div class="title-section">
@@ -26,13 +31,14 @@
             </div>
         </div>
     </div>
+    <!-- ! END HEADER -->
 
-    <!-- Grille des documents -->
+    <!-- ! START GILLES -->
     <div class="documents-container">
         <div class="documents-grid">
             <% documents.forEach((doc, index) => { %>
             <div class="document-card">
-                <!-- Header de la carte avec icône de fichier -->
+                <!-- TODO: START ICONE-->
                 <div class="card-header-doc">
                     <div class="file-icon">
                         <% 
@@ -69,8 +75,9 @@
                         %>
                         <i class="<%= iconClass %>" data-color="<%= iconColor %>"></i>
                     </div>
+                    <!-- TODO: END ICONE -->
                     
-                    <!-- Badge catégorie -->
+                    <!-- TODO: START BADGE -->
                     <div class="category-badge">
                         <% 
                           let catClass = "badge-default";
@@ -142,8 +149,9 @@
                         </span>
                     </div>
                 </div>
+                <!-- TODO: END BADGE -->
                 
-                <!-- Corps de la carte -->
+                <!-- TODO: START CORPS-->
                 <div class="card-body-doc">
                     <h3 class="document-title"><%= doc.name %></h3>
                     
@@ -171,8 +179,9 @@
                         <% } %>
                     </div>
                 </div>
+                <!-- TODO: END CORPS -->
                 
-                <!-- Actions de la carte -->
+                <!-- TODO: START ACTIONS -->
                 <div class="card-actions-doc">
                     <% if (doc.fileName) { %>
                     <a href="/uploads/<%= doc.fileName %>" target="_blank" class="action-btn view-btn">
@@ -207,12 +216,13 @@
                     </div>
                     <% } %>
                 </div>
+                <!-- TODO: END ACTIONS -->
                 
             </div>
             <% }) %>
         </div>
-        
-        <!-- État vide -->
+
+        <!-- TODO: START EMPTY STATE -->
         <% if (documents.length === 0) { %>
         <div class="empty-state-doc">
             <div class="empty-illustration">
@@ -228,7 +238,10 @@
             <% } %>
         </div>
         <% } %>
+        <!-- TODO: END EMPTY STATE -->
     </div>
+    <!-- ! END DOCUMENTS GRID -->
 </div>
+<!-- END CONTENT -->
 
 

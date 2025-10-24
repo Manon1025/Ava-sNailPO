@@ -1,5 +1,10 @@
+<!-- START STYLE -->
+<link rel="stylesheet" href="/CSS/addDocument.css">
+<!-- END STYLE -->
+
+<!-- START CONTENT -->
 <div class="add-employee-page">
-    <!-- Header avec retour -->
+    <!-- ! START HEADER -->
     <div class="form-header">
         <div class="header-content">
             <div class="back-button">
@@ -19,13 +24,14 @@
             </div>
         </div>
     </div>
+    <!-- ! END HEADER -->
 
-    <!-- Formulaire -->
+    <!-- ! START FORM -->
     <div class="form-container">
         <form method="post" action="/edit-document/<%= document.id_document %>" enctype="multipart/form-data"
             class="modern-form">
 
-            <!-- Section 1: Informations du document -->
+            <!-- TODO: START SECTION 1 INFORMATIONS DU DOCUMENT -->
             <div class="form-section">
                 <div class="section-header">
                     <div class="section-icon">
@@ -70,8 +76,9 @@
                         placeholder="Entrez une description du document (optionnel)"><%= document.description || '' %></textarea>
                 </div>
             </div>
+            <!-- TODO: END SECTION 1 -->
 
-            <!-- Section 2: Fichier actuel -->
+            <!-- TODO: START SECTION 2 FICHIER -->
             <div class="form-section">
                 <div class="section-header">
                     <div class="section-icon">
@@ -116,8 +123,9 @@
                         </div>
                         <% } %>
             </div>
+            <!-- TODO: END SECTION 2 -->
 
-            <!-- Section 3: Nouveau fichier (optionnel) -->
+            <!-- TODO: START SECTION 3 NOUVEAU FICHIER -->
             <div class="form-section">
                 <div class="section-header">
                     <div class="section-icon">
@@ -143,8 +151,9 @@
                     </div>
                 </div>
             </div>
+            <!-- TODO: END SECTION 3 -->
 
-            <!-- Actions du formulaire -->
+            <!-- TODO: BOUTON D'ACTIONS-->
             <div class="form-actions">
                 <button type="button" class="btn-secondary" onclick="window.history.back()">
                     <i class="fas fa-times"></i>
@@ -155,6 +164,9 @@
                     Mettre à jour le document
                 </button>
             </div>
+            <!-- TODO: END BOUTON D'ACTIONS -->
         </form>
     </div>
+    <!-- ! END FORM -->
 </div>
+<!-- END CONTENT -->

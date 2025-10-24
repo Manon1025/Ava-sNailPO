@@ -1,5 +1,10 @@
+<!-- START STYLES -->
+<link rel="stylesheet" href="/CSS/listingEmployee.css">
+<!-- END STYLES -->
+
+<!-- START CONTENT -->
 <div class="employee-listing-page">
-    <!-- TODO: Header section  -->
+    <!-- START HEADER  -->
     <div class="listing-header-modern">
         <div class="header-content">
             <div class="title-section">
@@ -17,15 +22,20 @@
                     <div class="stat-number"><%= employees.length %></div>
                     <div class="stat-label">Employé<%= employees.length > 1 ? 's' : '' %></div>
                 </div>
+
+                <!-- ACTION -->
                 <a href="/ajout-salarie" class="add-employee-btn-modern">
                     <i class="fas fa-user-plus"></i>
                     <span>Ajouter</span>
                 </a>
             </div>
         </div>
+        
     </div>
+    <!-- END HEADER -->
 
-    <!-- TODO: Messages de notification -->
+    <!-- START MESSAGES-->
+        <!-- ! DÉSACTIVATION -->
     <% if (typeof query !== 'undefined' && query.message === 'désactivé') { %>
     <div class="notification-modern success">
         <div class="notification-icon">
@@ -41,6 +51,7 @@
     </div>
     <% } %>
 
+        <!-- ! AJOUT -->
     <% if (typeof query !== 'undefined' && query.message === 'ajouté') { %>
     <div class="notification-modern success">
         <div class="notification-icon">
@@ -55,8 +66,9 @@
         </button>
     </div>
     <% } %>
+    <!-- END MESSAGES-->
 
-    <!-- TODO: Grille des employés -->
+    <!-- START GRILLE-->
     <div class="employees-grid-container">
         <div class="employees-grid-modern">
             <% employees.forEach((emp, index) => { %>
@@ -95,4 +107,6 @@
         </div>
         
     </div>
+    <!-- END GRILLE-->
 </div>
+<!-- END CONTENT -->

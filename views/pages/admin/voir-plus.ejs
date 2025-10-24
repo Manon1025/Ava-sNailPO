@@ -1,15 +1,21 @@
+<!-- START STYLE -->
+<link rel="stylesheet" href="/CSS/profil.css">
+<!-- END STYLE -->
+
+<!-- START CONTENT -->
 <div class="admin-profile-page">
     <div class="admin-profile-container">
         
-        <!-- Header avec breadcrumb -->
+        <!-- ! START HEADER-->
         <div class="admin-breadcrumb">
             <a href="/listeEmployer" class="breadcrumb-link">
                 <i class="fas fa-arrow-left"></i>
                 Retour à la liste des employés
             </a>
         </div>
+        <!-- ! END HEADER -->
 
-        <!-- Header de profil employé -->
+        <!-- ! START PROFILE PICTURE-->
         <div class="admin-profile-header">
             <div class="admin-profile-cover">
                 <div class="admin-avatar-wrapper">
@@ -32,12 +38,13 @@
                 </p>
             </div>
         </div>
+        <!-- ! END PROFILE PICTURE -->
 
-        <!-- Corps du profil -->
+        <!-- ! START BODY -->
         <div class="admin-profile-body">
             <div class="admin-info-cards">
-                
-                <!-- Carte Informations personnelles -->
+
+                <!-- TODO: START INFORMATIONS PERSONNELLES -->
                 <div class="admin-info-card personal-card">
                     <div class="admin-card-header">
                         <i class="fas fa-user"></i>
@@ -71,8 +78,9 @@
                         </div>
                     </div>
                 </div>
+                <!-- TODO: END INFORMATIONS PERSONNELLES -->
 
-                <!-- Carte Adresse -->
+                <!-- TODO: START INFORMATIONS ADRESSE -->
                 <div class="admin-info-card address-card">
                     <div class="admin-card-header">
                         <i class="fas fa-map-marker-alt"></i>
@@ -104,8 +112,9 @@
                         </div>
                     </div>
                 </div>
+                <!-- TODO: END INFORMATIONS ADRESSE -->
 
-                <!-- Carte Observations -->
+                <!-- TODO: START INFORMATIONS OBSERVATIONS -->
                 <div class="admin-info-card observations-card full-width">
                     <div class="admin-card-header">
                         <i class="fas fa-sticky-note"></i>
@@ -117,9 +126,10 @@
                         </div>
                     </div>
                 </div>
+                <!-- TODO: END INFORMATIONS OBSERVATIONS -->
             </div>
 
-            <!-- Actions administrateur -->
+            <!-- TODO: START ACTIONS -->
             <div class="admin-profile-actions">
                 <a href="/updateEmployee/<%= user_.id_employee %>" class="admin-btn edit-btn">
                     <i class="fas fa-edit"></i>
@@ -134,6 +144,9 @@
                     </button>
                 </form>
             </div>
+            <!-- TODO: END ACTIONS -->
         </div>
+        <!-- ! END BODY -->
     </div>
 </div>
+<!-- END CONTENT -->

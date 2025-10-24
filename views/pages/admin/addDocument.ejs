@@ -1,5 +1,10 @@
+<!-- START STYLE -->
+<link rel="stylesheet" href="/CSS/addDocument.css">
+<!-- END STYLE -->
+
+<!-- START CONTENT -->
 <div class="add-employee-page">
-    <!-- Header avec retour -->
+    <!-- ! START HEADER -->
     <div class="form-header">
         <div class="header-content">
             <div class="back-button">
@@ -19,12 +24,13 @@
             </div>
         </div>
     </div>
+    <!-- ! END HEADER -->
 
-    <!-- Formulaire moderne -->
+    <!-- ! START FORM  -->
     <div class="form-container">
         <form method="post" action="/add-document" enctype="multipart/form-data" class="modern-form">
 
-            <!-- Section 1: Informations du document -->
+            <!-- TODO: START SECTION 1 INFORMATIONS DU DOCUMENT -->
             <div class="form-section">
                 <div class="section-header">
                     <div class="section-icon">
@@ -93,8 +99,9 @@
                     <% } %>
                 </div>
             </div>
+            <!-- TODO: END SECTION 1-->
 
-            <!-- Section 2: Fichier -->
+            <!-- TODO: START SECTION 2 FICHIER -->
             <div class="form-section">
                 <div class="section-header">
                     <div class="section-icon">
@@ -138,8 +145,9 @@
                     <% } %>
                 </div>
             </div>
+            <!-- TODO: END SECTION 2 -->
 
-            <!-- Boutons d'action -->
+            <!-- TODO: START SECTION 3 BOUTONS D'ACTION -->
             <div class="form-actions">
                 <button type="button" class="btn-cancel" onclick="history.back()">
                     <i class="fas fa-times"></i>
@@ -150,12 +158,16 @@
                     Ajouter le document
                 </button>
             </div>
+            <!-- TODO: END SECTION 3 -->
         </form>
     </div>
+    <!-- ! END FORM  -->
 </div>
+<!-- END CONTENT -->
 
+<!-- START SCRIPT -->
 <script>
-// JavaScript pour la prévisualisation du fichier sélectionné
+// ! PRÉVIEW ET GESTION DU TÉLÉCHARGEMENT DE FICHIER
 document.addEventListener('DOMContentLoaded', function() {
     const fileInput = document.getElementById('document');
     const uploadArea = document.querySelector('.file-upload-area');
@@ -205,3 +217,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<!-- END SCRIPT -->

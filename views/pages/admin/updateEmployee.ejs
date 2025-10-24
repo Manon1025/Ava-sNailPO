@@ -1,5 +1,10 @@
+<!-- START STYLES -->
+<link rel="stylesheet" href="/CSS/addEmployee.css">
+<!-- END STYLES -->
+
+<!-- START CONTENT -->
 <div class="add-employee-page">
-    <!-- Header avec retour -->
+    <!-- ! START HEADER -->
     <div class="form-header">
         <div class="header-content">
             <div class="back-button">
@@ -19,12 +24,13 @@
             </div>
         </div>
     </div>
+    <!-- ! END HEADER -->
 
-    <!-- Formulaire moderne -->
+    <!-- ! START FORMULAIRE MODERNE -->
     <div class="form-container">
         <form method="post" action="/updateEmployee/<%= employee.id_employee %>" enctype="multipart/form-data" class="modern-form">
 
-            <!-- Section 1: Informations personnelles -->
+            <!-- TODO: START SECTION 1 INFORMATIONS PERSONNELLES -->
             <div class="form-section">
                 <div class="section-header">
                     <div class="section-icon">
@@ -79,8 +85,9 @@
                     </div>
                 </div>
             </div>
+            <!-- TODO: END SECTION 1 -->
 
-            <!-- Section 2: Informations professionnelles -->
+            <!-- TODO: START SECTION 2 INFORMATIONS PROFESSIONNELLES -->
             <div class="form-section">
                 <div class="section-header">
                     <div class="section-icon">
@@ -120,8 +127,9 @@
                     </div>
                 </div>
             </div>
+            <!-- TODO: END SECTION 2 -->
 
-            <!-- Section 3: Contact -->
+            <!-- TODO: START SECTION 3 CONTACT -->
             <div class="form-section">
                 <div class="section-header">
                     <div class="section-icon">
@@ -157,8 +165,9 @@
                     </div>
                 </div>
             </div>
+            <!-- TODO: END SECTION 3 -->
 
-            <!-- Section 4: Adresse -->
+            <!-- TODO: START SECTION 4 ADRESSE -->
             <div class="form-section">
                 <div class="section-header">
                     <div class="section-icon">
@@ -193,8 +202,9 @@
                     </div>
                 </div>
             </div>
+            <!-- TODO: END SECTION 4 -->
 
-            <!-- Section 5: Informations supplémentaires -->
+            <!-- TODO: START SECTION 5 INFORMATIONS SUPPLÉMENTAIRES -->
             <div class="form-section">
                 <div class="section-header">
                     <div class="section-icon">
@@ -228,8 +238,9 @@
                     </div>
                 </div>
             </div>
+            <!-- TODO: END SECTION 5 -->
 
-            <!-- Boutons d'action -->
+            <!-- TODO: START SECTION 6 ACTIONS -->
             <div class="form-actions">
                 <button type="button" class="btn-cancel" onclick="history.back()">
                     <i class="fas fa-times"></i>
@@ -240,6 +251,9 @@
                     Enregistrer les modifications
                 </button>
             </div>
+            <!-- TODO: END SECTION 6 -->
         </form>
     </div>
+    <!-- ! END FORMULAIRE MODERNE -->
 </div>
+<!-- END CONTENT -->
