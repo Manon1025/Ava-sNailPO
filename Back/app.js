@@ -14,25 +14,25 @@ const routerDocument = require('./routes/routerDocument')
 const routerLogin = require('./routes/routeLogin')
 const connectBDD = require('./config/connect_bdd')
 
-// * Associations des modèles (important de les charger avant la connexion BDD)
+    // * Associations des modèles (important de les charger avant la connexion BDD)
 require('./model/associations')
 
-// * Configuration EJS
+    // * Configuration EJS
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/../views')
 app.set('layout', 'layout')
 
 // ! Middleware 
-// * Express
+    // * Express
 app.use(express.json())
 app.use(expressLayouts)                                                     // ? permet d'avoir un layout commun pour toutes les pages
 app.use(express.urlencoded({ extended: true }))                             // ? permet de parser les données des formulaires pour les envoyer dans req.body
 app.use(express.static(path.join(__dirname, '../public')));                 // ? cette ligne permet de chercher le fichier public en dehors du fichier JS
 
-// * Multer
+    // * Multer
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads'))) // ? permet de servir les fichiers statiques dans le dossier uploads
 
-// * Cookie / Session
+    // * Cookie / Session
 const isAuth = require('./middleware/isAuth')
 const currentUser = require('./middleware/currentUser')
 

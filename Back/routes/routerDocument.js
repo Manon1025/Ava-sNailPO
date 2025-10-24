@@ -11,6 +11,16 @@ const uploads = require('../middleware/multer')
 router.get('/documents', controllerDocument.index)
 
     // * Ajouter un document
+router.get('/ajout-document', (req, res) => {
+    if (!req.user || req.user.role !== 1) return res.redirect('/')
+    res.render('pages/admin/addDocument.ejs', {
+        title: 'Ajouter Document', 
+        user: req.user,
+        details: [],
+        formData: {}
+    })
+})
+
     // ! upload.single('document') permet d'importer un fichier
 router.post('/add-document', uploads.single('document') ,controllerDocument.create)
 

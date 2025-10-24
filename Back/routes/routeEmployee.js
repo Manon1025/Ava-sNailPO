@@ -17,6 +17,13 @@ router.get('/voir-plus/:id', controllerEmployee.show)
 router.post('/deactivate/:id', controllerEmployee.deactivate)
 
     // * Ajouter un employé
+router.get('/ajout-salarie', (req, res) => {
+    if (!req.user || req.user.role !== 1) return res.redirect('/')
+    res.render('pages/admin/addSalarie.ejs', {
+        title: 'Ajouter un Salarié', 
+        user: req.user})
+})
+
     // ! upload.single('avatar') permet d'importer un fichier
 router.post('/add', upload.single('avatar') , controllerEmployee.create)
 
