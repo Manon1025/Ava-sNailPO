@@ -26,7 +26,7 @@
         <div class="calendar-toolbar">
             <div class="toolbar-left">
                 <% if (user.role === 1) { %>
-                <button class="calendar-btn">
+                <button id="addEventBtn" class="calendar-btn">
                     <i class="fas fa-plus"></i>Ajouter un événement
                 </button>
                 <% } %>
@@ -43,6 +43,45 @@
 <!--  END CONTENT -->
 
 <!-- START MODAL -->
+<div id="eventModal" class="modal">
+    <div class="modal-content">
+        <h3>
+            <i class="fas fa-calendar-plus"></i> <span id="modalTitle">Nouvel Evenement</span>
+        </h3>
+
+        <form id="eventForm">
+            <div>
+                <label for="eventTitle">Titre:</label>
+                <input type="text" id="eventTitle" name="eventTitle" required>
+            </div>
+            <div>
+                <label for="eventDescription">Description:</label>
+                <textarea id="eventDescription" name="eventDescription" required></textarea>
+            </div>
+
+            <div>
+                <label for="eventStart">Date de début:</label>
+                <input type="date" id="eventStart" name="eventStart" required>
+                <label for="eventStartTime">Heure de début:</label>
+                <input type="time" id="eventStartTime" name="eventStartTime" required>
+            </div>
+            <div>
+                <label for="eventEnd">Date de fin:</label>
+                <input type="date" id="eventEnd" name="eventEnd" required>
+                <label for="eventEndTime">Heure de fin:</label>
+                <input type="time" id="eventEndTime" name="eventEndTime" required>
+            </div>
+            <div>
+                <button type="submit" id="saveEventBtn" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Enregistrer
+                </button>
+                <button type="button" id="cancelEventBtn" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times"></i> Annuler
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 <!-- END MODAL -->
 
 <!-- START SCRIPTS -->

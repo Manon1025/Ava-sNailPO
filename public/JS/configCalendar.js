@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const CalendarEl = document.getElementById('calendar');
+    let currentEvent = null; // Variable pour stocker l'événement en cours d'édition
 
     const calendar = new FullCalendar.Calendar(CalendarEl, {
         initialView: 'timeGridWeek',
@@ -52,6 +53,78 @@ document.addEventListener('DOMContentLoaded', () => {
             calendar.changeView(this.value);
         });
     }
-    
+
+    // BTN Add event
+    document.getElementById('addEventBtn').addEventListener('click', function() {
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        const todayStr = today.toISOString().slice(0, 10);
+        const todayTimeStr = '09:00';
+        const tomorrowStr = tomorrow.toISOString().slice(0, 10);
+        const tomorrowTimeStr = '10:00';
+
+        openModal(todayStr, todayTimeStr, tomorrowStr, tomorrowTimeStr);
+    });
+
+    function openModal(start, TimeStart, end, TimeEnd, title = '', description = '') {
+        document.getElementById('eventTitle').value = title;
+        document.getElementById('eventDescription').value = description;
+        document.getElementById('eventStart').value = start;
+        document.getElementById('eventStartTime').value = TimeStart;
+        document.getElementById('eventEnd').value = end;
+        document.getElementById('eventEndTime').value = TimeEnd;
+
+        document.getElementById('modalTitle').textContent = title ? 'Modifier l\'événement' : 'Ajouter un événement';
+
+        document.getElementById('eventModal').style.display = 'block';
+    }
+
+    document.getElementById('cancelEventBtn').addEventListener('click', function() {
+        closeModal();
+    });
+
+    document.getElementById('eventModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeModal();
+        }
+    });
+
+    function closeModal(){
+        document.getElementById('eventModal').style.display = 'none';
+        currentEvent = null;
+        document.getElementById('eventForm').reset();
+    }
+
+    document.getElementById('eventForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const title = document.getElementById('eventTitle').value;
+        const description = document.getElementById('eventDescription').value;
+        const startDate = document.getElementById('eventStart').value;
+        const startTime = document.getElementById('eventStartTime').value;
+        const endDate = document.getElementById('eventEnd').value;
+        const endTime = document.getElementById('eventEndTime').value;
+
+        const start = `${startDate}T${startTime}`;
+        const end = `${endDate}T${endTime}`;
+
+        if (currentEvent) {
+            currentEvent.setProp('title', title);
+            currentEvent.setStart(start);
+            currentEvent.setEnd(end);
+            currentEvent.setExtendedProp('description', description);
+        } else {
+            calendar.addEvent({
+                title: title,
+                start: start,
+                end: end,
+                description: description,
+            });
+        }
+
+        closeModal();
+    });
 
 });
