@@ -17,23 +17,6 @@ Employee.belongsTo(Contrat, {
     targetKey: 'id_contrat'
 });
 
-// Association Employee - Documents (Many to Many) - Temporairement commentée
-// Employee.belongsToMany(Documents, {
-//     through: EmployeeDocument,
-//     foreignKey: 'employee_id',
-//     otherKey: 'document_id',
-//     sourceKey: 'id_employee',
-//     targetKey: 'id_document'
-// });
-
-// Documents.belongsToMany(Employee, {
-//     through: EmployeeDocument,
-//     foreignKey: 'document_id',
-//     otherKey: 'employee_id',
-//     sourceKey: 'id_document',
-//     targetKey: 'id_employee'
-// });
-
 // Associations Poste
 Poste.hasMany(Employee, {
     foreignKey: 'poste_id',
@@ -64,5 +47,4 @@ module.exports = {
     Contrat,
     Documents,
     Category
-    // EmployeeDocument
 };

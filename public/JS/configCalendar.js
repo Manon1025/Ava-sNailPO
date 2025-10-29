@@ -1,7 +1,9 @@
+// START CONFIG CALENDAR
 document.addEventListener('DOMContentLoaded', () => {
     const CalendarEl = document.getElementById('calendar');
-    let currentEvent = null; // Variable pour stocker l'événement en cours d'édition
+    let currentEvent = null;                                // Variable pour stocker l'événement en cours d'édition
 
+    // ! START INIT CALENDAR
     const calendar = new FullCalendar.Calendar(CalendarEl, {
         initialView: 'timeGridWeek',
         locale: 'fr',
@@ -10,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
+        allDayText: 'Jours',
         buttonText: {
             month: 'Mois',
             week: 'Semaine',
@@ -18,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         height: 'auto',
         events: [], // Événements vides pour commencer
         selectable: true,
+        selectMirror: true,
         weekends: true,
         editable: true,
         dayMaxEvents: true,
@@ -32,12 +36,37 @@ document.addEventListener('DOMContentLoaded', () => {
             minute: '2-digit',
             hour12: false
         },
-    });
 
-    // Appliquer les styles une première fois après le rendu initial
+        select: function(info){
+            openModal(
+                info.startStr.slice(0,10), 
+                info.startStr.slice(11,16), 
+                info.endStr.slice(0,10), 
+                info.endStr.slice(11,16)
+            );
+        },
+
+        eventClick: function(info) {
+            currentEvent = info.event;
+            const title = info.event.title;
+            const description = info.event.extendedProps.description || '';
+            const start = info.event.start;
+            const end = info.event.end;
+
+            const startDate = start.toISOString().slice(0,10);
+            const startTime = start.toISOString().slice(11,16);
+            const endDate = end ? end.toISOString().slice(0,10) : startDate;
+            const endTime = end ? end.toISOString().slice(11,16) : startTime;
+
+            openModal(startDate, startTime, endDate, endTime, title, description);
+        },
+    });
+    // ! END INIT CALENDAR
+
+    // TODO: RENDU CALENDAR
     calendar.render();
 
-    // Gestionnaire pour le bouton "Aujourd'hui"
+    // ! START EVENT DAY
     const todayBtn = document.querySelector('.calendar-btn.secondary');
     if (todayBtn) {
         todayBtn.addEventListener('click', function(e) {
@@ -45,16 +74,18 @@ document.addEventListener('DOMContentLoaded', () => {
             calendar.today();
         });
     }
+    // ! END EVENT DAY
 
-    // Gestionnaire pour le sélecteur de vue
+    // ! START EVENT VIEW
     const viewSelector = document.getElementById('viewSelector');
     if (viewSelector) {
         viewSelector.addEventListener('change', function() {
             calendar.changeView(this.value);
         });
     }
+    // ! END EVENT VIEW
 
-    // BTN Add event
+    // ! START BTN ADD EVENT
     document.getElementById('addEventBtn').addEventListener('click', function() {
         const today = new Date();
         const tomorrow = new Date(today);
@@ -67,7 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         openModal(todayStr, todayTimeStr, tomorrowStr, tomorrowTimeStr);
     });
+    // ! END BTN ADD EVENT
 
+    // ! START EVENT MODAL
     function openModal(start, TimeStart, end, TimeEnd, title = '', description = '') {
         document.getElementById('eventTitle').value = title;
         document.getElementById('eventDescription').value = description;
@@ -80,23 +113,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.getElementById('eventModal').style.display = 'block';
     }
+    // ! END EVENT MODAL
 
+    // TODO: CANCEL MODAL
     document.getElementById('cancelEventBtn').addEventListener('click', function() {
         closeModal();
     });
 
+    // TODO: CLOSE MODAL CLICK OUTSIDE
     document.getElementById('eventModal').addEventListener('click', function(e) {
         if (e.target === this) {
             closeModal();
         }
     });
 
+    // ! START CLOSE MODAL
     function closeModal(){
         document.getElementById('eventModal').style.display = 'none';
         currentEvent = null;
         document.getElementById('eventForm').reset();
     }
+    // ! END CLOSE MODAL
 
+    // ! START SUBMIT EVENT FORM
     document.getElementById('eventForm').addEventListener('submit', function(e) {
         e.preventDefault();
 
@@ -126,5 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         closeModal();
     });
+    // ! END SUBMIT EVENT FORM
 
 });
+// END CONFIG CALENDAR
