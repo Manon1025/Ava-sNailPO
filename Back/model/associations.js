@@ -4,7 +4,9 @@ const Poste = require('./Poste');
 const Contrat = require('./contrat');
 const Documents = require('./Documents');
 const Category = require('./Category');
-// const EmployeeDocument = require('./EmployeeDocument');
+const Clients = require('./Clients');
+const Prestation = require('./Prestations');
+const Event = require ('./Event')
 
 // Associations Employee
 Employee.belongsTo(Poste, {
@@ -41,10 +43,44 @@ Category.hasMany(Documents, {
     sourceKey: 'id_category'
 });
 
+// Association Event
+Event.belongsTo(Clients, {
+    foreignKey: 'client_id',
+    targetKey: 'id_client'
+})
+
+Event.belongsTo(Employee, {
+    foreignKey: 'employee_id',
+    targetKey: 'id_employee'
+})
+
+Event.belongsTo(Prestation, {
+    foreignKey: 'prestation_id',
+    targetKey: 'id_prestation'
+})
+
+Clients.hasMany(Event, {
+    foreignKey: 'client_id',
+    targetKey: 'id_client'
+})
+
+Employee.hasMany(Event, {
+    foreignKey: 'employee_id',
+    targetKey: 'id_employee'
+})
+
+Prestation.hasMany(Event, {
+    foreignKey: 'prestation_id',
+    targetKey: 'id_prestation'
+})
+
 module.exports = {
     Employee,
     Poste,
     Contrat,
     Documents,
-    Category
+    Category,
+    Clients,
+    Event,
+    Prestation
 };

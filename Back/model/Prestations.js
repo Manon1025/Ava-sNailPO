@@ -27,3 +27,5 @@ Prestation.init({
     tableName: 'Prestations',
     timestamps: false
 })
+
+module.exports= Prestation
