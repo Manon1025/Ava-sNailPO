@@ -13,6 +13,7 @@ const routerPages = require('./routes/routePages')
 const routerDocument = require('./routes/routerDocument')
 const routerLogin = require('./routes/routeLogin')
 const routerPlanning = require('./routes/routePlanning')
+const routerClient = require('./routes/routeClient')
 const connectBDD = require('./config/connect_bdd')
 
     // * Associations des modèles (important de les charger avant la connexion BDD)
@@ -55,6 +56,7 @@ app.use('/', isAuth ,routerPages)
 app.use('/', isAuth ,routerDocument)
 app.use('/', isAuth ,routerEmployee)
 app.use('/', isAuth ,routerPlanning)
+app.use('/', isAuth ,routerClient)
 
 // ! Lancement du serveur
 const port = process.env.PORT

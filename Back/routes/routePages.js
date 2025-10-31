@@ -1,6 +1,7 @@
 // TODO: Module
 const express = require('express')
 const router = express.Router()
+const Employee = require('../model/Employee')
 
 // TODO: Routes Tous les Users
     // * Accueil
@@ -8,11 +9,6 @@ const router = express.Router()
 router.get('/',(req, res) => {                                                                                              
     const fname = req.user.fname;
     res.render('pages/homePage.ejs', {title: 'Accueil', fname,  user: req.user})
-})
-
-    // * Planning
-router.get('/planning', (req, res) => {                                                                                                  
-    res.render('pages/planning.ejs', {title: 'Planning', user: req.user})
 })
 
     // * Messagerie

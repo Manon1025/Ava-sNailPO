@@ -14,7 +14,7 @@ exports.index = async(req, res) => {
             ]
         });
         res.render('pages/doc.ejs', {
-            title: 'Documents', 
+            title: 'Gestion des documents', 
             documents, 
             user: req.user,
         })

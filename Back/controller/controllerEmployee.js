@@ -22,7 +22,7 @@ exports.index = async (req, res) => {
       ]
     });
     res.status(200).render('pages/admin/listingEmployee.ejs', {
-      title: 'Liste des employés', 
+      title: 'Gestion des employés', 
       employees, 
       user: req.user,
       query: req.query
@@ -176,7 +176,7 @@ exports.create = async (req, res) => {
       role
     } = req.body;
 
-    const employee =await Employee.create({
+    const employee = await Employee.create({
       fname,
       lname,
       street,

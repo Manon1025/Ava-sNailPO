@@ -49,35 +49,89 @@
             <i class="fas fa-calendar-plus"></i> <span id="modalTitle">Nouvel Evenement</span>
         </h3>
 
-        <form id="eventForm">
-            <div>
-                <label for="eventTitle">Titre:</label>
-                <input type="text" id="eventTitle" name="eventTitle" required>
-            </div>
-            <div>
-                <label for="eventDescription">Description:</label>
-                <textarea id="eventDescription" name="eventDescription" required></textarea>
-            </div>
+        <form id="eventForm" method='POST' action="/add-event-planning">
+            <div class="row h-100">
+                <!-- PARTIE GAUCHE DE LA MODAL -->
+                <div class="col-md-6 modal-left-section">
+                    <h5 class="section-title">
+                        <i class="fas fa-user"></i> Informations Client & Salarié
+                    </h5>
+                    
+                    <div class="mb-3">
+                        <label for="client_id" class="form-label">Client.e:</label>
+                        <input type="text" class="form-control" id="client_id" name="client_id" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="employee_id" class="form-label">Salarié.e:</label>
+                        <select name="employee_id" id="employee_id" class="form-select" required>
+                            <option value="">-- Sélectionner un salarié --</option>
+                            <% if (employees && employees.length > 0) { %>
+                                <% employees.forEach(employee => { %>
+                                    <option value="<%= employee.id_employee %>">
+                                        <%= employee.fname %> <%= employee.lname %>
+                                    </option>
+                                <% }); %>
+                            <% } else { %>
+                                <option value="" disabled>Aucun salarié disponible</option>
+                            <% } %>
+                        </select>
+                    </div>
 
-            <div>
-                <label for="eventStart">Date de début:</label>
-                <input type="date" id="eventStart" name="eventStart" required>
-                <label for="eventStartTime">Heure de début:</label>
-                <input type="time" id="eventStartTime" name="eventStartTime" required>
+                    <div class="mb-3">
+                        <label for="prestation_id" class="form-label">Prestation:</label>
+                        <select name="prestation_id" id="prestation_id" class="form-select">
+                            <option value="">-- Sélectionner une prestation --</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- SÉPARATEUR VERTICAL -->
+                <div class="modal-separator"></div>
+
+                <!-- PARTIE DROITE DE LA MODAL -->
+                <div class="col-md-6 modal-right-section">
+                    <h5 class="section-title">
+                        <i class="fas fa-clock"></i> Planning & Détails
+                    </h5>
+                    
+                    <div class="mb-3">
+                        <label for="start_date" class="form-label">Date de début:</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="start_time" class="form-label">Heure de début:</label>
+                        <input type="time" class="form-control" id="start_time" name="start_time" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="end_date" class="form-label">Date de fin:</label>
+                        <input type="date" class="form-control" id="end_date" name="end_date" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="end_time" class="form-label">Heure de fin:</label>
+                        <input type="time" class="form-control" id="end_time" name="end_time" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">Notes:</label>
+                        <textarea name="notes" id="notes" class="form-control" rows="3" placeholder="Information supplémentaire"></textarea>
+                    </div>
+                </div>
             </div>
-            <div>
-                <label for="eventEnd">Date de fin:</label>
-                <input type="date" id="eventEnd" name="eventEnd" required>
-                <label for="eventEndTime">Heure de fin:</label>
-                <input type="time" id="eventEndTime" name="eventEndTime" required>
-            </div>
-            <div>
-                <button type="submit" id="saveEventBtn" class="btn btn-primary">
-                    <i class="fas fa-save"></i> Enregistrer
-                </button>
-                <button type="button" id="cancelEventBtn" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <i class="fas fa-times"></i> Annuler
-                </button>
+            
+            <!-- Boutons en bas, centrés -->
+            <div class="row">
+                <div class="col-12 text-center mt-3">
+                    <button type="submit" id="saveEventBtn" class="btn btn-primary me-2">
+                        <i class="fas fa-save"></i> Enregistrer
+                    </button>
+                    <button type="button" id="cancelEventBtn" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Annuler
+                    </button>
+                </div>
             </div>
         </form>
     </div>

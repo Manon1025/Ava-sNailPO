@@ -305,11 +305,11 @@ thead .fc-col-header-cell .fc-col-header-cell-cushion {
 }
 .modal .modal-content {
   background: #FFF;
-  margin: 5% auto;
+  margin: 3% auto;
   padding: 2rem;
   border-radius: 20px;
-  width: 90%;
-  max-width: 600px;
+  width: 95%;
+  max-width: 1000px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   position: relative;
   animation: slideInUp 0.4s ease-out;
@@ -326,68 +326,129 @@ thead .fc-col-header-cell .fc-col-header-cell-cushion {
   margin-right: 0.5rem;
   color: #89DAFF;
 }
-.modal .modal-content form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.modal .modal-content .row {
+  margin: 0;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
-.modal .modal-content form div {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.modal .modal-content .modal-left-section, .modal .modal-content .modal-right-section {
+  padding: 2rem;
+  min-height: 400px;
+  position: relative;
 }
-.modal .modal-content form div:last-child {
-  flex-direction: row;
-  justify-content: flex-end;
-  gap: 1rem;
-  margin-top: 1.5rem;
+.modal .modal-content .modal-left-section {
+  background: linear-gradient(135deg, rgba(143, 149, 211, 0.08), rgba(143, 149, 211, 0.03));
+  border-right: 1px solid rgba(143, 149, 211, 0.15);
 }
-.modal .modal-content form div label {
-  font-weight: 600;
+.modal .modal-content .modal-left-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #8F95D3, #89DAFF);
+}
+.modal .modal-content .modal-left-section .section-title {
   color: #8F95D3;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  border-left: 4px solid #8F95D3;
+  box-shadow: 0 2px 10px rgba(143, 149, 211, 0.1);
 }
-.modal .modal-content form div input, .modal .modal-content form div textarea {
-  padding: 0.8rem;
-  border: 2px solid rgb(252.8461538462, 252.9615384615, 254.1538461538);
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+.modal .modal-content .modal-left-section .section-title i {
+  margin-right: 0.8rem;
+  color: #89DAFF;
+  font-size: 1.1rem;
 }
-.modal .modal-content form div input:focus, .modal .modal-content form div textarea:focus {
-  outline: none;
-  border-color: #8F95D3;
-  box-shadow: 0 0 0 3px rgba(143, 149, 211, 0.1);
+.modal .modal-content .modal-right-section {
+  background: linear-gradient(135deg, rgba(137, 218, 255, 0.08), rgba(137, 218, 255, 0.03));
+  border-left: 1px solid rgba(137, 218, 255, 0.15);
 }
-.modal .modal-content form div textarea {
-  resize: vertical;
-  min-height: 80px;
+.modal .modal-content .modal-right-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #89DAFF, #8F95D3);
 }
-.modal .modal-content form button {
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.modal .modal-content .modal-right-section .section-title {
+  color: #89DAFF;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  border-left: 4px solid #89DAFF;
+  box-shadow: 0 2px 10px rgba(137, 218, 255, 0.1);
 }
-.modal .modal-content form button#saveEventBtn {
-  background: linear-gradient(135deg, #8F95D3 0%, #89DAFF 100%);
-  color: #FFF;
-}
-.modal .modal-content form button#saveEventBtn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-}
-.modal .modal-content form button#cancelEventBtn {
-  background: white;
+.modal .modal-content .modal-right-section .section-title i {
+  margin-right: 0.8rem;
   color: #8F95D3;
+  font-size: 1.1rem;
 }
-.modal .modal-content form button#cancelEventBtn:hover {
-  background: white;
+.modal .modal-content .modal-separator {
+  display: none;
+}
+.modal .modal-content .form-control, .modal .modal-content .form-select {
+  border: 2px solid rgba(143, 149, 211, 0.2) !important;
+  border-radius: 10px !important;
+  padding: 0.8rem 1rem !important;
+  font-size: 0.95rem !important;
+  transition: all 0.3s ease !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+}
+.modal .modal-content .form-control:focus, .modal .modal-content .form-select:focus {
+  border-color: #8F95D3 !important;
+  box-shadow: 0 0 0 3px rgba(143, 149, 211, 0.15) !important;
+  background: rgb(255, 255, 255) !important;
+}
+.modal .modal-content .form-label {
+  font-weight: 600 !important;
+  color: #555 !important;
+  margin-bottom: 0.5rem !important;
+  font-size: 0.9rem !important;
+}
+.modal .modal-content form .row:last-child {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(248, 249, 250, 0.8);
+  border-radius: 0 0 15px 15px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.modal .modal-content form .row:last-child .btn {
+  padding: 0.8rem 2rem !important;
+  border-radius: 25px !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  transition: all 0.3s ease !important;
+  border: none !important;
+}
+.modal .modal-content form .row:last-child .btn.btn-primary {
+  background: linear-gradient(135deg, #8F95D3, #89DAFF) !important;
+  color: white !important;
+  box-shadow: 0 4px 15px rgba(143, 149, 211, 0.3) !important;
+}
+.modal .modal-content form .row:last-child .btn.btn-primary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(143, 149, 211, 0.4) !important;
+}
+.modal .modal-content form .row:last-child .btn.btn-secondary {
+  background: rgba(108, 117, 125, 0.1) !important;
+  color: #6c757d !important;
+  border: 2px solid rgba(108, 117, 125, 0.2) !important;
+}
+.modal .modal-content form .row:last-child .btn.btn-secondary:hover {
+  background: rgba(108, 117, 125, 0.2) !important;
+  transform: translateY(-1px) !important;
 }
 
 @keyframes fadeIn {
@@ -447,5 +508,20 @@ thead .fc-col-header-cell .fc-col-header-cell-cushion {
   .calendar-container {
     margin: 0 1rem;
     padding: 1rem;
+  }
+  .modal-content {
+    width: 98% !important;
+    max-width: none !important;
+    margin: 2% auto !important;
+  }
+  .modal-content .modal-left-section, .modal-content .modal-right-section {
+    padding: 1rem !important;
+  }
+  .modal-content .row {
+    flex-direction: column !important;
+  }
+  .modal-content .row .col-md-6 {
+    width: 100% !important;
+    max-width: 100% !important;
   }
 }/*# sourceMappingURL=planning.css.map */

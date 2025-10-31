@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
             day: 'Jour',
         },
         height: 'auto',
-        events: [], // Événements vides pour commencer
+        events: '/api/admin/planning',
         selectable: true,
         selectMirror: true,
         weekends: true,
@@ -102,12 +102,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ! START EVENT MODAL
     function openModal(start, TimeStart, end, TimeEnd, title = '', description = '') {
-        document.getElementById('eventTitle').value = title;
-        document.getElementById('eventDescription').value = description;
-        document.getElementById('eventStart').value = start;
-        document.getElementById('eventStartTime').value = TimeStart;
-        document.getElementById('eventEnd').value = end;
-        document.getElementById('eventEndTime').value = TimeEnd;
+        // Adapter aux nouveaux IDs du formulaire
+        document.getElementById('client_id').value = title || ''; // Utiliser title pour client temporairement
+        document.getElementById('notes').value = description;
+        document.getElementById('start_date').value = start;
+        document.getElementById('start_time').value = TimeStart;
+        document.getElementById('end_date').value = end;
+        document.getElementById('end_time').value = TimeEnd;
 
         document.getElementById('modalTitle').textContent = title ? 'Modifier l\'événement' : 'Ajouter un événement';
 
@@ -139,12 +140,13 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('eventForm').addEventListener('submit', function(e) {
         e.preventDefault();
 
-        const title = document.getElementById('eventTitle').value;
-        const description = document.getElementById('eventDescription').value;
-        const startDate = document.getElementById('eventStart').value;
-        const startTime = document.getElementById('eventStartTime').value;
-        const endDate = document.getElementById('eventEnd').value;
-        const endTime = document.getElementById('eventEndTime').value;
+        // Adapter aux nouveaux IDs du formulaire
+        const title = document.getElementById('client_id').value; // Temporaire
+        const description = document.getElementById('notes').value;
+        const startDate = document.getElementById('start_date').value;
+        const startTime = document.getElementById('start_time').value;
+        const endDate = document.getElementById('end_date').value;
+        const endTime = document.getElementById('end_time').value;
 
         const start = `${startDate}T${startTime}`;
         const end = `${endDate}T${endTime}`;

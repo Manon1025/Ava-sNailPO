@@ -336,11 +336,11 @@ thead {
     
     .modal-content {
         background: $white;
-        margin: 5% auto;
+        margin: 3% auto;
         padding: 2rem;
         border-radius: 20px;
-        width: 90%;
-        max-width: 600px;
+        width: 95%;
+        max-width: 1000px;
         box-shadow: $card-shadow;
         position: relative;
         animation: slideInUp 0.4s ease-out;
@@ -359,76 +359,150 @@ thead {
             }
         }
         
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+        // Sections distinctes de la modal - Design moderne
+        .row {
+            margin: 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .modal-left-section, .modal-right-section {
+            padding: 2rem;
+            min-height: 400px;
+            position: relative;
+        }
+        
+        .modal-left-section {
+            background: linear-gradient(135deg, rgba(143, 149, 211, 0.08), rgba(143, 149, 211, 0.03));
+            border-right: 1px solid rgba(143, 149, 211, 0.15);
             
-            div {
-                display: flex;
-                flex-direction: column;
-                gap: 0.5rem;
-                
-                &:last-child {
-                    flex-direction: row;
-                    justify-content: flex-end;
-                    gap: 1rem;
-                    margin-top: 1.5rem;
-                }
-                
-                label {
-                    font-weight: 600;
-                    color: $primary-color;
-                    font-size: 0.9rem;
-                }
-                
-                input, textarea {
-                    padding: 0.8rem;
-                    border: 2px solid lighten($primary-color, 30%);
-                    border-radius: 8px;
-                    font-size: 1rem;
-                    transition: $transition;
-                    
-                    &:focus {
-                        outline: none;
-                        border-color: $primary-color;
-                        box-shadow: 0 0 0 3px rgba(143, 149, 211, 0.1);
-                    }
-                }
-                
-                textarea {
-                    resize: vertical;
-                    min-height: 80px;
-                }
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 4px;
+                background: linear-gradient(90deg, $primary-color, $secondary-color);
             }
             
-            button {
-                padding: 0.8rem 1.5rem;
-                border: none;
-                border-radius: 8px;
-                font-weight: 600;
-                cursor: pointer;
-                transition: $transition;
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
+            .section-title {
+                color: $primary-color;
+                font-size: 1.2rem;
+                font-weight: 700;
+                margin-bottom: 1.5rem;
+                padding: 1rem;
+                background: rgba(255, 255, 255, 0.8);
+                border-radius: 10px;
+                border-left: 4px solid $primary-color;
+                box-shadow: 0 2px 10px rgba(143, 149, 211, 0.1);
                 
-                &#saveEventBtn {
-                    background: $primary-gradient;
-                    color: $white;
-                    
-                    &:hover {
-                        transform: translateY(-2px);
-                        box-shadow: $card-shadow-hover;
-                    }
+                i {
+                    margin-right: 0.8rem;
+                    color: $secondary-color;
+                    font-size: 1.1rem;
                 }
+            }
+        }
+        
+        .modal-right-section {
+            background: linear-gradient(135deg, rgba(137, 218, 255, 0.08), rgba(137, 218, 255, 0.03));
+            border-left: 1px solid rgba(137, 218, 255, 0.15);
+            
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 4px;
+                background: linear-gradient(90deg, $secondary-color, $primary-color);
+            }
+            
+            .section-title {
+                color: $secondary-color;
+                font-size: 1.2rem;
+                font-weight: 700;
+                margin-bottom: 1.5rem;
+                padding: 1rem;
+                background: rgba(255, 255, 255, 0.8);
+                border-radius: 10px;
+                border-left: 4px solid $secondary-color;
+                box-shadow: 0 2px 10px rgba(137, 218, 255, 0.1);
                 
-                &#cancelEventBtn {
-                    background: lighten($primary-color, 40%);
+                i {
+                    margin-right: 0.8rem;
                     color: $primary-color;
+                    font-size: 1.1rem;
+                }
+            }
+        }
+        
+        // Suppression du séparateur, remplacé par les bordures
+        .modal-separator {
+            display: none;
+        }
+        
+        // Amélioration des champs du formulaire
+        .form-control, .form-select {
+            border: 2px solid rgba(143, 149, 211, 0.2) !important;
+            border-radius: 10px !important;
+            padding: 0.8rem 1rem !important;
+            font-size: 0.95rem !important;
+            transition: all 0.3s ease !important;
+            background: rgba(255, 255, 255, 0.9) !important;
+            
+            &:focus {
+                border-color: $primary-color !important;
+                box-shadow: 0 0 0 3px rgba(143, 149, 211, 0.15) !important;
+                background: rgba(255, 255, 255, 1) !important;
+            }
+        }
+        
+        .form-label {
+            font-weight: 600 !important;
+            color: #555 !important;
+            margin-bottom: 0.5rem !important;
+            font-size: 0.9rem !important;
+        }
+        
+        form {
+            .row:last-child {
+                margin-top: 2rem;
+                padding: 1.5rem;
+                background: rgba(248, 249, 250, 0.8);
+                border-radius: 0 0 15px 15px;
+                border-top: 1px solid rgba(0,0,0,0.1);
+                
+                .btn {
+                    padding: 0.8rem 2rem !important;
+                    border-radius: 25px !important;
+                    font-weight: 600 !important;
+                    font-size: 0.95rem !important;
+                    transition: all 0.3s ease !important;
+                    border: none !important;
                     
-                    &:hover {
-                        background: lighten($primary-color, 35%);
+                    &.btn-primary {
+                        background: linear-gradient(135deg, $primary-color, $secondary-color) !important;
+                        color: white !important;
+                        box-shadow: 0 4px 15px rgba(143, 149, 211, 0.3) !important;
+                        
+                        &:hover {
+                            transform: translateY(-2px) !important;
+                            box-shadow: 0 6px 20px rgba(143, 149, 211, 0.4) !important;
+                        }
+                    }
+                    
+                    &.btn-secondary {
+                        background: rgba(108, 117, 125, 0.1) !important;
+                        color: #6c757d !important;
+                        border: 2px solid rgba(108, 117, 125, 0.2) !important;
+                        
+                        &:hover {
+                            background: rgba(108, 117, 125, 0.2) !important;
+                            transform: translateY(-1px) !important;
+                        }
                     }
                 }
             }
@@ -509,5 +583,25 @@ thead {
     .calendar-container {
         margin: 0 1rem;
         padding: 1rem;
+    }
+    
+    // Modal responsive
+    .modal-content {
+        width: 98% !important;
+        max-width: none !important;
+        margin: 2% auto !important;
+        
+        .modal-left-section, .modal-right-section {
+            padding: 1rem !important;
+        }
+        
+        .row {
+            flex-direction: column !important;
+            
+            .col-md-6 {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+        }
     }
 }
