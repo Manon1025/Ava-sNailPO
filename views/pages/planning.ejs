@@ -59,7 +59,18 @@
                     
                     <div class="mb-3">
                         <label for="client_id" class="form-label">Client.e:</label>
-                        <input type="text" class="form-control" id="client_id" name="client_id" required>
+                        <select name="client_id" id="client_id" class="form-select" required>
+                            <option value="">-- Sélectionner un salarié --</option>
+                            <% if (clients && clients.length > 0) { %>
+                                <% clients.forEach(clients => { %>
+                                    <option value="<%= clients.id_employee %>">
+                                        <%= clients.f_name %> <%= clients.l_name %>
+                                    </option>
+                                <% }); %>
+                            <% } else { %>
+                                <option value="" disabled>Aucun Clients disponible</option>
+                            <% } %>
+                        </select>
                     </div>
                     
                     <div class="mb-3">

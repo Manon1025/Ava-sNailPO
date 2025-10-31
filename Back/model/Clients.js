@@ -22,7 +22,7 @@ Clients.init({
         allowNull: false,
         unique: true
     },
-    email: {
+    mail: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true
@@ -47,7 +47,7 @@ Clients.init({
 }, {
     sequelize,
     modelName: 'Clients',
-    tableName: 'clients',
+    tableName: 'Clients',
     timestamps: false
 });
 

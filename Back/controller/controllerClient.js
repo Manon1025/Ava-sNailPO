@@ -48,6 +48,8 @@ exports.create = async (req, res) => {
             preference
         } = req.body
 
+        console.log(req.body)
+
         const client = await Clients.create({
             f_name,
             l_name,
@@ -59,7 +61,7 @@ exports.create = async (req, res) => {
             create_at: new Date()
         });
 
-        res.redirct('/clients?message=ajout&name=' + encodeURIComponent(client.f_name + ' ' +client.l_name))
+        res.redirect('/clients?message=ajout&name=' + encodeURIComponent(client.f_name + ' ' +client.l_name))
     } catch (error) {
         res.status(500).json(error)
     }

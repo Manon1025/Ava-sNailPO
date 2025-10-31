@@ -148,6 +148,11 @@
     gap: 0.5rem;
     box-shadow: $box-shadow-normal;
 
+    a {
+        text-decoration: none;
+        color: $white;
+    }
+
     &:hover {
         transform: translateY(-2px);
         box-shadow: $box-shadow-hover;

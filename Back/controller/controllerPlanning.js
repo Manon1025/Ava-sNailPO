@@ -8,11 +8,16 @@ exports.show = async (req, res) => {
                 attributes: ['id_employee', 'fname', 'lname'],
                 order: [['fname', 'ASC'], ['lname', 'ASC']]
             });
+
+            const clients = await Clients.findAll({
+                attributes: ['id_client', 'f_name', 'l_name']
+            })
             
             res.render('pages/planning.ejs', {
                 title: 'Planning', 
                 user: req.user,
-                employees: employees
+                employees: employees,
+                clients: clients
             });
         } catch (error) {
             console.error('Erreur lors de la récupération des employés:', error);
