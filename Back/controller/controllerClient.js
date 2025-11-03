@@ -28,7 +28,7 @@ exports.show = async (req, res ) => {
             return res.status(400).json({message: 'Client non trouvé'})
         }
 
-        res.status(200).json()
+        res.status(200).render('pages/admin/about-client.ejs', {title: 'voir plus', client_: client, user: req.user })
 
     } catch (error) {
         console.error(err);

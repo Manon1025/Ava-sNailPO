@@ -1,0 +1,416 @@
+.about-client-page {
+  min-height: auto;
+  padding: 2rem 0;
+}
+@media (max-width: 768px) {
+  .about-client-page {
+    padding: 1rem 0;
+  }
+}
+.about-client-page .about-client-header {
+  background: linear-gradient(135deg, #8F95D3 0%, #89DAFF 100%);
+  border-radius: 25px;
+  margin: 2rem;
+  margin-bottom: 3rem;
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+.about-client-page .about-client-header::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 100%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  transform: rotate(-15deg);
+  pointer-events: none;
+}
+.about-client-page .about-client-header .header-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.about-client-page .about-client-header .back-navigation .back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: #FFF;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+}
+.about-client-page .about-client-header .back-navigation .back-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.about-client-page .about-client-header .back-navigation .back-btn i {
+  font-size: 14px;
+}
+.about-client-page .about-client-header .title-section {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  color: white;
+}
+@media (max-width: 768px) {
+  .about-client-page .about-client-header .title-section {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+.about-client-page .about-client-header .title-section .title-icon {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 1.2rem;
+  border-radius: 50%;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+}
+.about-client-page .about-client-header .title-section .title-icon i {
+  font-size: 2rem;
+  color: white;
+}
+.about-client-page .about-client-header .title-section .page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+@media (max-width: 768px) {
+  .about-client-page .about-client-header .title-section .page-title {
+    font-size: 2rem;
+  }
+}
+.about-client-page .about-client-header .title-section .page-subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin: 0.5rem 0 0 0;
+  font-weight: 300;
+  color: white;
+}
+.about-client-page .client-profile-container {
+  margin: 0 2rem;
+  background: #FFF;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+@media (max-width: 768px) {
+  .about-client-page .client-profile-container {
+    margin: 0 1rem;
+    padding: 1rem;
+  }
+}
+.about-client-page .client-main-card {
+  background: #FFF;
+  border-radius: 20px;
+  padding: 3rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.about-client-page .client-main-card:hover {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+.about-client-page .client-main-card .client-avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.about-client-page .client-main-card .client-avatar-section .client-avatar {
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, #8F95D3 0%, #89DAFF 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFF;
+  font-size: 3rem;
+  box-shadow: 0 4px 15px rgba(143, 149, 211, 0.3);
+}
+.about-client-page .client-main-card .client-avatar-section .client-status-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  background: #64C36B;
+  color: #FFF;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.about-client-page .client-main-card .client-avatar-section .client-status-badge.active {
+  background: #64C36B;
+}
+.about-client-page .client-main-card .client-info {
+  flex: 1;
+}
+.about-client-page .client-main-card .client-info .client-name {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0 0 0.5rem 0;
+}
+.about-client-page .client-main-card .client-info .client-date {
+  color: #718096;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.about-client-page .client-main-card .client-info .client-date i {
+  color: #8F95D3;
+}
+.about-client-page .client-main-card .client-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.about-client-page .client-main-card .client-actions .btn-primary, .about-client-page .client-main-card .client-actions .btn-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 150px;
+}
+.about-client-page .client-main-card .client-actions .btn-primary {
+  background: linear-gradient(135deg, #8F95D3 0%, #89DAFF 100%);
+  color: #FFF;
+  box-shadow: 0 4px 15px rgba(143, 149, 211, 0.3);
+}
+.about-client-page .client-main-card .client-actions .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(143, 149, 211, 0.4);
+}
+.about-client-page .client-main-card .client-actions .btn-secondary {
+  background: #FFF;
+  color: #8F95D3;
+  border: 2px solid #8F95D3;
+}
+.about-client-page .client-main-card .client-actions .btn-secondary:hover {
+  background: #8F95D3;
+  color: #FFF;
+  transform: translateY(-2px);
+}
+.about-client-page .info-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+.about-client-page .info-card {
+  background: #FFF;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.about-client-page .info-card:hover {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+.about-client-page .info-card .card-header {
+  background: linear-gradient(135deg, #8F95D3 0%, #89DAFF 100%);
+  color: #FFF;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.about-client-page .info-card .card-header i {
+  font-size: 1.5rem;
+}
+.about-client-page .info-card .card-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+.about-client-page .info-card .card-content {
+  padding: 1.5rem;
+}
+.about-client-page .info-card.contact-card .card-header {
+  background: linear-gradient(135deg, #89DAFF 0%, #8F95D3 100%);
+}
+.about-client-page .info-card.personal-card .card-header {
+  background: linear-gradient(135deg, #D3C4E3 0%, #DBB1BC 100%);
+}
+.about-client-page .info-card.medical-card .card-header {
+  background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+}
+.about-client-page .info-card.preferences-card .card-header {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+}
+.about-client-page .info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.about-client-page .info-item:last-child {
+  margin-bottom: 0;
+}
+.about-client-page .info-item i {
+  color: #8F95D3;
+  font-size: 18px;
+  margin-top: 2px;
+  width: 20px;
+  text-align: center;
+}
+.about-client-page .info-item .info-details {
+  flex: 1;
+}
+.about-client-page .info-item .info-details .info-label {
+  display: block;
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 0.25rem;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.about-client-page .info-item .info-details .info-value {
+  display: block;
+  color: #2d3748;
+  font-size: 16px;
+  word-break: break-word;
+}
+.about-client-page .notes-content p, .about-client-page .preferences-content p {
+  margin: 0;
+  color: #2d3748;
+  line-height: 1.6;
+}
+.about-client-page .notes-content p.no-notes, .about-client-page .notes-content p.no-preferences, .about-client-page .preferences-content p.no-notes, .about-client-page .preferences-content p.no-preferences {
+  color: #a0aec0;
+  font-style: italic;
+  text-align: center;
+  padding: 1.5rem;
+  background: #f7fafc;
+  border-radius: 10px;
+}
+.about-client-page .appointments-section {
+  background: #FFF;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+.about-client-page .appointments-section .section-header {
+  background: linear-gradient(135deg, #8F95D3 0%, #89DAFF 100%);
+  color: #FFF;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.about-client-page .appointments-section .section-header h3 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 18px;
+}
+.about-client-page .appointments-section .section-header .btn-secondary {
+  background: #FFF;
+  color: #8F95D3;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.about-client-page .appointments-section .section-header .btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.about-client-page .appointments-section .appointments-container {
+  padding: 3rem;
+}
+.about-client-page .appointments-section .appointments-container .no-appointments {
+  text-align: center;
+  padding: 3rem;
+}
+.about-client-page .appointments-section .appointments-container .no-appointments .no-appointments-icon {
+  font-size: 4rem;
+  color: #e2e8f0;
+  margin-bottom: 1rem;
+}
+.about-client-page .appointments-section .appointments-container .no-appointments h4 {
+  color: #4a5568;
+  margin: 0 0 0.5rem 0;
+}
+.about-client-page .appointments-section .appointments-container .no-appointments p {
+  color: #718096;
+  margin: 0;
+}
+@media (max-width: 992px) {
+  .about-client-page {
+    padding: 1rem;
+  }
+  .about-client-page .client-main-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  .about-client-page .client-main-card .client-actions {
+    flex-direction: row;
+    justify-content: center;
+  }
+  .about-client-page .info-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .about-client-page .appointments-section .section-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+@media (max-width: 768px) {
+  .about-client-page .about-client-header {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  .about-client-page .about-client-header .title-section .page-title {
+    font-size: 1.8rem;
+  }
+  .about-client-page .about-client-header .title-section .page-subtitle {
+    font-size: 1rem;
+  }
+  .about-client-page .client-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .about-client-page .client-actions .btn-primary, .about-client-page .client-actions .btn-secondary {
+    width: 100%;
+  }
+}/*# sourceMappingURL=aboutClient.css.map */

@@ -304,6 +304,10 @@
   align-items: center;
   justify-content: center;
 }
+.action-buttons button a {
+  text-decoration: none;
+  color: #FFF;
+}
 .action-buttons button i {
   font-size: 0.9rem;
 }

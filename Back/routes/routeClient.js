@@ -10,7 +10,7 @@ const controllerClient = require('../controller/controllerClient')
 router.get('/clients', controllerClient.index )
 
     // * Détails client
-// router.get('/about-client/:id')
+router.get('/about-client/:id', controllerClient.show)
 
     // *Ajout client
 router.get('/ajout-d-un-nouveau-client', (req, res) => {

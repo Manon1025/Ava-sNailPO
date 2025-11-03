@@ -1,0 +1,194 @@
+<!-- START STYLE -->
+<link rel="stylesheet" href="/CSS/ADMIN/aboutClient.css">
+<!-- END STYLE -->
+
+<!-- START CONTENT -->
+<div class="about-client-page">
+    <!-- ! START HEADER -->
+    <div class="about-client-header">
+        <div class="header-content">
+            <div class="back-navigation">
+                <a href="/clients" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Retour aux clients</span>
+                </a>
+            </div>
+            <div class="title-section">
+                <div class="title-icon">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div>
+                    <h1 class="page-title">Profil Client</h1>
+                    <p class="page-subtitle">Détails et informations du client</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ! END HEADER -->
+
+    <!-- ! START CLIENT PROFILE -->
+    <div class="client-profile-container">
+        <!-- ! START CLIENT CARD -->
+        <div class="client-main-card">
+            <div class="client-avatar-section">
+                <div class="client-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            
+            <div class="client-info">
+                <h2 class="client-name">
+                    <% if (typeof client_ !== 'undefined' && client_) { %>
+                        <%= client_.f_name %> <%= client_.l_name %>
+                    <% } else { %>
+                        Nom du Client
+                    <% } %>
+                </h2>
+                <p class="client-date">
+                    <i class="fas fa-calendar-plus"></i>
+                    Client depuis le 
+                    <% if (typeof client_ !== 'undefined' && client_) { %>
+                        <%= new Date(client_.create_at).toLocaleDateString('fr-FR') %>
+                    <% } else { %>
+                        01/01/2024
+                    <% } %>
+                </p>
+            </div>
+
+            <div class="client-actions">
+                <button class="btn-primary edit-btn">
+                    <i class="fas fa-edit"></i>
+                    <span>Modifier</span>
+                </button>
+                <button class="btn-secondary schedule-btn">
+                    <i class="fas fa-calendar-plus"></i>
+                    <span>Planifier RDV</span>
+                </button>
+            </div>
+        </div>
+        <!-- ! END CLIENT CARD -->
+
+        <!-- ! START INFORMATION CARDS -->
+        <div class="info-cards-grid">
+            <!-- ! CONTACT INFORMATION -->
+            <div class="info-card contact-card">
+                <div class="card-header">
+                    <i class="fas fa-address-book"></i>
+                    <h3>Informations de contact</h3>
+                </div>
+                <div class="card-content">
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div class="info-details">
+                            <span class="info-label">Téléphone</span>
+                            <span class="info-value">
+                                <% if (typeof client_ !== 'undefined' && client_) { %>
+                                    <%= client_.phone %>
+                                <% } else { %>
+                                    Aucune information rentrée
+                                <% } %>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div class="info-details">
+                            <span class="info-label">Email</span>
+                            <span class="info-value">
+                                <% if (typeof client_ !== 'undefined' && client_) { %>
+                                    <%= client_.mail %>
+                                <% } else { %>
+                                    Aucune information rentrée
+                                <% } %>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ! PERSONAL INFORMATION -->
+            <div class="info-card personal-card">
+                <div class="card-header">
+                    <i class="fas fa-user-tag"></i>
+                    <h3>Informations personnelles</h3>
+                </div>
+                <div class="card-content">
+                    <div class="info-item">
+                        <i class="fas fa-birthday-cake"></i>
+                        <div class="info-details">
+                            <span class="info-label">Date de naissance</span>
+                            <span class="info-value">
+                                <% if (typeof client_ !== 'undefined' && client_ && client_.birth_date) { %>
+                                    <%= new Date(client_.birth_date).toLocaleDateString('fr-FR') %>
+                                <% } else { %>
+                                    Non renseignée
+                                <% } %>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ! MEDICAL NOTES -->
+            <div class="info-card medical-card">
+                <div class="card-header">
+                    <i class="fas fa-notes-medical"></i>
+                    <h3>Remarques médicales</h3>
+                </div>
+                <div class="card-content">
+                    <div class="notes-content">
+                        <% if (typeof client_ !== 'undefined' && client_ && client_.remarq_medi) { %>
+                            <p><%= client_.remarq_medi %></p>
+                        <% } else { %>
+                            <p class="no-notes">Aucune remarque médicale enregistrée</p>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ! PREFERENCES -->
+            <div class="info-card preferences-card">
+                <div class="card-header">
+                    <i class="fas fa-heart"></i>
+                    <h3>Préférences</h3>
+                </div>
+                <div class="card-content">
+                    <div class="preferences-content">
+                        <% if (typeof client_ !== 'undefined' && client_ && client_.preference) { %>
+                            <p><%= client_.preference %></p>
+                        <% } else { %>
+                            <p class="no-preferences">Aucune préférence renseignée</p>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ! END INFORMATION CARDS -->
+
+        <!-- ! START APPOINTMENTS HISTORY -->
+        <div class="appointments-section">
+            <div class="section-header">
+                <h3><i class="fas fa-history"></i> Historique des rendez-vous</h3>
+                <button class="btn-secondary">
+                    <i class="fas fa-calendar-plus"></i>
+                    Nouveau RDV
+                </button>
+            </div>
+            
+            <div class="appointments-container">
+                <!-- Placeholder pour l'historique des RDV -->
+                <div class="no-appointments">
+                    <div class="no-appointments-icon">
+                        <i class="fas fa-calendar-times"></i>
+                    </div>
+                    <h4>Aucun rendez-vous</h4>
+                    <p>Ce client n'a pas encore de rendez-vous planifiés.</p>
+                </div>
+            </div>
+        </div>
+        <!-- ! END APPOINTMENTS HISTORY -->
+    </div>
+    <!-- ! END CLIENT PROFILE -->
+</div>
+<!-- END CONTENT -->
