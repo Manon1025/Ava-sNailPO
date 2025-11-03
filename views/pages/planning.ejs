@@ -2,6 +2,11 @@
 <link rel="stylesheet" href="/CSS/PAGES/planning.css">
 <!-- END STYLES -->
 
+<!-- START SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script>
+<script src="JS/configCalendar.js"></script>
+<!-- END SCRIPTS -->
+
 
 <!-- START CONTENT -->
 <div class="calendar-page">
@@ -60,15 +65,15 @@
                     <div class="mb-3">
                         <label for="client_id" class="form-label">Client.e:</label>
                         <select name="client_id" id="client_id" class="form-select" required>
-                            <option value="">-- Sélectionner un salarié --</option>
+                            <option value="">-- Sélectionner un client --</option>
                             <% if (clients && clients.length > 0) { %>
-                                <% clients.forEach(clients => { %>
-                                    <option value="<%= clients.id_employee %>">
-                                        <%= clients.f_name %> <%= clients.l_name %>
+                                <% clients.forEach(client => { %>
+                                    <option value="<%= client.id_client %>">
+                                        <%= client.f_name %> <%= client.l_name %>
                                     </option>
                                 <% }); %>
                             <% } else { %>
-                                <option value="" disabled>Aucun Clients disponible</option>
+                                <option value="" disabled>Aucun client disponible</option>
                             <% } %>
                         </select>
                     </div>
@@ -93,6 +98,15 @@
                         <label for="prestation_id" class="form-label">Prestation:</label>
                         <select name="prestation_id" id="prestation_id" class="form-select">
                             <option value="">-- Sélectionner une prestation --</option>
+                            <% if (prestation && prestation.length > 0) { %>
+                                <% prestation.forEach(prestations => { %>
+                                    <option value="<%= prestations.id_prestations %>">
+                                        <%= prestations.name %>
+                                    </option>
+                                <% }); %>
+                            <% } else { %>
+                                <option value="" disabled>Aucune Prestations</option>
+                            <% } %>
                         </select>
                     </div>
                 </div>
@@ -148,8 +162,3 @@
     </div>
 </div>
 <!-- END MODAL -->
-
-<!-- START SCRIPTS -->
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script>
-<script src="/JS/configCalendar.js"></script>
-<!-- END SCRIPTS -->

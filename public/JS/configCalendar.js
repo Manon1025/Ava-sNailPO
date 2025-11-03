@@ -1,6 +1,13 @@
 // START CONFIG CALENDAR
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('Calendar script loaded');
     const CalendarEl = document.getElementById('calendar');
+    
+    if (!CalendarEl) {
+        console.error('Calendar element not found!');
+        return;
+    }
+    
     let currentEvent = null;                                // Variable pour stocker l'événement en cours d'édition
 
     // ! START INIT CALENDAR
@@ -19,7 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
             day: 'Jour',
         },
         height: 'auto',
-        events: '/api/admin/planning',
+        events: {
+            url: '/api/admin/planning',
+            failure: function(err) {
+                console.error('There was an error while fetching events!', err);
+                alert('Erreur lors du chargement des événements');
+            }
+        },
         selectable: true,
         selectMirror: true,
         weekends: true,
@@ -38,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         select: function(info){
+            console.log('Calendar select event triggered');
             openModal(
                 info.startStr.slice(0,10), 
                 info.startStr.slice(11,16), 
@@ -47,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         eventClick: function(info) {
+            console.log('Event click triggered');
             currentEvent = info.event;
             const title = info.event.title;
             const description = info.event.extendedProps.description || '';
@@ -65,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // TODO: RENDU CALENDAR
     calendar.render();
+    console.log('Calendar rendered successfully');
 
     // ! START EVENT DAY
     const todayBtn = document.querySelector('.calendar-btn.secondary');
@@ -86,33 +102,53 @@ document.addEventListener('DOMContentLoaded', () => {
     // ! END EVENT VIEW
 
     // ! START BTN ADD EVENT
-    document.getElementById('addEventBtn').addEventListener('click', function() {
-        const today = new Date();
-        const tomorrow = new Date(today);
-        tomorrow.setDate(tomorrow.getDate() + 1);
+    const addEventBtn = document.getElementById('addEventBtn');
+    if (addEventBtn) {
+        addEventBtn.addEventListener('click', function() {
+            const today = new Date();
+            
+            const todayStr = today.toISOString().slice(0, 10);
+            const todayTimeStr = '09:00';
+            const endTimeStr = '10:00'; // 1 heure plus tard
 
-        const todayStr = today.toISOString().slice(0, 10);
-        const todayTimeStr = '09:00';
-        const tomorrowStr = tomorrow.toISOString().slice(0, 10);
-        const tomorrowTimeStr = '10:00';
-
-        openModal(todayStr, todayTimeStr, tomorrowStr, tomorrowTimeStr);
-    });
+            openModal(todayStr, todayTimeStr, todayStr, endTimeStr);
+        });
+    } else {
+        console.error('Add event button not found!');
+    }
     // ! END BTN ADD EVENT
 
     // ! START EVENT MODAL
     function openModal(start, TimeStart, end, TimeEnd, title = '', description = '') {
+        console.log('Opening modal with:', { start, TimeStart, end, TimeEnd, title, description });
+        
+        // Vérifier que les éléments existent
+        const clientSelect = document.getElementById('client_id');
+        const notesTextarea = document.getElementById('notes');
+        const startDateInput = document.getElementById('start_date');
+        const startTimeInput = document.getElementById('start_time');
+        const endDateInput = document.getElementById('end_date');
+        const endTimeInput = document.getElementById('end_time');
+        const modalTitle = document.getElementById('modalTitle');
+        const eventModal = document.getElementById('eventModal');
+
+        if (!clientSelect || !notesTextarea || !startDateInput || !startTimeInput || !endDateInput || !endTimeInput || !modalTitle || !eventModal) {
+            console.error('One or more modal elements not found');
+            return;
+        }
+
         // Adapter aux nouveaux IDs du formulaire
-        document.getElementById('client_id').value = title || ''; // Utiliser title pour client temporairement
-        document.getElementById('notes').value = description;
-        document.getElementById('start_date').value = start;
-        document.getElementById('start_time').value = TimeStart;
-        document.getElementById('end_date').value = end;
-        document.getElementById('end_time').value = TimeEnd;
+        clientSelect.value = title || ''; // Utiliser title pour client temporairement
+        notesTextarea.value = description;
+        startDateInput.value = start;
+        startTimeInput.value = TimeStart;
+        endDateInput.value = end;
+        endTimeInput.value = TimeEnd;
 
-        document.getElementById('modalTitle').textContent = title ? 'Modifier l\'événement' : 'Ajouter un événement';
+        modalTitle.textContent = title ? 'Modifier l\'événement' : 'Ajouter un événement';
 
-        document.getElementById('eventModal').style.display = 'block';
+        eventModal.style.display = 'block';
+        console.log('Modal opened successfully');
     }
     // ! END EVENT MODAL
 

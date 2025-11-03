@@ -189,6 +189,9 @@
     transition: $transition !important;
     margin: 0 4px !important;
     cursor: pointer !important;
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 1 !important;
 
     &:hover {
         background: linear-gradient(135deg, darken($primary-color, 8%), darken($secondary-color, 8%)) !important;

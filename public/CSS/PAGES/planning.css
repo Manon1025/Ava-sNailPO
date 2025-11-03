@@ -171,6 +171,9 @@
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
   margin: 0 4px !important;
   cursor: pointer !important;
+  pointer-events: auto !important;
+  position: relative !important;
+  z-index: 1 !important;
 }
 .fc .fc-button:hover {
   background: linear-gradient(135deg, rgb(113.7076923077, 121.2769230769, 199.4923076923), rgb(96.2, 205.206779661, 255)) !important;
