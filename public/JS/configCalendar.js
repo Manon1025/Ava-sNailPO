@@ -174,34 +174,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ! START SUBMIT EVENT FORM
     document.getElementById('eventForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        // Adapter aux nouveaux IDs du formulaire
-        const title = document.getElementById('client_id').value; // Temporaire
-        const description = document.getElementById('notes').value;
-        const startDate = document.getElementById('start_date').value;
-        const startTime = document.getElementById('start_time').value;
-        const endDate = document.getElementById('end_date').value;
-        const endTime = document.getElementById('end_time').value;
-
-        const start = `${startDate}T${startTime}`;
-        const end = `${endDate}T${endTime}`;
-
+        // Ne plus empêcher la soumission normale du formulaire si on modifie pas un événement existant
         if (currentEvent) {
+            // Mode édition : empêcher la soumission et mettre à jour l'événement localement
+            e.preventDefault();
+            
+            const title = document.getElementById('client_id').value;
+            const description = document.getElementById('notes').value;
+            const startDate = document.getElementById('start_date').value;
+            const startTime = document.getElementById('start_time').value;
+            const endDate = document.getElementById('end_date').value;
+            const endTime = document.getElementById('end_time').value;
+
+            const start = `${startDate}T${startTime}`;
+            const end = `${endDate}T${endTime}`;
+
             currentEvent.setProp('title', title);
             currentEvent.setStart(start);
             currentEvent.setEnd(end);
             currentEvent.setExtendedProp('description', description);
+            
+            closeModal();
         } else {
-            calendar.addEvent({
-                title: title,
-                start: start,
-                end: end,
-                description: description,
-            });
+            // Mode création : laisser le formulaire se soumettre normalement au serveur
+            // Le formulaire sera envoyé à /add-event-planning
+            console.log('Submitting form to server...');
         }
-
-        closeModal();
     });
     // ! END SUBMIT EVENT FORM
 

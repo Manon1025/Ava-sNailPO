@@ -43,7 +43,7 @@ Event.init({
     },
     prestation_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,  // Permettre NULL pour les événements sans prestation spécifique
         references: {
             model: 'Prestations',
             key: 'id_prestation'

@@ -2,7 +2,6 @@ const { Event, Clients, Employee, Prestation } = require('../model/associations'
 
 exports.show = async (req, res) => {
     try {
-            // Récupérer tous les employés actifs
             const employees = await Employee.findAll({
                 where: { isActive: true },
                 attributes: ['id_employee', 'fname', 'lname'],
@@ -14,7 +13,7 @@ exports.show = async (req, res) => {
             });
             
             const prestations = await Prestation.findAll({
-                attributes: ['id_prestations', 'name']
+                attributes: ['id_prestation', 'name']
             });
 
             res.render('pages/planning.ejs', {
@@ -30,7 +29,8 @@ exports.show = async (req, res) => {
                 title: 'Planning', 
                 user: req.user,
                 employees: [],
-                clients: []
+                clients: [],
+                prestation: []
             });
         }
 }
@@ -87,6 +87,32 @@ exports.create = async (req, res) => {
             notes
         } = req.body;
 
+        // Validation des champs requis
+        if (!client_id || !employee_id || !start_date || !start_time || !end_date || !end_time) {
+            return res.status(400).json({
+                message: 'Tous les champs obligatoires doivent être remplis',
+                error: 'Champs manquants'
+            });
+        }
+
+        // Si prestation_id est vide, le définir à 1 (valeur par défaut) ou créer une prestation par défaut
+        let validPrestation = prestation_id;
+        if (!prestation_id || prestation_id === '') {
+            // Vérifier s'il existe une prestation par défaut (id = 1)
+            const defaultPrestation = await Prestation.findOne({ where: { id_prestation: 1 } });
+            if (defaultPrestation) {
+                validPrestation = 1;
+            } else {
+                // Créer une prestation par défaut si elle n'existe pas
+                const newDefaultPrestation = await Prestation.create({
+                    name: 'Prestation générale',
+                    description: 'Prestation par défaut',
+                    price: 0.00
+                });
+                validPrestation = newDefaultPrestation.id_prestation;
+            }
+        }
+
         const event = await Event.create({
             client_id,
             employee_id,
@@ -94,12 +120,12 @@ exports.create = async (req, res) => {
             start_time,
             end_date,
             end_time,
-            prestation_id,
-            notes,
+            prestation_id: validPrestation,
+            notes: notes || null,
             create_at: new Date()
         })
 
-        res.redirect('/planning?message=ajouté&name=' + encodeURIComponent(event.client_id + ' ' + event.employee_id + ' ' + event.prestation_id))
+        res.redirect('/planning?message=ajouté&name=' + encodeURIComponent(event.client_id + ' ' + event.employee_id + ' ' + (event.prestation_id || 'aucune prestation')))
     } catch (err) {
         console.error('Erreur lors de la création de l\'événement', err)
         res.status(500).json({

@@ -96,11 +96,11 @@
 
                     <div class="mb-3">
                         <label for="prestation_id" class="form-label">Prestation:</label>
-                        <select name="prestation_id" id="prestation_id" class="form-select">
+                        <select name="prestation_id" id="prestation_id" class="form-select" required>
                             <option value="">-- Sélectionner une prestation --</option>
                             <% if (prestation && prestation.length > 0) { %>
                                 <% prestation.forEach(prestations => { %>
-                                    <option value="<%= prestations.id_prestations %>">
+                                    <option value="<%= prestations.id_prestation %>">
                                         <%= prestations.name %>
                                     </option>
                                 <% }); %>

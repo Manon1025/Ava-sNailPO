@@ -1,1 +1,136 @@
-<h1>Bonjour <%= fname %> </h1>
+<!-- START STYLES -->
+<link rel="stylesheet" href="/CSS/PAGES/homePage.css">
+<!-- END STYLES -->
+
+<!-- START CONTENT -->
+<div class="home-page">
+    <!-- Header avec titre et date -->
+    <div class="page-header">
+        <h1 class="welcome-title">Bonjour <%= fname %></h1>
+        <p class="subtitle">Voici ton planning de la journée !</p>
+    </div>
+
+    <!-- Bandeau de date -->
+    <div class="date-banner">
+        <span class="current-date">
+            <%= new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) %>
+        </span>
+    </div>
+
+    <!-- Onglets de filtrage -->
+    <div class="filter-tabs">
+        <button class="filter-tab active">Matinée</button>
+        <button class="filter-tab">Après Midi</button>
+        <button class="filter-tab">Terminée</button>
+    </div>
+
+    <!-- Liste des rendez-vous -->
+    <div class="appointments-list">
+        <!-- Exemple de rendez-vous - à remplacer par vos données -->
+        <div class="appointment-card morning">
+            <div class="appointment-image">
+                <img src="/ASSET/img/nails-1.jpg" alt="Pose Américaine" onerror="this.src='/ASSET/img/4200743.jpg'">
+            </div>
+            <div class="appointment-content">
+                <div class="appointment-header">
+                    <h3 class="client-name">Mme. Claudette</h3>
+                    <span class="appointment-time">9h30</span>
+                </div>
+                <div class="appointment-details">
+                    <p><strong>Pose :</strong> Américaine</p>
+                    <p><strong>Forme :</strong> Amande</p>
+                    <p><strong>Taille:</strong> M</p>
+                    <p><strong>Couleur:</strong> Bleu</p>
+                </div>
+            </div>
+            <div class="appointment-actions">
+                <button class="btn-see-more">Voir plus</button>
+                <span class="status-badge completed">Terminé</span>
+            </div>
+        </div>
+
+        <div class="appointment-card afternoon">
+            <div class="appointment-image">
+                <img src="/ASSET/img/nails-2.jpg" alt="Pose Américaine" onerror="this.src='/ASSET/img/4200743.jpg'">
+            </div>
+            <div class="appointment-content">
+                <div class="appointment-header">
+                    <h3 class="client-name">Mme. Claudette</h3>
+                    <span class="appointment-time">14h30</span>
+                </div>
+                <div class="appointment-details">
+                    <p><strong>Pose :</strong> Américaine</p>
+                    <p><strong>Forme :</strong> Amande</p>
+                    <p><strong>Taille:</strong> M</p>
+                    <p><strong>Couleur:</strong> Rouge</p>
+                </div>
+            </div>
+            <div class="appointment-actions">
+                <button class="btn-see-more">Voir plus</button>
+                <span class="status-badge completed">Terminé</span>
+            </div>
+        </div>
+
+        <div class="appointment-card afternoon">
+            <div class="appointment-image">
+                <img src="/ASSET/img/nails-3.jpg" alt="Pose Américaine" onerror="this.src='/ASSET/img/4200743.jpg'">
+            </div>
+            <div class="appointment-content">
+                <div class="appointment-header">
+                    <h3 class="client-name">Mme. Claudette</h3>
+                    <span class="appointment-time">16h30</span>
+                </div>
+                <div class="appointment-details">
+                    <p><strong>Pose :</strong> Américaine</p>
+                    <p><strong>Forme :</strong> Amande</p>
+                    <p><strong>Taille:</strong> M</p>
+                    <p><strong>Couleur:</strong> Noir</p>
+                </div>
+            </div>
+            <div class="appointment-actions">
+                <button class="btn-see-more">Voir plus</button>
+                <span class="status-badge completed">Terminé</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    const appointmentCards = document.querySelectorAll('.appointment-card');
+    
+    filterTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            // Retirer la classe active de tous les onglets
+            filterTabs.forEach(t => t.classList.remove('active'));
+            // Ajouter la classe active à l'onglet cliqué
+            this.classList.add('active');
+            
+            const filter = this.textContent.toLowerCase();
+            
+            appointmentCards.forEach(card => {
+                let show = false;
+                
+                if (filter.includes('matinée')) {
+                    show = card.classList.contains('morning');
+                } else if (filter.includes('après')) {
+                    show = card.classList.contains('afternoon');
+                } else if (filter.includes('terminée')) {
+                    show = card.querySelector('.status-badge').classList.contains('completed');
+                }
+                
+                card.style.display = show ? 'flex' : 'none';
+            });
+        });
+    });
+    
+    // Afficher seulement les rendez-vous du matin par défaut
+    appointmentCards.forEach(card => {
+        if (!card.classList.contains('morning')) {
+            card.style.display = 'none';
+        }
+    });
+});
+</script>
+<!-- END CONTENT -->
