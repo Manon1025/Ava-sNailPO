@@ -4,20 +4,58 @@
 
 <!-- START CONTENT -->
 <div class="home-page">
-    <!-- Header avec titre et date -->
+    <!-- ! START HEADER comme les autres pages -->
     <div class="page-header">
-        <h1 class="welcome-title">Bonjour <%= fname %></h1>
-        <p class="subtitle">Voici ton planning de la journée !</p>
+        <div class="header-content">
+            <div class="title-section">
+                <div class="title-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div>
+                    <h1 class="page-title">Bonjour <%= fname %></h1>
+                    <p class="page-subtitle">Voici votre planning de la journée</p>
+                </div>
+            </div>
+        </div>
     </div>
+    <!-- ! END HEADER -->
 
-    <!-- Bandeau de date -->
-    <div class="date-banner">
-        <span class="current-date">
-            <%= new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) %>
-        </span>
+    <!-- ! START TODAY SECTION -->
+    <div class="today-section">
+        <div class="today-banner">
+            <div class="today-content">
+                <div class="today-left">
+                    <div class="today-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="today-info">
+                        <h2 class="today-title">Aujourd'hui</h2>
+                        <p class="today-date">
+                            <%= new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) %>
+                        </p>
+                    </div>
+                </div>
+                <div class="today-right">
+                    <div class="today-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">3</span>
+                            <span class="stat-text">Rendez-vous</span>
+                        </div>
+                        <div class="stat-separator"></div>
+                        <div class="stat-item">
+                            <span class="stat-value">8h</span>
+                            <span class="stat-text">de travail</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <!-- ! END TODAY SECTION -->
 
-    <!-- Onglets de filtrage -->
+    <!-- ! START CONTENT WRAPPER -->
+    <div class="content-wrapper">
+        <!-- Onglets de filtrage -->
     <div class="filter-tabs">
         <button class="filter-tab active">Matinée</button>
         <button class="filter-tab">Après Midi</button>
@@ -92,7 +130,9 @@
                 <span class="status-badge completed">Terminé</span>
             </div>
         </div>
+        </div>
     </div>
+    <!-- ! END CONTENT WRAPPER -->
 </div>
 
 <script>
