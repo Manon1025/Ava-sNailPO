@@ -19,8 +19,12 @@ router.get('/ajout-d-un-nouveau-client', (req, res) => {
         title: 'Ajouter un nouveau Client',
         user: req.user
     })                                                            
-})
+});
 
 router.post('/add-client', controllerClient.create)
+
+router.get('/update-client/:id', controllerClient.edit)
+router.post('/update-client/:id', controllerClient.update)
+
 
 module.exports = router

@@ -47,7 +47,7 @@ Clients.init({
 }, {
     sequelize,
     modelName: 'Clients',
-    tableName: 'Clients',
+    tableName: 'Clients', 
     timestamps: false
 });
 

@@ -26,8 +26,8 @@ app.set('layout', 'layout')
 
 // ! Middleware 
     // * Express
-app.use(express.json())
 app.use(expressLayouts)                                                     // ? permet d'avoir un layout commun pour toutes les pages
+app.use(express.json())
 app.use(express.urlencoded({ extended: true }))                             // ? permet de parser les données des formulaires pour les envoyer dans req.body
 app.use(express.static(path.join(__dirname, '../public')));                 // ? cette ligne permet de chercher le fichier public en dehors du fichier JS
 

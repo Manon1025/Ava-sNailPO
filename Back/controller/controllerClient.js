@@ -31,8 +31,8 @@ exports.show = async (req, res ) => {
         res.status(200).render('pages/admin/about-client.ejs', {title: 'voir plus', client_: client, user: req.user })
 
     } catch (error) {
-        console.error(err);
-        res.status(500).json({ message: 'Erreur serveur', error: err.message });
+        console.error(error);
+        res.status(500).json({ message: 'Erreur serveur', error: error.message });
     }
 }
 
