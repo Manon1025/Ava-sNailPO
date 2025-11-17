@@ -23,5 +23,9 @@ router.get('/ajout-d-un-nouveau-client', (req, res) => {
 
 router.post('/add-client', controllerClient.create)
 
+    // * Supprimer Client
+router.post('/delete-client/:id', controllerClient.destroy)
+
+
 
 module.exports = router

@@ -55,6 +55,9 @@
         </h3>
 
         <form id="eventForm" method='POST' action="/add-event-planning">
+            <input type="hidden" id="event_id" name="event_id" value="">
+            <input type="hidden" id="_method" name="_method" value="">
+            
             <div class="row h-100">
                 <!-- PARTIE GAUCHE DE LA MODAL -->
                 <div class="col-md-6 modal-left-section">
@@ -151,11 +154,16 @@
             <div class="row">
                 <div class="col-12 text-center mt-3">
                     <button type="submit" id="saveEventBtn" class="btn btn-primary me-2">
-                        <i class="fas fa-save"></i> Enregistrer
+                        <i class="fas fa-save"></i> <span id="saveButtonText">Enregistrer</span>
                     </button>
-                    <button type="button" id="cancelEventBtn" class="btn btn-secondary">
+                    <button type="button" id="cancelEventBtn" class="btn btn-secondary me-2">
                         <i class="fas fa-times"></i> Annuler
                     </button>
+                    <% if (user.role === 1) { %>
+                    <button type="button" id="deleteEventBtn" class="btn btn-danger" style="display: none;">
+                        <i class="fas fa-trash"></i> Supprimer
+                    </button>
+                    <% } %>
                 </div>
             </div>
         </form>

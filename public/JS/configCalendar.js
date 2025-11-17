@@ -61,19 +61,27 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         eventClick: function(info) {
-            console.log('Event click triggered');
+            console.log('Event click triggered', info.event.id);
             currentEvent = info.event;
-            const title = info.event.title;
-            const description = info.event.extendedProps.description || '';
-            const start = info.event.start;
-            const end = info.event.end;
-
-            const startDate = start.toISOString().slice(0,10);
-            const startTime = start.toISOString().slice(11,16);
-            const endDate = end ? end.toISOString().slice(0,10) : startDate;
-            const endTime = end ? end.toISOString().slice(11,16) : startTime;
-
-            openModal(startDate, startTime, endDate, endTime, title, description);
+            
+            // Récupérer les données complètes de l'événement depuis le serveur
+            fetch(`/api/admin/planning/event/${info.event.id}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur lors de la récupération de l\'événement');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Event data received:', data);
+                    
+                    // Ouvrir la modal avec les données pré-remplies
+                    openModalWithEventData(data.event, data.employees, data.clients, data.prestations);
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    alert('Erreur lors de la récupération des données de l\'événement');
+                });
         },
     });
     // ! END INIT CALENDAR
@@ -123,7 +131,54 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Opening modal with:', { start, TimeStart, end, TimeEnd, title, description });
         
         // Vérifier que les éléments existent
+        const startDateInput = document.getElementById('start_date');
+        const startTimeInput = document.getElementById('start_time');
+        const endDateInput = document.getElementById('end_date');
+        const endTimeInput = document.getElementById('end_time');
+        const modalTitle = document.getElementById('modalTitle');
+        const eventModal = document.getElementById('eventModal');
+        const eventForm = document.getElementById('eventForm');
+        const eventIdInput = document.getElementById('event_id');
+        const methodInput = document.getElementById('_method');
+        const saveButtonText = document.getElementById('saveButtonText');
+        const deleteEventBtn = document.getElementById('deleteEventBtn');
+
+        if (!startDateInput || !startTimeInput || !endDateInput || !endTimeInput || !modalTitle || !eventModal) {
+            console.error('One or more modal elements not found');
+            return;
+        }
+
+        // Remplir les champs de base
+        startDateInput.value = start;
+        startTimeInput.value = TimeStart;
+        endDateInput.value = end;
+        endTimeInput.value = TimeEnd;
+
+        // Réinitialiser pour la création
+        modalTitle.textContent = 'Ajouter un événement';
+        if (saveButtonText) saveButtonText.textContent = 'Enregistrer';
+        if (deleteEventBtn) deleteEventBtn.style.display = 'none';
+        
+        // Réinitialiser les champs cachés
+        if (eventIdInput) eventIdInput.value = '';
+        if (methodInput) methodInput.value = '';
+        
+        // Remettre l'action par défaut du formulaire
+        eventForm.action = '/add-event-planning';
+        eventForm.method = 'POST';
+
+        eventModal.style.display = 'block';
+        console.log('Modal opened successfully');
+    }
+
+    // ! START EVENT MODAL WITH DATA (pour modification)
+    function openModalWithEventData(eventData, employees, clients, prestations) {
+        console.log('Opening modal with event data:', eventData);
+        
+        // Vérifier que les éléments existent
         const clientSelect = document.getElementById('client_id');
+        const employeeSelect = document.getElementById('employee_id');
+        const prestationSelect = document.getElementById('prestation_id');
         const notesTextarea = document.getElementById('notes');
         const startDateInput = document.getElementById('start_date');
         const startTimeInput = document.getElementById('start_time');
@@ -131,24 +186,72 @@ document.addEventListener('DOMContentLoaded', () => {
         const endTimeInput = document.getElementById('end_time');
         const modalTitle = document.getElementById('modalTitle');
         const eventModal = document.getElementById('eventModal');
+        const eventForm = document.getElementById('eventForm');
+        const eventIdInput = document.getElementById('event_id');
+        const methodInput = document.getElementById('_method');
+        const saveButtonText = document.getElementById('saveButtonText');
+        const deleteEventBtn = document.getElementById('deleteEventBtn');
 
-        if (!clientSelect || !notesTextarea || !startDateInput || !startTimeInput || !endDateInput || !endTimeInput || !modalTitle || !eventModal) {
+        if (!clientSelect || !employeeSelect || !prestationSelect || !notesTextarea || 
+            !startDateInput || !startTimeInput || !endDateInput || !endTimeInput || 
+            !modalTitle || !eventModal || !eventForm) {
             console.error('One or more modal elements not found');
             return;
         }
 
-        // Adapter aux nouveaux IDs du formulaire
-        clientSelect.value = title || ''; // Utiliser title pour client temporairement
-        notesTextarea.value = description;
-        startDateInput.value = start;
-        startTimeInput.value = TimeStart;
-        endDateInput.value = end;
-        endTimeInput.value = TimeEnd;
+        // Mettre à jour les options des sélecteurs avec les nouvelles données
+        updateSelectOptions(clientSelect, clients, 'id_client', ['f_name', 'l_name']);
+        updateSelectOptions(employeeSelect, employees, 'id_employee', ['fname', 'lname']);
+        updateSelectOptions(prestationSelect, prestations, 'id_prestation', ['name']);
 
-        modalTitle.textContent = title ? 'Modifier l\'événement' : 'Ajouter un événement';
+        // Pré-remplir le formulaire avec les données de l'événement
+        clientSelect.value = eventData.client_id;
+        employeeSelect.value = eventData.employee_id;
+        prestationSelect.value = eventData.prestation_id;
+        notesTextarea.value = eventData.notes || '';
+        startDateInput.value = eventData.start_date;
+        startTimeInput.value = eventData.start_time;
+        endDateInput.value = eventData.end_date;
+        endTimeInput.value = eventData.end_time;
+
+        // Configurer le formulaire pour la modification
+        if (eventIdInput) eventIdInput.value = eventData.id_event;
+        if (methodInput) methodInput.value = 'PUT';
+        
+        modalTitle.textContent = 'Modifier l\'événement';
+        if (saveButtonText) saveButtonText.textContent = 'Modifier';
+        
+        // Afficher le bouton supprimer seulement si l'utilisateur a les droits et qu'il existe
+        if (deleteEventBtn) {
+            deleteEventBtn.style.display = 'inline-block';
+        }
+
+        // Changer l'action du formulaire pour la modification
+        eventForm.action = `/api/admin/planning/${eventData.id_event}`;
+        eventForm.method = 'POST';
 
         eventModal.style.display = 'block';
-        console.log('Modal opened successfully');
+        console.log('Modal opened with event data successfully');
+    }
+
+    // ! START UPDATE SELECT OPTIONS
+    function updateSelectOptions(selectElement, options, valueField, nameFields) {
+        // Vider les options existantes (sauf la première option par défaut)
+        while (selectElement.children.length > 1) {
+            selectElement.removeChild(selectElement.lastChild);
+        }
+
+        // Ajouter les nouvelles options
+        options.forEach(option => {
+            const optionElement = document.createElement('option');
+            optionElement.value = option[valueField];
+            
+            // Construire le nom d'affichage à partir des champs fournis
+            const displayName = nameFields.map(field => option[field]).join(' ').trim();
+            optionElement.textContent = displayName;
+            
+            selectElement.appendChild(optionElement);
+        });
     }
     // ! END EVENT MODAL
 
@@ -156,6 +259,21 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('cancelEventBtn').addEventListener('click', function() {
         closeModal();
     });
+
+    // TODO: DELETE EVENT
+    const deleteEventBtn = document.getElementById('deleteEventBtn');
+    if (deleteEventBtn) {
+        deleteEventBtn.addEventListener('click', function() {
+            if (currentEvent) {
+                const eventTitle = currentEvent.title || 'Événement sans titre';
+                const confirmMessage = `Êtes-vous sûr de vouloir supprimer l'événement :\n"${eventTitle}" ?`;
+                
+                if (confirm(confirmMessage)) {
+                    deleteEvent(currentEvent.id);
+                }
+            }
+        });
+    }
 
     // TODO: CLOSE MODAL CLICK OUTSIDE
     document.getElementById('eventModal').addEventListener('click', function(e) {
@@ -169,36 +287,109 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('eventModal').style.display = 'none';
         currentEvent = null;
         document.getElementById('eventForm').reset();
+        
+        // Réinitialiser les boutons et champs cachés
+        const saveButtonText = document.getElementById('saveButtonText');
+        const deleteEventBtn = document.getElementById('deleteEventBtn');
+        const eventIdInput = document.getElementById('event_id');
+        const methodInput = document.getElementById('_method');
+        
+        if (saveButtonText) saveButtonText.textContent = 'Enregistrer';
+        if (deleteEventBtn) deleteEventBtn.style.display = 'none';
+        if (eventIdInput) eventIdInput.value = '';
+        if (methodInput) methodInput.value = '';
     }
     // ! END CLOSE MODAL
 
-    // ! START SUBMIT EVENT FORM
-    document.getElementById('eventForm').addEventListener('submit', function(e) {
-        // Ne plus empêcher la soumission normale du formulaire si on modifie pas un événement existant
-        if (currentEvent) {
-            // Mode édition : empêcher la soumission et mettre à jour l'événement localement
-            e.preventDefault();
+    // ! START DELETE EVENT
+    function deleteEvent(eventId) {
+        console.log('Deleting event:', eventId);
+        
+        fetch(`/api/admin/planning/${eventId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur lors de la suppression');
+            }
+            return response.json();
+        })
+        .then(result => {
+            console.log('Event deleted successfully:', result);
             
-            const title = document.getElementById('client_id').value;
-            const description = document.getElementById('notes').value;
-            const startDate = document.getElementById('start_date').value;
-            const startTime = document.getElementById('start_time').value;
-            const endDate = document.getElementById('end_date').value;
-            const endTime = document.getElementById('end_time').value;
-
-            const start = `${startDate}T${startTime}`;
-            const end = `${endDate}T${endTime}`;
-
-            currentEvent.setProp('title', title);
-            currentEvent.setStart(start);
-            currentEvent.setEnd(end);
-            currentEvent.setExtendedProp('description', description);
+            // Supprimer l'événement du calendrier
+            if (currentEvent) {
+                currentEvent.remove();
+            }
             
             closeModal();
+            alert('Événement supprimé avec succès !');
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+            alert('Erreur lors de la suppression de l\'événement');
+        });
+    }
+    // ! END DELETE EVENT
+
+    // ! START SUBMIT EVENT FORM
+    document.getElementById('eventForm').addEventListener('submit', function(e) {
+        if (currentEvent) {
+            // Mode édition : empêcher la soumission normale et envoyer une requête PUT
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const eventId = currentEvent.id;
+            
+            // Convertir FormData en objet
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            console.log('Updating event with data:', data);
+
+            // Envoyer la requête PUT pour mettre à jour l'événement
+            fetch(`/api/admin/planning/${eventId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erreur lors de la mise à jour');
+                }
+                return response.json();
+            })
+            .then(result => {
+                console.log('Event updated successfully:', result);
+                
+                // Mettre à jour l'événement dans le calendrier
+                const updatedEventData = result.event;
+                currentEvent.setProp('title', updatedEventData.title);
+                currentEvent.setStart(updatedEventData.start);
+                currentEvent.setEnd(updatedEventData.end);
+                currentEvent.setExtendedProp('client_id', updatedEventData.extendedProps.client_id);
+                currentEvent.setExtendedProp('employee_id', updatedEventData.extendedProps.employee_id);
+                currentEvent.setExtendedProp('prestation_id', updatedEventData.extendedProps.prestation_id);
+                currentEvent.setExtendedProp('notes', updatedEventData.extendedProps.notes);
+                currentEvent.setExtendedProp('description', updatedEventData.extendedProps.description);
+                
+                closeModal();
+                alert('Événement mis à jour avec succès !');
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                alert('Erreur lors de la mise à jour de l\'événement');
+            });
         } else {
             // Mode création : laisser le formulaire se soumettre normalement au serveur
-            // Le formulaire sera envoyé à /add-event-planning
-            console.log('Submitting form to server...');
+            console.log('Submitting new event to server...');
         }
     });
     // ! END SUBMIT EVENT FORM

@@ -83,14 +83,16 @@
                                                 <i class="fas fa-eye"></i>
                                             </a>
                                             </button>
-                                            <button class="btn-edit" title="Modifier">
-                                            <a href="/update-client/<%= client.id_client %>">
+                                            <button class="btn-edit" title="Voir plus">
+                                            <a href="/update-client/<%= client.id_client %>" title="Modifier">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             </button>
-                                            <button class="btn-delete" title="Supprimer">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
+                                            <form action="/delete-client/<%= client.id_client %>" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce client ?');">
+                                                <button type="submit" class="btn-delete" title="Supprimer">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
