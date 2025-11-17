@@ -15,16 +15,13 @@ router.get('/about-client/:id', controllerClient.show)
     // *Ajout client
 router.get('/ajout-d-un-nouveau-client', (req, res) => {
     if (!req.user || req.user.role !== 1) return res.redirect('/')
-    res.render("pages/admin/addClient.ejs", {
+    res.render("pages/admin/addClient", {
         title: 'Ajouter un nouveau Client',
         user: req.user
     })                                                            
 });
 
 router.post('/add-client', controllerClient.create)
-
-router.get('/update-client/:id', controllerClient.edit)
-router.post('/update-client/:id', controllerClient.update)
 
 
 module.exports = router
