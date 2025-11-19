@@ -618,6 +618,10 @@
   background: #89DAFF;
   border-color: #89DAFF;
 }
+.about-client-page .appointments-section .appointments-container .appointment-actions a {
+  text-decoration: none;
+  color: #8F95D3;
+}
 .about-client-page .appointments-section .appointments-container .no-appointments {
   text-align: center;
   padding: 3rem;

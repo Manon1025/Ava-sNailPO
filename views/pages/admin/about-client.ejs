@@ -271,7 +271,9 @@
                                         </button>
                                     <% } %>
                                     <button class="btn-view" onclick="viewAppointment('<%= rdv.id_event %>')">
-                                        <i class="fas fa-eye"></i>
+                                        <a href="/about-event/<%= rdv.id_event %>">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
                                     </button>
                                 </div>
                             </div>
