@@ -13,7 +13,11 @@
                 </div>
                 <div>
                     <h1 class="page-title">Modifier le Client</h1>
-                    <p class="page-subtitle">Modifiez les informations de <%= client.f_name %> <%= client.l_name %></p>
+                    <% if (typeof client !== 'undefined' && client) { %>
+                        <p class="page-subtitle">Modifiez les informations de <%= client.f_name || 'N/A' %> <%= client.l_name || 'N/A' %></p>
+                    <% } else { %>
+                        <p class="page-subtitle">Client non trouvé</p>
+                    <% } %>
                 </div>
             </div>
         </div>
@@ -28,8 +32,9 @@
             </a>
         </div>
 
+        <% if (typeof client !== 'undefined' && client) { %>
         <div class="form-container">
-            <form id="editClientForm" method="POST" action="/update-client/<%= client.id_client %>">
+            <form id="editClientForm" method="POST" action="/update-client/<%= client.id_client || '' %>">
                 <div class="form-sections">
                     <!-- Section Informations Personnelles -->
                     <div class="form-section">
@@ -39,17 +44,27 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="f_name" class="form-label">Prénom <span class="required">*</span></label>
-                                <input type="text" class="form-control" id="f_name" name="f_name" value="<%= client.f_name %>" required>
+                                <input type="text" class="form-control" id="f_name" name="f_name" value="<%= client.f_name || '' %>" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="l_name" class="form-label">Nom <span class="required">*</span></label>
-                                <input type="text" class="form-control" id="l_name" name="l_name" value="<%= client.l_name %>" required>
+                                <input type="text" class="form-control" id="l_name" name="l_name" value="<%= client.l_name || '' %>" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="birth_date" class="form-label">Date de naissance <span class="required">*</span></label>
-                                <input type="date" class="form-control" id="birth_date" name="birth_date" value="<%= client.birth_date ? new Date(client.birth_date).toISOString().split('T')[0] : '' %>" required>
+                                <%
+                                    let birthDateValue = '';
+                                    if (client.birth_date) {
+                                        try {
+                                            birthDateValue = new Date(client.birth_date).toISOString().split('T')[0];
+                                        } catch(e) {
+                                            birthDateValue = '';
+                                        }
+                                    }
+                                %>
+                                <input type="date" class="form-control" id="birth_date" name="birth_date" value="<%= birthDateValue %>" required>
                             </div>
                         </div>
                     </div>
@@ -62,12 +77,12 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="phone" class="form-label">Téléphone <span class="required">*</span></label>
-                                <input type="tel" class="form-control" id="phone" name="phone" value="<%= client.phone %>" placeholder="06 12 34 56 78" required>
+                                <input type="tel" class="form-control" id="phone" name="phone" value="<%= client.phone || '' %>" placeholder="06 12 34 56 78" required>
                             </div>
 
                             <div class="form-group full-width">
                                 <label for="mail" class="form-label">Email <span class="required">*</span></label>
-                                <input type="email" class="form-control" id="mail" name="mail" value="<%= client.mail %>" placeholder="client@example.com" required>
+                                <input type="email" class="form-control" id="mail" name="mail" value="<%= client.mail || '' %>" placeholder="client@example.com" required>
                             </div>
                         </div>
                     </div>
@@ -102,6 +117,11 @@
                 </div>
             </form>
         </div>
+        <% } else { %>
+        <div class="alert alert-danger">
+            <p>Erreur : Client non trouvé</p>
+        </div>
+        <% } %>
     </div>
     <!-- ! END CONTENT -->
 </div>
