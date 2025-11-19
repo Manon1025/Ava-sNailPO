@@ -147,8 +147,8 @@ exports.edit = async (req, res) => {
         }
 
         res.status(200).render('pages/admin/edit-client', {
-            title: 'Modifier un client', 
-            client, 
+            title: 'Modifier un client',
+            client_: client,
             user: req.user,
             // layout: false
         });
