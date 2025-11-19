@@ -170,21 +170,124 @@
         <div class="appointments-section">
             <div class="section-header">
                 <h3><i class="fas fa-history"></i> Historique des rendez-vous</h3>
-                <button class="btn-secondary">
+                <div class="stats-info">
+                    <span><strong><%= stats.totalRendezVous %></strong> RDV total</span>
+                    <span><strong><%= stats.rendezVousPasses %></strong> passés</span>
+                    <span><strong><%= stats.rendezVousFuturs %></strong> à venir</span>
+                </div>
+                <button class="btn-secondary" onclick="window.location.href='/planning'">
                     <i class="fas fa-calendar-plus"></i>
                     Nouveau RDV
                 </button>
             </div>
             
-            <div class="appointments-container">
-                <!-- Placeholder pour l'historique des RDV -->
-                <div class="no-appointments">
-                    <div class="no-appointments-icon">
-                        <i class="fas fa-calendar-times"></i>
+            <!-- Prochain rendez-vous en évidence -->
+            <% if (stats.prochainRendezVous) { %>
+                <div class="next-appointment">
+                    <h4><i class="fas fa-star"></i> Prochain rendez-vous</h4>
+                    <div class="appointment-highlight">
+                        <div class="date-time">
+                            <span class="date">
+                                <%= new Date(stats.prochainRendezVous.start_date).toLocaleDateString('fr-FR', { 
+                                    weekday: 'long', 
+                                    year: 'numeric', 
+                                    month: 'long', 
+                                    day: 'numeric' 
+                                }) %>
+                            </span>
+                            <span class="time">
+                                <%= stats.prochainRendezVous.start_time.substring(0,5) %> - <%= stats.prochainRendezVous.end_time.substring(0,5) %>
+                            </span>
+                        </div>
+                        <div class="details">
+                            <span class="employee">
+                                <i class="fas fa-user"></i> 
+                                <%= stats.prochainRendezVous.Employee?.fname %> <%= stats.prochainRendezVous.Employee?.lname %>
+                            </span>
+                            <% if (stats.prochainRendezVous.Prestation) { %>
+                                <span class="service">
+                                    <i class="fas fa-spa"></i> 
+                                    <%= stats.prochainRendezVous.Prestation.name %>
+                                </span>
+                            <% } %>
+                        </div>
                     </div>
-                    <h4>Aucun rendez-vous</h4>
-                    <p>Ce client n'a pas encore de rendez-vous planifiés.</p>
                 </div>
+            <% } %>
+            
+            <div class="appointments-container">
+                <% if (rendezVous && rendezVous.length > 0) { %>
+                    <div class="appointments-list">
+                        <% rendezVous.forEach((rdv) => { %>
+                            <% 
+                                const now = new Date();
+                                const rdvDate = new Date(rdv.start_date + 'T' + rdv.start_time);
+                                const isPassed = rdvDate < now;
+                                const statusClass = isPassed ? 'passed' : 'upcoming';
+                                const statusIcon = isPassed ? 'fas fa-check-circle' : 'fas fa-clock';
+                                const statusText = isPassed ? 'Terminé' : 'Planifié';
+                            %>
+                            <div class="appointment-item <%= statusClass %>">
+                                <div class="appointment-status">
+                                    <i class="<%= statusIcon %>"></i>
+                                    <span><%= statusText %></span>
+                                </div>
+                                
+                                <div class="appointment-info">
+                                    <div class="date-time">
+                                        <strong><%= new Date(rdv.start_date).toLocaleDateString('fr-FR') %></strong>
+                                        <span><%= rdv.start_time.substring(0,5) %> - <%= rdv.end_time.substring(0,5) %></span>
+                                    </div>
+                                    
+                                    <div class="employee-info">
+                                        <i class="fas fa-user-md"></i>
+                                        <span><%= rdv.Employee?.fname %> <%= rdv.Employee?.lname %></span>
+                                    </div>
+                                    
+                                    <% if (rdv.Prestation) { %>
+                                        <div class="service-info">
+                                            <i class="fas fa-spa"></i>
+                                            <span><%= rdv.Prestation.name %></span>
+                                            <% if (rdv.Prestation.price) { %>
+                                                <span class="price"><%= rdv.Prestation.price %>€</span>
+                                            <% } %>
+                                        </div>
+                                    <% } %>
+                                    
+                                    <% if (rdv.notes) { %>
+                                        <div class="notes-info">
+                                            <i class="fas fa-sticky-note"></i>
+                                            <span><%= rdv.notes %></span>
+                                        </div>
+                                    <% } %>
+                                </div>
+                                
+                                <div class="appointment-actions">
+                                    <% if (!isPassed) { %>
+                                        <button class="btn-edit" onclick="editAppointment('<%= rdv.id_event %>')">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    <% } %>
+                                    <button class="btn-view" onclick="viewAppointment('<%= rdv.id_event %>')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        <% }); %>
+                    </div>
+                <% } else { %>
+                    <div class="no-appointments">
+                        <div class="no-appointments-icon">
+                            <i class="fas fa-calendar-times"></i>
+                        </div>
+                        <h4>Aucun rendez-vous</h4>
+                        <p>Ce client n'a pas encore de rendez-vous planifiés.</p>
+                        <button class="btn-primary" onclick="window.location.href='/planning'">
+                            <i class="fas fa-calendar-plus"></i>
+                            Planifier le premier RDV
+                        </button>
+                    </div>
+                <% } %>
             </div>
         </div>
         <!-- ! END APPOINTMENTS HISTORY -->

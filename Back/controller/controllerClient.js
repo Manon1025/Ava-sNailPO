@@ -1,4 +1,4 @@
-const { Clients } = require('../model/associations')
+const { Clients, Event, Employee, Prestation } = require('../model/associations')
 
 exports.index = async (req, res) => {
     try {
@@ -28,7 +28,60 @@ exports.show = async (req, res ) => {
             return res.status(400).json({message: 'Client non trouvé'})
         }
 
-        res.status(200).render('pages/admin/about-client', {title: 'voir plus', client_: client, user: req.user })
+        // Récupérer l'historique des rendez-vous du client
+        const rendezVous = await Event.findAll({
+            where: {
+                client_id: clientId
+            },
+            include: [
+                {
+                    model: Employee,
+                    attributes: ['id_employee', 'fname', 'lname']
+                },
+                {
+                    model: Prestation,
+                    attributes: ['id_prestation', 'name', 'description', 'price']
+                }
+            ],
+            order: [['start_date', 'DESC'], ['start_time', 'DESC']] // Plus récents en premier
+        });
+
+        // Calculer quelques statistiques
+        const now = new Date();
+        const currentDate = now.toISOString().split('T')[0];
+        const currentTime = now.toTimeString().split(' ')[0];
+
+        const rendezVousPasses = rendezVous.filter(rdv => {
+            return rdv.start_date < currentDate || 
+                   (rdv.start_date === currentDate && rdv.start_time < currentTime);
+        });
+
+        const rendezVousFuturs = rendezVous.filter(rdv => {
+            return rdv.start_date > currentDate || 
+                   (rdv.start_date === currentDate && rdv.start_time >= currentTime);
+        });
+
+        const prochainRendezVous = rendezVousFuturs.sort((a, b) => {
+            if (a.start_date !== b.start_date) {
+                return new Date(a.start_date) - new Date(b.start_date);
+            }
+            return a.start_time.localeCompare(b.start_time);
+        })[0];
+
+        const stats = {
+            totalRendezVous: rendezVous.length,
+            rendezVousPasses: rendezVousPasses.length,
+            rendezVousFuturs: rendezVousFuturs.length,
+            prochainRendezVous: prochainRendezVous
+        };
+
+        res.status(200).render('pages/admin/about-client', {
+            title: 'voir plus', 
+            client_: client, 
+            user: req.user,
+            rendezVous: rendezVous,
+            stats: stats
+        });
 
     } catch (error) {
         console.error(error);

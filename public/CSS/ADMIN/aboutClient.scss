@@ -383,9 +383,30 @@
             background: $primary-gradient;
             color: $white;
             padding: $spacing-lg;
+            position: relative;
+            overflow: hidden;
+            
+            // Ajout de l'effet de fond comme les autres pages
+            &::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                right: -20%;
+                width: 100%;
+                height: 200%;
+                background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+                transform: rotate(-15deg);
+                pointer-events: none;
+            }
+            
+            // Contenu principal
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: $spacing-md;
+            position: relative;
+            z-index: 2;
 
             h3 {
                 margin: 0;
@@ -393,6 +414,31 @@
                 align-items: center;
                 gap: $spacing-sm;
                 font-size: $font-size-lg;
+                font-weight: 600;
+            }
+
+            .stats-info {
+                display: flex;
+                gap: $spacing-md;
+                font-size: $font-size-sm;
+                
+                span {
+                    background: rgba(255, 255, 255, 0.2);
+                    padding: $spacing-xs $spacing-sm;
+                    border-radius: 15px;
+                    backdrop-filter: blur(10px);
+                    
+                    strong {
+                        font-weight: 700;
+                    }
+                }
+                
+                @media (max-width: $breakpoint-md) {
+                    flex-wrap: wrap;
+                    gap: $spacing-xs;
+                    width: 100%;
+                    justify-content: center;
+                }
             }
 
             .btn-secondary {
@@ -400,17 +446,88 @@
                 color: $primary-color;
                 border: none;
                 padding: $spacing-sm $spacing-md;
-                border-radius: 8px;
-                font-weight: 500;
+                border-radius: 12px;
+                font-weight: 600;
                 cursor: pointer;
                 transition: $transition;
                 display: flex;
                 align-items: center;
                 gap: $spacing-xs;
+                box-shadow: $box-shadow-normal;
 
                 &:hover {
                     transform: translateY(-2px);
-                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                    box-shadow: $box-shadow-hover;
+                }
+            }
+        }
+
+        .next-appointment {
+            background: $tertiaire-gradient;
+            color: $white;
+            margin: $spacing-lg;
+            border-radius: $border-radius;
+            padding: $spacing-lg;
+            box-shadow: $card-shadow;
+
+            h4 {
+                margin: 0 0 $spacing-md 0;
+                display: flex;
+                align-items: center;
+                gap: $spacing-xs;
+                font-size: $font-size-base;
+                font-weight: 600;
+                
+                i {
+                    color: #ffd700;
+                }
+            }
+
+            .appointment-highlight {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: $spacing-md;
+                
+                @media (max-width: $breakpoint-md) {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+
+                .date-time {
+                    .date {
+                        display: block;
+                        font-weight: 600;
+                        font-size: $font-size-base;
+                    }
+                    
+                    .time {
+                        display: block;
+                        font-size: $font-size-sm;
+                        opacity: 0.9;
+                        margin-top: $spacing-xs;
+                    }
+                }
+
+                .details {
+                    display: flex;
+                    gap: $spacing-md;
+                    
+                    @media (max-width: $breakpoint-md) {
+                        flex-direction: column;
+                        gap: $spacing-sm;
+                    }
+                    
+                    span {
+                        display: flex;
+                        align-items: center;
+                        gap: $spacing-xs;
+                        font-size: $font-size-sm;
+                        
+                        i {
+                            opacity: 0.8;
+                        }
+                    }
                 }
             }
         }
@@ -418,24 +535,222 @@
         .appointments-container {
             padding: $spacing-xl;
 
+            .appointments-list {
+                display: flex;
+                flex-direction: column;
+                gap: $spacing-lg;
+            }
+
+            .appointment-item {
+                background: $white;
+                border: 2px solid rgba($primary-color, 0.2);
+                border-radius: $border-radius;
+                padding: $spacing-lg;
+                display: flex;
+                align-items: center;
+                gap: $spacing-lg;
+                transition: $transition;
+                box-shadow: $card-shadow;
+
+                &:hover {
+                    box-shadow: $card-shadow-hover;
+                    transform: translateY(-5px);
+                }
+
+                &.passed {
+                    border-color: rgba($valid-color, 0.3);
+                    background: linear-gradient(135deg, rgba($valid-color, 0.05) 0%, rgba($valid-color, 0.01) 100%);
+                }
+
+                &.upcoming {
+                    border-color: rgba($secondary-color, 0.3);
+                    background: linear-gradient(135deg, rgba($secondary-color, 0.05) 0%, rgba($secondary-color, 0.01) 100%);
+                }
+
+                @media (max-width: $breakpoint-md) {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: $spacing-md;
+                }
+            }
+
+            .appointment-status {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: $spacing-xs;
+                min-width: 80px;
+
+                i {
+                    font-size: 1.5rem;
+                    padding: $spacing-sm;
+                    border-radius: 50%;
+                    
+                    &.fa-check-circle {
+                        color: $valid-color;
+                        background: rgba($valid-color, 0.1);
+                    }
+                    
+                    &.fa-clock {
+                        color: $secondary-color;
+                        background: rgba($secondary-color, 0.1);
+                    }
+                }
+
+                span {
+                    font-size: $font-size-sm;
+                    font-weight: 600;
+                    color: $primary-color;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                }
+            }
+
+            .appointment-info {
+                flex: 1;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: $spacing-md;
+                
+                @media (max-width: $breakpoint-md) {
+                    grid-template-columns: 1fr;
+                }
+
+                > div {
+                    display: flex;
+                    align-items: center;
+                    gap: $spacing-xs;
+                    font-size: $font-size-sm;
+
+                    i {
+                        color: $primary-color;
+                        width: 16px;
+                        text-align: center;
+                    }
+                }
+
+                .date-time {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    
+                    strong {
+                        color: $primary-color;
+                        font-weight: 600;
+                    }
+                    
+                    span {
+                        color: $secondary-color;
+                        font-size: $font-size-sm;
+                    }
+                }
+
+                .employee-info {
+                    color: $primary-color;
+                    font-weight: 500;
+                }
+
+                .service-info {
+                    justify-content: space-between;
+                    
+                    span {
+                        color: $primary-color;
+                    }
+                    
+                    .price {
+                        color: $valid-color;
+                        font-weight: 700;
+                        margin-left: auto;
+                    }
+                }
+
+                .notes-info {
+                    grid-column: 1 / -1;
+                    color: $secondary-color;
+                    font-style: italic;
+                    margin-top: $spacing-xs;
+                    padding-top: $spacing-xs;
+                    border-top: 1px solid rgba($primary-color, 0.2);
+                }
+            }
+
+            .appointment-actions {
+                display: flex;
+                flex-direction: column;
+                gap: $spacing-xs;
+
+                .btn-edit,
+                .btn-view {
+                    background: none;
+                    border: 2px solid $primary-color;
+                    color: $primary-color;
+                    padding: $spacing-xs;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    transition: $transition;
+                    width: 36px;
+                    height: 36px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    &:hover {
+                        background: $primary-color;
+                        color: $white;
+                        transform: scale(1.1);
+                        box-shadow: $box-shadow-hover;
+                    }
+                }
+
+                .btn-edit:hover {
+                    background: $quatuor-color;
+                    border-color: $quatuor-color;
+                }
+
+                .btn-view:hover {
+                    background: $secondary-color;
+                    border-color: $secondary-color;
+                }
+            }
+
             .no-appointments {
                 text-align: center;
                 padding: $spacing-xl;
 
                 .no-appointments-icon {
                     font-size: 4rem;
-                    color: #e2e8f0;
+                    color: rgba($primary-color, 0.3);
                     margin-bottom: $spacing-md;
                 }
 
                 h4 {
-                    color: #4a5568;
+                    color: $primary-color;
                     margin: 0 0 $spacing-sm 0;
+                    font-weight: 600;
                 }
 
                 p {
-                    color: #718096;
-                    margin: 0;
+                    color: $secondary-color;
+                    margin: 0 0 $spacing-lg 0;
+                }
+
+                .btn-primary {
+                    background: $primary-gradient;
+                    color: $white;
+                    border: none;
+                    padding: $spacing-md $spacing-lg;
+                    border-radius: 12px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: $transition;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: $spacing-xs;
+                    box-shadow: $box-shadow-normal;
+
+                    &:hover {
+                        transform: translateY(-2px);
+                        box-shadow: $box-shadow-hover;
+                    }
                 }
             }
         }

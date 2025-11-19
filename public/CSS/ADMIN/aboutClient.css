@@ -326,9 +326,26 @@
   background: linear-gradient(135deg, #8F95D3 0%, #89DAFF 100%);
   color: #FFF;
   padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  position: relative;
+  z-index: 2;
+}
+.about-client-page .appointments-section .section-header::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 100%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  transform: rotate(-15deg);
+  pointer-events: none;
 }
 .about-client-page .appointments-section .section-header h3 {
   margin: 0;
@@ -336,26 +353,266 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 18px;
+  font-weight: 600;
+}
+.about-client-page .appointments-section .section-header .stats-info {
+  display: flex;
+  gap: 1rem;
+  font-size: 14px;
+}
+.about-client-page .appointments-section .section-header .stats-info span {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.25rem 0.5rem;
+  border-radius: 15px;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+}
+.about-client-page .appointments-section .section-header .stats-info span strong {
+  font-weight: 700;
+}
+@media (max-width: 768px) {
+  .about-client-page .appointments-section .section-header .stats-info {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    width: 100%;
+    justify-content: center;
+  }
 }
 .about-client-page .appointments-section .section-header .btn-secondary {
   background: #FFF;
   color: #8F95D3;
   border: none;
   padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-weight: 500;
+  border-radius: 12px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
   gap: 0.25rem;
+  box-shadow: 0 4px 15px rgba(143, 149, 211, 0.3);
 }
 .about-client-page .appointments-section .section-header .btn-secondary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 25px rgba(143, 149, 211, 0.4);
+}
+.about-client-page .appointments-section .next-appointment {
+  background: linear-gradient(135deg, #D3C4E3, #DBB1BC);
+  color: #FFF;
+  margin: 1.5rem;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+.about-client-page .appointments-section .next-appointment h4 {
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 16px;
+  font-weight: 600;
+}
+.about-client-page .appointments-section .next-appointment h4 i {
+  color: #ffd700;
+}
+.about-client-page .appointments-section .next-appointment .appointment-highlight {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+@media (max-width: 768px) {
+  .about-client-page .appointments-section .next-appointment .appointment-highlight {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+.about-client-page .appointments-section .next-appointment .appointment-highlight .date-time .date {
+  display: block;
+  font-weight: 600;
+  font-size: 16px;
+}
+.about-client-page .appointments-section .next-appointment .appointment-highlight .date-time .time {
+  display: block;
+  font-size: 14px;
+  opacity: 0.9;
+  margin-top: 0.25rem;
+}
+.about-client-page .appointments-section .next-appointment .appointment-highlight .details {
+  display: flex;
+  gap: 1rem;
+}
+@media (max-width: 768px) {
+  .about-client-page .appointments-section .next-appointment .appointment-highlight .details {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+.about-client-page .appointments-section .next-appointment .appointment-highlight .details span {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 14px;
+}
+.about-client-page .appointments-section .next-appointment .appointment-highlight .details span i {
+  opacity: 0.8;
 }
 .about-client-page .appointments-section .appointments-container {
   padding: 3rem;
+}
+.about-client-page .appointments-section .appointments-container .appointments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.about-client-page .appointments-section .appointments-container .appointment-item {
+  background: #FFF;
+  border: 2px solid rgba(143, 149, 211, 0.2);
+  border-radius: 20px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+.about-client-page .appointments-section .appointments-container .appointment-item:hover {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+.about-client-page .appointments-section .appointments-container .appointment-item.passed {
+  border-color: rgba(100, 195, 107, 0.3);
+  background: linear-gradient(135deg, rgba(100, 195, 107, 0.05) 0%, rgba(100, 195, 107, 0.01) 100%);
+}
+.about-client-page .appointments-section .appointments-container .appointment-item.upcoming {
+  border-color: rgba(137, 218, 255, 0.3);
+  background: linear-gradient(135deg, rgba(137, 218, 255, 0.05) 0%, rgba(137, 218, 255, 0.01) 100%);
+}
+@media (max-width: 768px) {
+  .about-client-page .appointments-section .appointments-container .appointment-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+.about-client-page .appointments-section .appointments-container .appointment-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 80px;
+}
+.about-client-page .appointments-section .appointments-container .appointment-status i {
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+.about-client-page .appointments-section .appointments-container .appointment-status i.fa-check-circle {
+  color: #64C36B;
+  background: rgba(100, 195, 107, 0.1);
+}
+.about-client-page .appointments-section .appointments-container .appointment-status i.fa-clock {
+  color: #89DAFF;
+  background: rgba(137, 218, 255, 0.1);
+}
+.about-client-page .appointments-section .appointments-container .appointment-status span {
+  font-size: 14px;
+  font-weight: 600;
+  color: #8F95D3;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.about-client-page .appointments-section .appointments-container .appointment-info {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+@media (max-width: 768px) {
+  .about-client-page .appointments-section .appointments-container .appointment-info {
+    grid-template-columns: 1fr;
+  }
+}
+.about-client-page .appointments-section .appointments-container .appointment-info > div {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 14px;
+}
+.about-client-page .appointments-section .appointments-container .appointment-info > div i {
+  color: #8F95D3;
+  width: 16px;
+  text-align: center;
+}
+.about-client-page .appointments-section .appointments-container .appointment-info .date-time {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.about-client-page .appointments-section .appointments-container .appointment-info .date-time strong {
+  color: #8F95D3;
+  font-weight: 600;
+}
+.about-client-page .appointments-section .appointments-container .appointment-info .date-time span {
+  color: #89DAFF;
+  font-size: 14px;
+}
+.about-client-page .appointments-section .appointments-container .appointment-info .employee-info {
+  color: #8F95D3;
+  font-weight: 500;
+}
+.about-client-page .appointments-section .appointments-container .appointment-info .service-info {
+  justify-content: space-between;
+}
+.about-client-page .appointments-section .appointments-container .appointment-info .service-info span {
+  color: #8F95D3;
+}
+.about-client-page .appointments-section .appointments-container .appointment-info .service-info .price {
+  color: #64C36B;
+  font-weight: 700;
+  margin-left: auto;
+}
+.about-client-page .appointments-section .appointments-container .appointment-info .notes-info {
+  grid-column: 1/-1;
+  color: #89DAFF;
+  font-style: italic;
+  margin-top: 0.25rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid rgba(143, 149, 211, 0.2);
+}
+.about-client-page .appointments-section .appointments-container .appointment-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.about-client-page .appointments-section .appointments-container .appointment-actions .btn-edit,
+.about-client-page .appointments-section .appointments-container .appointment-actions .btn-view {
+  background: none;
+  border: 2px solid #8F95D3;
+  color: #8F95D3;
+  padding: 0.25rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.about-client-page .appointments-section .appointments-container .appointment-actions .btn-edit:hover,
+.about-client-page .appointments-section .appointments-container .appointment-actions .btn-view:hover {
+  background: #8F95D3;
+  color: #FFF;
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px rgba(143, 149, 211, 0.4);
+}
+.about-client-page .appointments-section .appointments-container .appointment-actions .btn-edit:hover {
+  background: #DBB1BC;
+  border-color: #DBB1BC;
+}
+.about-client-page .appointments-section .appointments-container .appointment-actions .btn-view:hover {
+  background: #89DAFF;
+  border-color: #89DAFF;
 }
 .about-client-page .appointments-section .appointments-container .no-appointments {
   text-align: center;
@@ -363,16 +620,35 @@
 }
 .about-client-page .appointments-section .appointments-container .no-appointments .no-appointments-icon {
   font-size: 4rem;
-  color: #e2e8f0;
+  color: rgba(143, 149, 211, 0.3);
   margin-bottom: 1rem;
 }
 .about-client-page .appointments-section .appointments-container .no-appointments h4 {
-  color: #4a5568;
+  color: #8F95D3;
   margin: 0 0 0.5rem 0;
+  font-weight: 600;
 }
 .about-client-page .appointments-section .appointments-container .no-appointments p {
-  color: #718096;
-  margin: 0;
+  color: #89DAFF;
+  margin: 0 0 1.5rem 0;
+}
+.about-client-page .appointments-section .appointments-container .no-appointments .btn-primary {
+  background: linear-gradient(135deg, #8F95D3 0%, #89DAFF 100%);
+  color: #FFF;
+  border: none;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  box-shadow: 0 4px 15px rgba(143, 149, 211, 0.3);
+}
+.about-client-page .appointments-section .appointments-container .no-appointments .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(143, 149, 211, 0.4);
 }
 @media (max-width: 992px) {
   .about-client-page {
