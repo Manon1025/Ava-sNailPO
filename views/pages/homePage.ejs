@@ -38,12 +38,12 @@
                 <div class="today-right">
                     <div class="today-stats">
                         <div class="stat-item">
-                            <span class="stat-value">3</span>
+                            <span class="stat-value"><%= stats.totalEvents %></span>
                             <span class="stat-text">Rendez-vous</span>
                         </div>
                         <div class="stat-separator"></div>
                         <div class="stat-item">
-                            <span class="stat-value">8h</span>
+                            <span class="stat-value"><%= stats.totalWorkHours %>h</span>
                             <span class="stat-text">de travail</span>
                         </div>
                     </div>
@@ -64,73 +64,77 @@
 
     <!-- Liste des rendez-vous -->
     <div class="appointments-list">
-        <!-- Exemple de rendez-vous - à remplacer par vos données -->
-        <div class="appointment-card morning">
-            <div class="appointment-image">
-                <img src="/ASSET/img/nails-1.jpg" alt="Pose Américaine" onerror="this.src='/ASSET/img/4200743.jpg'">
-            </div>
-            <div class="appointment-content">
-                <div class="appointment-header">
-                    <h3 class="client-name">Mme. Claudette</h3>
-                    <span class="appointment-time">9h30</span>
+        <% if (todayEvents.length > 0) { %>
+            <% todayEvents.forEach(event => { %>
+                <%
+                    // Déterminer la période (matin/après-midi)
+                    const hour = parseInt(event.start_time.split(':')[0]);
+                    const period = hour < 12 ? 'morning' : 'afternoon';
+                    
+                    // Formater l'heure d'affichage
+                    const [hours, minutes] = event.start_time.split(':');
+                    const displayTime = `${hours}h${minutes !== '00' ? minutes : ''}`;
+                    
+                    // Nom complet du client
+                    const clientName = `${event.Client?.f_name || ''} ${event.Client?.l_name || ''}`.trim();
+                    
+                    // Informations sur la prestation
+                    const prestationName = event.Prestation?.name || 'Prestation non définie';
+                    const prestationDescription = event.Prestation?.description || '';
+                %>
+                
+                <div class="appointment-card <%= period %>" data-event-id="<%= event.id_event %>">
+                    <div class="appointment-image">
+                        <img src="/ASSET/img/nails-1.jpg" alt="<%= prestationName %>" onerror="this.src='/ASSET/img/4200743.jpg'">
+                    </div>
+                    <div class="appointment-content">
+                        <div class="appointment-header">
+                            <h3 class="client-name"><%= clientName || 'Client non défini' %></h3>
+                            <span class="appointment-time"><%= displayTime %></span>
+                        </div>
+                        <div class="appointment-details">
+                            <p><strong>Prestation :</strong> <%= prestationName %></p>
+                            <% if (prestationDescription) { %>
+                                <p><strong>Description :</strong> <%= prestationDescription %></p>
+                            <% } %>
+                            <% if (event.Employee) { %>
+                                <p><strong>Employé :</strong> <%= event.Employee.fname %> <%= event.Employee.lname %></p>
+                            <% } %>
+                            <% if (event.notes) { %>
+                                <p><strong>Notes :</strong> <%= event.notes %></p>
+                            <% } %>
+                        </div>
+                    </div>
+                    <div class="appointment-actions">
+                        <button class="btn-see-more" data-event-id="<%= event.id_event %>">Voir plus</button>
+                        <%
+                            // Déterminer le statut (simplifiée pour l'exemple)
+                            const now = new Date();
+                            const eventDateTime = new Date(`${event.start_date}T${event.start_time}`);
+                            const isCompleted = eventDateTime < now;
+                        %>
+                        <span class="status-badge <%= isCompleted ? 'completed' : 'upcoming' %>">
+                            <%= isCompleted ? 'Terminé' : 'À venir' %>
+                        </span>
+                    </div>
                 </div>
-                <div class="appointment-details">
-                    <p><strong>Pose :</strong> Américaine</p>
-                    <p><strong>Forme :</strong> Amande</p>
-                    <p><strong>Taille:</strong> M</p>
-                    <p><strong>Couleur:</strong> Bleu</p>
+            <% }); %>
+        <% } else { %>
+            <!-- Message si aucun événement -->
+            <div class="no-appointments">
+                <div class="no-appointments-icon">
+                    <i class="fas fa-calendar-times"></i>
                 </div>
+                <h3>Aucun rendez-vous aujourd'hui</h3>
+                <p>Profitez de cette journée libre !</p>
+                <% if (user.role === 1) { %>
+                    <a href="/planning" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Ajouter un rendez-vous
+                    </a>
+                <% } %>
             </div>
-            <div class="appointment-actions">
-                <button class="btn-see-more">Voir plus</button>
-                <span class="status-badge completed">Terminé</span>
-            </div>
-        </div>
-
-        <div class="appointment-card afternoon">
-            <div class="appointment-image">
-                <img src="/ASSET/img/nails-2.jpg" alt="Pose Américaine" onerror="this.src='/ASSET/img/4200743.jpg'">
-            </div>
-            <div class="appointment-content">
-                <div class="appointment-header">
-                    <h3 class="client-name">Mme. Claudette</h3>
-                    <span class="appointment-time">14h30</span>
-                </div>
-                <div class="appointment-details">
-                    <p><strong>Pose :</strong> Américaine</p>
-                    <p><strong>Forme :</strong> Amande</p>
-                    <p><strong>Taille:</strong> M</p>
-                    <p><strong>Couleur:</strong> Rouge</p>
-                </div>
-            </div>
-            <div class="appointment-actions">
-                <button class="btn-see-more">Voir plus</button>
-                <span class="status-badge completed">Terminé</span>
-            </div>
-        </div>
-
-        <div class="appointment-card afternoon">
-            <div class="appointment-image">
-                <img src="/ASSET/img/nails-3.jpg" alt="Pose Américaine" onerror="this.src='/ASSET/img/4200743.jpg'">
-            </div>
-            <div class="appointment-content">
-                <div class="appointment-header">
-                    <h3 class="client-name">Mme. Claudette</h3>
-                    <span class="appointment-time">16h30</span>
-                </div>
-                <div class="appointment-details">
-                    <p><strong>Pose :</strong> Américaine</p>
-                    <p><strong>Forme :</strong> Amande</p>
-                    <p><strong>Taille:</strong> M</p>
-                    <p><strong>Couleur:</strong> Noir</p>
-                </div>
-            </div>
-            <div class="appointment-actions">
-                <button class="btn-see-more">Voir plus</button>
-                <span class="status-badge completed">Terminé</span>
-            </div>
-        </div>
-        </div>
+        <% } %>
+    </div>
     </div>
     <!-- ! END CONTENT WRAPPER -->
 </div>
@@ -140,6 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const filterTabs = document.querySelectorAll('.filter-tab');
     const appointmentCards = document.querySelectorAll('.appointment-card');
     
+    // Gestion des onglets de filtrage
     filterTabs.forEach(tab => {
         tab.addEventListener('click', function() {
             // Retirer la classe active de tous les onglets
@@ -171,6 +176,32 @@ document.addEventListener('DOMContentLoaded', function() {
             card.style.display = 'none';
         }
     });
+
+    // Gestion des boutons "Voir plus"
+    const seeMoreButtons = document.querySelectorAll('.btn-see-more');
+    seeMoreButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const eventId = this.getAttribute('data-event-id');
+            if (eventId) {
+                // Rediriger vers le planning avec l'événement sélectionné
+                window.location.href = `/planning?event=${eventId}`;
+            }
+        });
+    });
+
+    // Fonction pour formater l'affichage si nécessaire
+    function formatAppointmentTime(timeString) {
+        if (!timeString) return '';
+        const [hours, minutes] = timeString.split(':');
+        return `${hours}h${minutes !== '00' ? minutes : ''}`;
+    }
 });
+
+// Fonction globale pour gérer les détails d'événements
+function viewEventDetails(eventId) {
+    if (eventId) {
+        window.location.href = `/planning?event=${eventId}`;
+    }
+}
 </script>
 <!-- END CONTENT -->
