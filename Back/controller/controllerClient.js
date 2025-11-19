@@ -136,3 +136,54 @@ exports.destroy = async (req, res) => {
         res.status(500).json({ message: 'Erreur serveur', error: error.message });
     }
 }
+
+exports.edit = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const client = await Clients.findByPk(id);
+
+        if (!client) {
+            return res.status(404).json({ message: 'Client non trouvé' });
+        }
+
+        res.status(200).render('pages/admin/edit-client', {
+            title: 'Modifier un client', 
+            client, 
+            user: req.user,
+            // layout: false
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Erreur serveur', error: error.message });
+    }
+}
+
+exports.update = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const { f_name, l_name, phone, mail, birth_date, remarq_medi, preference } = req.body;
+
+        const client = await Clients.findByPk(id);
+
+        if (!client) {
+            return res.status(404).json({ message: 'Client non trouvé' });
+        }
+
+        await client.update({
+            f_name: f_name || client.f_name,
+            l_name: l_name || client.l_name,
+            phone: phone || client.phone,
+            mail: mail || client.mail,
+            birth_date: birth_date || client.birth_date,
+            remarq_medi: remarq_medi || client.remarq_medi,
+            preference: preference || client.preference
+        });
+
+        res.redirect('/about-client/' + id + '?message=modifié&name=' + encodeURIComponent(client.f_name + ' ' + client.l_name));
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Erreur serveur', error: error.message });
+    }
+}
+
+

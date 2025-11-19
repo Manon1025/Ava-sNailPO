@@ -26,6 +26,10 @@ router.post('/add-client', controllerClient.create)
     // * Supprimer Client
 router.post('/delete-client/:id', controllerClient.destroy)
 
+    // * Modifier Client
+router.get('/update-client/:id', controllerClient.edit)
+router.post('/update-client/:id', controllerClient.update)
+
 
 
 module.exports = router
