@@ -3,21 +3,17 @@
 <!-- END STYLES -->
 
 <!-- START CONTENT -->
-<div class="add-client_-page">
+<div class="add-client-page">
     <!-- ! START HEADER -->
-    <div class="add-client_-header">
+    <div class="add-client-header">
         <div class="header-content">
             <div class="title-section">
                 <div class="title-icon">
-                    <i class="fas fa-user-edit"></i>
+                    <i class="fas fa-user-plus"></i>
                 </div>
                 <div>
-                    <h1 class="page-title">Modifier le Client</h1>
-                    <% if (typeof client_ !== 'undefined' && client_) { %>
-                        <p class="page-subtitle">Modifiez les informations de <%= client_.f_name || 'N/A' %> <%= client_.l_name || 'N/A' %></p>
-                    <% } else { %>
-                        <p class="page-subtitle">Client non trouvé</p>
-                    <% } %>
+                    <h1 class="page-title">Modifier <%= client_.f_name %> <%= client_.l_name %></h1>
+                    <p class="page-subtitle">Modifiez le profil client avec toutes les informations nécessaires</p>
                 </div>
             </div>
         </div>
@@ -25,16 +21,15 @@
     <!-- ! END HEADER -->
 
     <!-- ! START CONTENT -->
-    <div class="add-client_-container">
+    <div class="add-client-container">
         <div class="form-navigation">
-            <a href="/client_s" class="back-btn">
+            <a href="/clients" class="back-btn">
                 <i class="fas fa-arrow-left"></i> Retour à la liste
             </a>
         </div>
 
-        <% if (typeof client_ !== 'undefined' && client_) { %>
         <div class="form-container">
-            <form id="editClientForm" method="POST" action="/update-client_/<%= client_.id_client_ || '' %>">
+            <form id="addClientForm" method="POST" action="/update-client/<%= client_.id_client %>">
                 <div class="form-sections">
                     <!-- Section Informations Personnelles -->
                     <div class="form-section">
@@ -44,27 +39,17 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="f_name" class="form-label">Prénom <span class="required">*</span></label>
-                                <input type="text" class="form-control" id="f_name" name="f_name" value="<%= client_.f_name || '' %>" required>
+                                <input type="text" class="form-control" id="f_name" name="f_name" value="<%= client_.f_name %>" required>
                             </div>
-
+                            
                             <div class="form-group">
                                 <label for="l_name" class="form-label">Nom <span class="required">*</span></label>
-                                <input type="text" class="form-control" id="l_name" name="l_name" value="<%= client_.l_name || '' %>" required>
+                                <input type="text" class="form-control" id="l_name" name="l_name" value="<%= client_.l_name %>" required>
                             </div>
-
+                            
                             <div class="form-group">
                                 <label for="birth_date" class="form-label">Date de naissance <span class="required">*</span></label>
-                                <%
-                                    let birthDateValue = '';
-                                    if (client_.birth_date) {
-                                        try {
-                                            birthDateValue = new Date(client_.birth_date).toISOString().split('T')[0];
-                                        } catch(e) {
-                                            birthDateValue = '';
-                                        }
-                                    }
-                                %>
-                                <input type="date" class="form-control" id="birth_date" name="birth_date" value="<%= birthDateValue %>" required>
+                                <input type="date" class="form-control" id="birth_date" name="birth_date" value="<%= client_.birth_date %>" required>
                             </div>
                         </div>
                     </div>
@@ -77,12 +62,12 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="phone" class="form-label">Téléphone <span class="required">*</span></label>
-                                <input type="tel" class="form-control" id="phone" name="phone" value="<%= client_.phone || '' %>" placeholder="06 12 34 56 78" required>
+                                <input type="tel" class="form-control" id="phone" name="phone" value="<%= client_.phone %>" required>
                             </div>
-
+                            
                             <div class="form-group full-width">
                                 <label for="mail" class="form-label">Email <span class="required">*</span></label>
-                                <input type="email" class="form-control" id="mail" name="mail" value="<%= client_.mail || '' %>" placeholder="client_@example.com" required>
+                                <input type="email" class="form-control" id="mail" name="mail" value="<%= client_.mail %>" required>
                             </div>
                         </div>
                     </div>
@@ -95,12 +80,12 @@
                         <div class="form-grid">
                             <div class="form-group full-width">
                                 <label for="remarq_medi" class="form-label">Remarques médicales</label>
-                                <textarea class="form-control" id="remarq_medi" name="remarq_medi" rows="3" placeholder="Allergies, contre-indications, remarques particulières..."><%= client_.remarq_medi || '' %></textarea>
+                                <textarea class="form-control" id="remarq_medi" name="remarq_medi" rows="3"><%= client_.remarq_medi %></textarea>
                             </div>
-
+                            
                             <div class="form-group full-width">
                                 <label for="preference" class="form-label">Préférences</label>
-                                <textarea class="form-control" id="preference" name="preference" rows="3" placeholder="Couleurs préférées, styles, demandes spéciales..."><%= client_.preference || '' %></textarea>
+                                <textarea class="form-control" id="preference" name="preference" rows="3"><%= client_.preference %></textarea>
                             </div>
                         </div>
                     </div>
@@ -108,7 +93,7 @@
 
                 <!-- Boutons d'action -->
                 <div class="form-actions">
-                    <button type="button" class="btn btn-secondary" onclick="window.location.href='/client_s'">
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='/clients'">
                         <i class="fas fa-times"></i> Annuler
                     </button>
                     <button type="submit" class="btn btn-primary">
@@ -117,11 +102,6 @@
                 </div>
             </form>
         </div>
-        <% } else { %>
-        <div class="alert alert-danger">
-            <p>Erreur : Client non trouvé</p>
-        </div>
-        <% } %>
     </div>
     <!-- ! END CONTENT -->
 </div>
