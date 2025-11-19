@@ -1,0 +1,108 @@
+<!-- START STYLES -->
+<link rel="stylesheet" href="/CSS/ADMIN/addClient.css">
+<!-- END STYLES -->
+
+<!-- START CONTENT -->
+<div class="add-client-page">
+    <!-- ! START HEADER -->
+    <div class="add-client-header">
+        <div class="header-content">
+            <div class="title-section">
+                <div class="title-icon">
+                    <i class="fas fa-user-edit"></i>
+                </div>
+                <div>
+                    <h1 class="page-title">Modifier le Client</h1>
+                    <p class="page-subtitle">Modifiez les informations de <%= client.f_name %> <%= client.l_name %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ! END HEADER -->
+
+    <!-- ! START CONTENT -->
+    <div class="add-client-container">
+        <div class="form-navigation">
+            <a href="/clients" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Retour à la liste
+            </a>
+        </div>
+
+        <div class="form-container">
+            <form id="editClientForm" method="POST" action="/update-client/<%= client.id_client %>">
+                <div class="form-sections">
+                    <!-- Section Informations Personnelles -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h3><i class="fas fa-user"></i> Informations Personnelles</h3>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="f_name" class="form-label">Prénom <span class="required">*</span></label>
+                                <input type="text" class="form-control" id="f_name" name="f_name" value="<%= client.f_name %>" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="l_name" class="form-label">Nom <span class="required">*</span></label>
+                                <input type="text" class="form-control" id="l_name" name="l_name" value="<%= client.l_name %>" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="birth_date" class="form-label">Date de naissance <span class="required">*</span></label>
+                                <input type="date" class="form-control" id="birth_date" name="birth_date" value="<%= client.birth_date ? new Date(client.birth_date).toISOString().split('T')[0] : '' %>" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section Contact -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h3><i class="fas fa-phone"></i> Informations de Contact</h3>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Téléphone <span class="required">*</span></label>
+                                <input type="tel" class="form-control" id="phone" name="phone" value="<%= client.phone %>" placeholder="06 12 34 56 78" required>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="mail" class="form-label">Email <span class="required">*</span></label>
+                                <input type="email" class="form-control" id="mail" name="mail" value="<%= client.mail %>" placeholder="client@example.com" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section Informations Médicales et Préférences -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h3><i class="fas fa-heart"></i> Informations Complémentaires</h3>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="remarq_medi" class="form-label">Remarques médicales</label>
+                                <textarea class="form-control" id="remarq_medi" name="remarq_medi" rows="3" placeholder="Allergies, contre-indications, remarques particulières..."><%= client.remarq_medi || '' %></textarea>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="preference" class="form-label">Préférences</label>
+                                <textarea class="form-control" id="preference" name="preference" rows="3" placeholder="Couleurs préférées, styles, demandes spéciales..."><%= client.preference || '' %></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Boutons d'action -->
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='/clients'">
+                        <i class="fas fa-times"></i> Annuler
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Enregistrer les modifications
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- ! END CONTENT -->
+</div>
+<!-- END CONTENT -->
