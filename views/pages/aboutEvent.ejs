@@ -1,0 +1,381 @@
+<!-- START STYLES -->
+<link rel="stylesheet" href="/CSS/PAGES/badgeDoc.css">
+<style>
+/* Style pour la page about Event */
+.about-event-page {
+    min-height: auto;
+    padding: 2rem 0;
+}
+
+.about-event-header {
+    background: linear-gradient(135deg, #8F95D3 0%, #89DAFF 100%);
+    border-radius: 25px;
+    margin: 2rem;
+    margin-bottom: 3rem;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.about-event-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 100%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    transform: rotate(-15deg);
+    pointer-events: none;
+}
+
+.header-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.back-navigation .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    color: #FFF;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+}
+
+.back-navigation .back-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.title-section {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    color: white;
+}
+
+.title-icon {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 1.2rem;
+    border-radius: 50%;
+    backdrop-filter: blur(10px);
+}
+
+.title-icon i {
+    font-size: 2rem;
+    color: white;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+.page-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+.event-details-container {
+    margin: 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .event-details-container {
+        grid-template-columns: 1fr;
+        margin: 0 1rem;
+    }
+}
+
+.client-info-card,
+.prestation-info-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(143, 149, 211, 0.3);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.client-info-card:hover,
+.prestation-info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(143, 149, 211, 0.4);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #f8f9fa;
+}
+
+.card-icon {
+    background: linear-gradient(135deg, #8F95D3, #89DAFF);
+    padding: 0.8rem;
+    border-radius: 12px;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+    padding: 0.8rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.info-item:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+}
+
+.info-icon {
+    color: #8F95D3;
+    font-size: 1.1rem;
+    width: 20px;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #555;
+    min-width: 80px;
+}
+
+.info-value {
+    color: #333;
+    flex: 1;
+}
+
+.event-time-badge {
+    background: linear-gradient(135deg, #D3C4E3, #DBB1BC);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.price-highlight {
+    background: linear-gradient(135deg, #64C36B, #4CAF50);
+    color: white;
+    padding: 0.8rem;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-top: 1rem;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.status-upcoming {
+    background: linear-gradient(135deg, #89DAFF, #8F95D3);
+    color: white;
+}
+
+.status-completed {
+    background: linear-gradient(135deg, #64C36B, #4CAF50);
+    color: white;
+}
+
+.notes-section {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 10px;
+}
+
+.notes-section h4 {
+    color: #856404;
+    margin-bottom: 0.5rem;
+}
+
+.notes-section p {
+    color: #664d03;
+    margin: 0;
+}
+</style>
+<!-- END STYLES -->
+
+<!-- START CONTENT -->
+<div class="about-event-page">
+    <!-- ! START HEADER -->
+    <div class="about-event-header">
+        <div class="header-content">
+            <div class="back-navigation">
+                <a href="/" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Retour à l'accueil</span>
+                </a>
+            </div>
+            <div class="title-section">
+                <div class="title-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div>
+                    <h1 class="page-title">Détails du Rendez-vous</h1>
+                    <p class="page-subtitle">Informations complètes sur l'événement</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ! END HEADER -->
+
+    <!-- ! START EVENT DETAILS -->
+    <div class="event-details-container">
+        <!-- ! CLIENT INFORMATION -->
+        <div class="client-info-card">
+            <div class="card-header">
+                <div class="card-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2 class="card-title">Informations Client</h2>
+            </div>
+
+            <div class="info-item">
+                <i class="fas fa-signature info-icon"></i>
+                <span class="info-label">Nom :</span>
+                <span class="info-value">
+                    <%= event.Client ? `${event.Client.f_name} ${event.Client.l_name}` : 'Client non défini' %>
+                </span>
+            </div>
+
+            <% if (event.Client && event.Client.mail) { %>
+            <div class="info-item">
+                <i class="fas fa-envelope info-icon"></i>
+                <span class="info-label">Email :</span>
+                <span class="info-value"><%= event.Client.mail %></span>
+            </div>
+            <% } %>
+
+            <% if (event.Client && event.Client.phone) { %>
+            <div class="info-item">
+                <i class="fas fa-phone info-icon"></i>
+                <span class="info-label">Téléphone :</span>
+                <span class="info-value"><%= event.Client.phone %></span>
+            </div>
+            <% } %>
+
+            <% if (event.Employee) { %>
+            <div class="info-item">
+                <i class="fas fa-user-tie info-icon"></i>
+                <span class="info-label">Employé :</span>
+                <span class="info-value"><%= event.Employee.fname %> <%= event.Employee.lname %></span>
+            </div>
+            <% } %>
+
+            <!-- Date et heure du rendez-vous -->
+            <div class="event-time-badge">
+                <% 
+                const eventDate = new Date(event.start_date);
+                const formattedDate = eventDate.toLocaleDateString('fr-FR', {
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+                
+                const [startHours, startMinutes] = event.start_time ? event.start_time.split(':') : ['--', '--'];
+                const [endHours, endMinutes] = event.end_time ? event.end_time.split(':') : ['--', '--'];
+                const timeRange = `${startHours}h${startMinutes !== '00' ? startMinutes : ''} - ${endHours}h${endMinutes !== '00' ? endMinutes : ''}`;
+                %>
+                📅 <%= formattedDate %><br>
+                🕐 <%= timeRange %>
+            </div>
+        </div>
+
+        <!-- ! PRESTATION INFORMATION -->
+        <div class="prestation-info-card">
+            <div class="card-header">
+                <div class="card-icon">
+                    <i class="fas fa-spa"></i>
+                </div>
+                <h2 class="card-title">Informations Prestation</h2>
+            </div>
+
+            <div class="info-item">
+                <i class="fas fa-concierge-bell info-icon"></i>
+                <span class="info-label">Service :</span>
+                <span class="info-value">
+                    <%= event.Prestation ? event.Prestation.name : 'Prestation non définie' %>
+                </span>
+            </div>
+
+            <% if (event.Prestation && event.Prestation.description) { %>
+            <div class="info-item">
+                <i class="fas fa-info-circle info-icon"></i>
+                <span class="info-label">Description :</span>
+                <span class="info-value"><%= event.Prestation.description %></span>
+            </div>
+            <% } %>
+
+            <% if (event.Prestation && event.Prestation.price) { %>
+            <div class="price-highlight">
+                💰 Prix : <%= event.Prestation.price %>€
+            </div>
+            <% } %>
+
+            <!-- Statut du rendez-vous -->
+            <%
+            const now = new Date();
+            const eventDateTime = new Date(`${event.start_date}T${event.start_time}`);
+            const isCompleted = eventDateTime < now;
+            %>
+            <div class="status-badge <%= isCompleted ? 'status-completed' : 'status-upcoming' %>">
+                <%= isCompleted ? '✅ Rendez-vous terminé' : '⏰ Rendez-vous à venir' %>
+            </div>
+
+            <!-- Notes supplémentaires -->
+            <% if (event.notes) { %>
+            <div class="notes-section">
+                <h4><i class="fas fa-sticky-note"></i> Notes :</h4>
+                <p><%= event.notes %></p>
+            </div>
+            <% } %>
+        </div>
+    </div>
+    <!-- ! END EVENT DETAILS -->
+</div>
+<!-- END CONTENT -->

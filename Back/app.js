@@ -14,6 +14,7 @@ const routerDocument = require('./routes/routerDocument')
 const routerLogin = require('./routes/routeLogin')
 const routerPlanning = require('./routes/routePlanning')
 const routerClient = require('./routes/routeClient')
+const routerHomePage = require('./routes/routeHomePage')
 const connectBDD = require('./config/connect_bdd')
 
     // * Associations des modèles (important de les charger avant la connexion BDD)
@@ -53,6 +54,7 @@ app.use('/', routerLogin)
 
     // * Routes protégées
 app.use('/', isAuth ,routerPages)
+app.use('/', isAuth ,routerHomePage)
 app.use('/', isAuth ,routerDocument)
 app.use('/', isAuth ,routerEmployee)
 app.use('/', isAuth ,routerPlanning)

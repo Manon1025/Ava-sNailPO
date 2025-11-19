@@ -119,6 +119,10 @@
     padding: 1rem;
   }
 }
+.about-client-page .client-profile-container a {
+  text-decoration: none;
+  color: #FFF;
+}
 .about-client-page .client-main-card {
   background: #FFF;
   border-radius: 20px;
